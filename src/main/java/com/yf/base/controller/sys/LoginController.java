@@ -53,6 +53,7 @@ public class LoginController extends BaseController {
 					indexUrl = first.getNodes().get(0).getResourceUrl();
 				}
 				json.setData(indexUrl);
+				subject.getSession().setTimeout(60000);
 			}
 		} catch (UnknownAccountException e1) {
 			token.clear();

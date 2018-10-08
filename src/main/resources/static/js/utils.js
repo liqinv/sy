@@ -37,11 +37,17 @@ YF_HTTP.interceptors.response.use(function (response) {
                 //shiro登录验证处理
                 if (response.data.indexOf("loginForm") > 0) {
                     logicMsg = "登录信息过期，请重新登录！";
+                    Utils.alert(logicMsg,"warning").then(function(isOk){
+                        if(isOk) {
+                            window.location.href = baseUrl;
+                        }
+                    });
                 } else if (response.data.indexOf("403") > 0) {
                     logicMsg = "您没有权限操作此功能，请联系管理员！";
+                    Utils.alert(logicMsg,"warning");
                 }
             }
-            Utils.alert(logicMsg,"warning");
+
             return Promise.reject("业务处理异常:::"+logicMsg);
         }
     } else {
@@ -62,12 +68,17 @@ var Utils = {
      * @param icon    消息图标（可选） "warning", "error", "success","info"
      */
     alert:function (text,icon) {
-        swal({
-            text: text,
-            icon: icon,
-            button: "确定",
-            closeOnClickOutside: false,
+        var promise = new Promise(function(resolve) {
+            swal({
+                text: text,
+                icon: icon,
+                button: "确定",
+                closeOnClickOutside: false,
+            }).then(function(data) {
+                resolve(data);
+            });
         });
+        return promise;
     },
     /**
      * 消息确认框
