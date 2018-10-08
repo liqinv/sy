@@ -44,7 +44,7 @@
                     <!-- /.box-header -->
                     <div class="box-body" style="overflow:scroll; max-height:300px;">
                         <div class="box-footer box-comments">
-                            <div class="box-comment" v-for="r in eventList" v-on:click="saveUi(r.id)">
+                            <div class="box-comment" v-for="r in eventList" v-on:click="saveUi(r.id)" style="cursor:pointer;"ees>
                               <span class="username">
                                 {{r.statusName}}
                                   <span class="text-muted pull-right"><i class="fa fa-clock-o"></i>{{r.happenTime}}</span>
