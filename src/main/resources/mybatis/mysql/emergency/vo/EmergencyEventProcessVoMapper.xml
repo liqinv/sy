@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yf.base.dao.emergency.vo.EmergencyEventProcessVoMapper">
+  <resultMap id="BaseResultMap" type="com.yf.base.model.emergency.EmergencyEventProcess">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="NODE" jdbcType="VARCHAR" property="node" />
+    <result column="USER_ID" jdbcType="INTEGER" property="userId" />
+    <result column="ORGAN_ID" jdbcType="INTEGER" property="organId" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="NOTE" jdbcType="VARCHAR" property="note" />
+    <result column="SMS" jdbcType="VARCHAR" property="sms" />
+  </resultMap>
+  <resultMap id="VoResultMap" type="com.yf.base.model.emergency.vo.EmergencyEventProcessVo" extends="BaseResultMap">
+
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, NODE, USER_ID, ORGAN_ID, CREATE_TIME, NOTE, SMS
+  </sql>
+
+</mapper>

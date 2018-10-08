@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yf.base.dao.sys.SysPermissionMapper">
+  <resultMap id="BaseResultMap" type="com.yf.base.model.sys.SysPermission">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="PARENT_ID" jdbcType="INTEGER" property="parentId" />
+    <result column="PATH" jdbcType="VARCHAR" property="path" />
+    <result column="LEVEL" jdbcType="INTEGER" property="level" />
+    <result column="LEAF" jdbcType="INTEGER" property="leaf" />
+    <result column="ICON" jdbcType="VARCHAR" property="icon" />
+    <result column="SORT" jdbcType="INTEGER" property="sort" />
+    <result column="NOTE" jdbcType="VARCHAR" property="note" />
+    <result column="PERMISSION" jdbcType="VARCHAR" property="permission" />
+    <result column="RESOURCE_TYPE" jdbcType="INTEGER" property="resourceType" />
+    <result column="RESOURCE_URL" jdbcType="VARCHAR" property="resourceUrl" />
+    <result column="CREATE_USER_ID" jdbcType="INTEGER" property="createUserId" />
+    <result column="CREATE_ORGAN_ID" jdbcType="INTEGER" property="createOrganId" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="LAST_UPDATE_USER_ID" jdbcType="INTEGER" property="lastUpdateUserId" />
+    <result column="LAST_UPDATE_TIME" jdbcType="TIMESTAMP" property="lastUpdateTime" />
+    <result column="ACTIVE" jdbcType="INTEGER" property="active" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, NAME, PARENT_ID, PATH, LEVEL, LEAF, ICON, SORT, NOTE, PERMISSION, RESOURCE_TYPE, 
+    RESOURCE_URL, CREATE_USER_ID, CREATE_ORGAN_ID, CREATE_TIME, LAST_UPDATE_USER_ID, 
+    LAST_UPDATE_TIME, ACTIVE
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_permission
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sys_permission
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yf.base.model.sys.SysPermission">
+    insert into sys_permission (ID, NAME, PARENT_ID, 
+      PATH, LEVEL, LEAF, 
+      ICON, SORT, NOTE, PERMISSION, 
+      RESOURCE_TYPE, RESOURCE_URL, CREATE_USER_ID, 
+      CREATE_ORGAN_ID, CREATE_TIME, LAST_UPDATE_USER_ID, 
+      LAST_UPDATE_TIME, ACTIVE)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{parentId,jdbcType=INTEGER}, 
+      #{path,jdbcType=VARCHAR}, #{level,jdbcType=INTEGER}, #{leaf,jdbcType=INTEGER}, 
+      #{icon,jdbcType=VARCHAR}, #{sort,jdbcType=INTEGER}, #{note,jdbcType=VARCHAR}, #{permission,jdbcType=VARCHAR}, 
+      #{resourceType,jdbcType=INTEGER}, #{resourceUrl,jdbcType=VARCHAR}, #{createUserId,jdbcType=INTEGER}, 
+      #{createOrganId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{lastUpdateUserId,jdbcType=INTEGER}, 
+      #{lastUpdateTime,jdbcType=TIMESTAMP}, #{active,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id" parameterType="com.yf.base.model.sys.SysPermission">
+    insert into sys_permission
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="name != null">
+        NAME,
+      </if>
+      <if test="parentId != null">
+        PARENT_ID,
+      </if>
+      <if test="path != null">
+        PATH,
+      </if>
+      <if test="level != null">
+        LEVEL,
+      </if>
+      <if test="leaf != null">
+        LEAF,
+      </if>
+      <if test="icon != null">
+        ICON,
+      </if>
+      <if test="sort != null">
+        SORT,
+      </if>
+      <if test="note != null">
+        NOTE,
+      </if>
+      <if test="permission != null">
+        PERMISSION,
+      </if>
+      <if test="resourceType != null">
+        RESOURCE_TYPE,
+      </if>
+      <if test="resourceUrl != null">
+        RESOURCE_URL,
+      </if>
+      <if test="createUserId != null">
+        CREATE_USER_ID,
+      </if>
+      <if test="createOrganId != null">
+        CREATE_ORGAN_ID,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="lastUpdateUserId != null">
+        LAST_UPDATE_USER_ID,
+      </if>
+      <if test="lastUpdateTime != null">
+        LAST_UPDATE_TIME,
+      </if>
+      <if test="active != null">
+        ACTIVE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null">
+        #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="path != null">
+        #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null">
+        #{level,jdbcType=INTEGER},
+      </if>
+      <if test="leaf != null">
+        #{leaf,jdbcType=INTEGER},
+      </if>
+      <if test="icon != null">
+        #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null">
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="note != null">
+        #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="permission != null">
+        #{permission,jdbcType=VARCHAR},
+      </if>
+      <if test="resourceType != null">
+        #{resourceType,jdbcType=INTEGER},
+      </if>
+      <if test="resourceUrl != null">
+        #{resourceUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserId != null">
+        #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="createOrganId != null">
+        #{createOrganId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateUserId != null">
+        #{lastUpdateUserId,jdbcType=INTEGER},
+      </if>
+      <if test="lastUpdateTime != null">
+        #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="active != null">
+        #{active,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yf.base.model.sys.SysPermission">
+    update sys_permission
+    <set>
+      <if test="name != null">
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null">
+        PARENT_ID = #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="path != null">
+        PATH = #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null">
+        LEVEL = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="leaf != null">
+        LEAF = #{leaf,jdbcType=INTEGER},
+      </if>
+      <if test="icon != null">
+        ICON = #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null">
+        SORT = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="note != null">
+        NOTE = #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="permission != null">
+        PERMISSION = #{permission,jdbcType=VARCHAR},
+      </if>
+      <if test="resourceType != null">
+        RESOURCE_TYPE = #{resourceType,jdbcType=INTEGER},
+      </if>
+      <if test="resourceUrl != null">
+        RESOURCE_URL = #{resourceUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserId != null">
+        CREATE_USER_ID = #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="createOrganId != null">
+        CREATE_ORGAN_ID = #{createOrganId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateUserId != null">
+        LAST_UPDATE_USER_ID = #{lastUpdateUserId,jdbcType=INTEGER},
+      </if>
+      <if test="lastUpdateTime != null">
+        LAST_UPDATE_TIME = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="active != null">
+        ACTIVE = #{active,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yf.base.model.sys.SysPermission">
+    update sys_permission
+    set NAME = #{name,jdbcType=VARCHAR},
+      PARENT_ID = #{parentId,jdbcType=INTEGER},
+      PATH = #{path,jdbcType=VARCHAR},
+      LEVEL = #{level,jdbcType=INTEGER},
+      LEAF = #{leaf,jdbcType=INTEGER},
+      ICON = #{icon,jdbcType=VARCHAR},
+      SORT = #{sort,jdbcType=INTEGER},
+      NOTE = #{note,jdbcType=VARCHAR},
+      PERMISSION = #{permission,jdbcType=VARCHAR},
+      RESOURCE_TYPE = #{resourceType,jdbcType=INTEGER},
+      RESOURCE_URL = #{resourceUrl,jdbcType=VARCHAR},
+      CREATE_USER_ID = #{createUserId,jdbcType=INTEGER},
+      CREATE_ORGAN_ID = #{createOrganId,jdbcType=INTEGER},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      LAST_UPDATE_USER_ID = #{lastUpdateUserId,jdbcType=INTEGER},
+      LAST_UPDATE_TIME = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      ACTIVE = #{active,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

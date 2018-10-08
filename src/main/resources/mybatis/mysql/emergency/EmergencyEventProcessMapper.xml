@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yf.base.dao.emergency.EmergencyEventProcessMapper">
+  <resultMap id="BaseResultMap" type="com.yf.base.model.emergency.EmergencyEventProcess">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="NODE" jdbcType="VARCHAR" property="node" />
+    <result column="USER_ID" jdbcType="INTEGER" property="userId" />
+    <result column="ORGAN_ID" jdbcType="INTEGER" property="organId" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="NOTE" jdbcType="VARCHAR" property="note" />
+    <result column="SMS" jdbcType="VARCHAR" property="sms" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, NODE, USER_ID, ORGAN_ID, CREATE_TIME, NOTE, SMS
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from emergency_event_process
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from emergency_event_process
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yf.base.model.emergency.EmergencyEventProcess">
+    insert into emergency_event_process (ID, NODE, USER_ID, 
+      ORGAN_ID, CREATE_TIME, NOTE, 
+      SMS)
+    values (#{id,jdbcType=INTEGER}, #{node,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, 
+      #{organId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{note,jdbcType=VARCHAR}, 
+      #{sms,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yf.base.model.emergency.EmergencyEventProcess">
+    insert into emergency_event_process
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="node != null">
+        NODE,
+      </if>
+      <if test="userId != null">
+        USER_ID,
+      </if>
+      <if test="organId != null">
+        ORGAN_ID,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="note != null">
+        NOTE,
+      </if>
+      <if test="sms != null">
+        SMS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="node != null">
+        #{node,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="organId != null">
+        #{organId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="note != null">
+        #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="sms != null">
+        #{sms,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yf.base.model.emergency.EmergencyEventProcess">
+    update emergency_event_process
+    <set>
+      <if test="node != null">
+        NODE = #{node,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        USER_ID = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="organId != null">
+        ORGAN_ID = #{organId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="note != null">
+        NOTE = #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="sms != null">
+        SMS = #{sms,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yf.base.model.emergency.EmergencyEventProcess">
+    update emergency_event_process
+    set NODE = #{node,jdbcType=VARCHAR},
+      USER_ID = #{userId,jdbcType=INTEGER},
+      ORGAN_ID = #{organId,jdbcType=INTEGER},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      NOTE = #{note,jdbcType=VARCHAR},
+      SMS = #{sms,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

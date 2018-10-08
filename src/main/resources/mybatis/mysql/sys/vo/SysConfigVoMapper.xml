@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yf.base.dao.sys.vo.SysConfigVoMapper">
+  <resultMap id="BaseResultMap" type="com.yf.base.model.sys.SysConfig">
+    <id column="CONFIG_KEY" jdbcType="VARCHAR" property="configKey" />
+    <result column="CONFIG_VALUE" jdbcType="VARCHAR" property="configValue" />
+    <result column="TYPE" jdbcType="INTEGER" property="type" />
+    <result column="TYPE_NAME" jdbcType="VARCHAR" property="typeName" />
+    <result column="PARENT_KEY" jdbcType="VARCHAR" property="parentKey" />
+    <result column="SORT" jdbcType="INTEGER" property="sort" />
+    <result column="NOTE" jdbcType="VARCHAR" property="note" />
+    <result column="ACTIVE" jdbcType="INTEGER" property="active" />
+  </resultMap>
+  <resultMap id="VoListResultMap" type="com.yf.base.model.sys.vo.SysConfigVo"
+             extends="BaseResultMap">
+  </resultMap>
+  <sql id="Base_Column_List">
+    CONFIG_KEY, CONFIG_VALUE, TYPE, TYPE_NAME, PARENT_KEY, SORT, NOTE, ACTIVE
+  </sql>
+  <select id="selectConfigList" resultMap="VoListResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_config t
+    where t.ACTIVE = 1
+    <if test="type != null and type > 0">
+      and t.TYPE = #{type}
+    </if>
+  </select>
+
+</mapper>

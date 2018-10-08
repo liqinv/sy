@@ -1,0 +1,99 @@
+server:
+  servlet:
+    context-path: /
+  port: 8888
+
+
+spring:
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+    default-property-inclusion: non_null
+
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/sy?characterEncoding=utf8&useUnicode=true&useSSL=false
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.jdbc.Driver #com.mysql.cj.jdbc.Driver
+
+  cache:
+    type: REDIS
+    cache-names:  #缓存的名字(可以不指定)
+    redis:
+      time-to-live: 60000ms  #缓存的有效时间，以便缓存的过期（单位为毫秒）
+
+  # REDIS (RedisProperties)
+  redis:
+    # Redis数据库索引（默认为0）
+    database: 0
+    # Redis服务器地址
+    host: 192.168.1.246
+    # Redis服务器连接端口
+    port: 6379
+    # Redis服务器连接密码（默认为空）
+    password:
+    jedis:
+      pool:
+        # 连接池最大连接数（使用负值表示没有限制）
+        max-active: 8
+        # 连接池最大阻塞等待时间（使用负值表示没有限制）
+        max-wait: -1ms
+        # 连接池中的最大空闲连接
+        max-idle: 8
+        # 连接池中的最小空闲连接
+        min-idle: 0
+    # 连接超时时间（毫秒）
+    timeout: 5000ms
+
+  ##rabbitmq配置
+  #rabbitmq:
+  #  host: 192.168.1.246
+  #  port: 5672
+  #  username: guest
+  #  password: guest
+
+  #页面
+  thymeleaf:
+    prefix: classpath:/templates/
+    cache: false #缓存设置为false，则不用重启即可刷新
+    mode: LEGACYHTML5 #模板编码
+    suffix: .vue
+
+mybatis:
+  type-aliases-package: com.yf.base.model
+  mapper-locations: classpath:mybatis/mysql/**/*Mapper.xml
+
+#分页插件
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+
+swagger:
+  show: true
+
+#配置log输出地址和级别
+logging:
+#  #配置日志文件路径
+#  path: D:\developEnvironment\Workspaces\yf-base\log\
+
+  level:  # 日志级别
+    root: info
+    com.yf.base.dao: debug
+#    org.springframework.web: DEBUG # 配置spring web日志级别
+#    org.mybatis: DEBUG
+#    mapper: DEBUG
+#  pattern: # 日志格式
+#    console: "%d - %msg%n" #"%d{MM-dd HH:mm:ss.SSS}[%thread] %-5level%logger{40}-%msg%n"
+
+
+
+#自定义配置
+custom:
+  title: Spring Boot学习
+  description: 我的Spring Boot学习之旅
+  dom:
+    name: 永峰科技
+    phone: 1234567890
+

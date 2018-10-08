@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yf.base.dao.group.vo.GroupInfoVoMapper">
+    <resultMap id="BaseResultMap" type="com.yf.base.model.group.GroupInfo">
+        <id column="ID" jdbcType="INTEGER" property="id" />
+        <result column="NAME" jdbcType="VARCHAR" property="name" />
+        <result column="NOTE" jdbcType="VARCHAR" property="note" />
+        <result column="CREATE_USER_ID" jdbcType="INTEGER" property="createUserId" />
+        <result column="CREATE_ORGAN_ID" jdbcType="INTEGER" property="createOrganId" />
+        <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="LAST_UPDATE_USER_ID" jdbcType="INTEGER" property="lastUpdateUserId" />
+        <result column="LAST_UPDATE_TIME" jdbcType="DATE" property="lastUpdateTime" />
+        <result column="ACTIVE" jdbcType="INTEGER" property="active" />
+    </resultMap>
+    <resultMap id="VoResultMap" type="com.yf.base.model.group.vo.GroupInfoVo" extends="BaseResultMap">
+        <result column="CREATE_USER_NAME" property="createUserName" jdbcType="VARCHAR"/>
+        <result column="selectedUserIds" property="selectedUserIds" jdbcType="VARCHAR"/>
+        <result column="selectedUserNames" property="selectedUserNames" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    g.ID, g.NAME, g.NOTE, g.CREATE_USER_ID, g.CREATE_ORGAN_ID, g.CREATE_TIME, g.LAST_UPDATE_USER_ID,
+    g.LAST_UPDATE_TIME, g.ACTIVE
+    </sql>
+
+    <sql id="Where">
+        <if test="name != null">
+            and g.NAME = #{name,jdbcType=VARCHAR},
+        </if>
+        <if test="note != null">
+            and g.NOTE = #{note,jdbcType=VARCHAR},
+        </if>
+        <if test="searchCondition != null and searchCondition !=''">
+            and (g.NAME like CONCAT('%',#{searchCondition},'%') or g.NOTE like CONCAT('%',#{searchCondition},'%'))
+        </if>
+    </sql>
+    <select id="selectByParam"  resultMap="VoResultMap">
+        select
+        b.NAME as CREATE_USER_NAME,
+        e.selectedUserIds,
+        e.selectedUserNames,
+        <include refid="Base_Column_List" />
+        from group_info g
+        LEFT JOIN sys_user b ON b.ID = g.CREATE_USER_ID
+        LEFT JOIN
+        (
+        SELECT
+        group_concat(u.NAME separator ',') as selectedUserNames,
+        group_concat(o.USER_ID separator ',') as selectedUserIds,
+        o.GROUP_ID
+        FROM
+        group_user o
+        LEFT JOIN sys_user u ON o.USER_ID= u.id
+        GROUP BY
+        o.GROUP_ID
+        ) e on g.id = e.GROUP_ID
+        where g.ACTIVE = 1
+        <include refid="Where"/>
+        ORDER BY g.CREATE_TIME DESC
+    </select>
+
+    <select id="selectDetailById"  resultMap="VoResultMap">
+        select
+        b.NAME as CREATE_USER_NAME,
+        e.selectedUserIds,
+        e.selectedUserNames,
+        <include refid="Base_Column_List" />
+        from group_info g
+        LEFT JOIN sys_user b ON b.ID = g.CREATE_USER_ID
+        LEFT JOIN
+        (
+        SELECT
+        group_concat(u.NAME separator ',') as selectedUserNames,
+        group_concat(o.USER_ID separator ',') as selectedUserIds,
+        o.GROUP_ID
+        FROM
+        group_user o
+        LEFT JOIN sys_user u ON o.USER_ID= u.id
+        GROUP BY
+        o.GROUP_ID
+        ) e on g.id = e.GROUP_ID
+        where g.id = #{id,jdbcType=INTEGER}
+    </select>
+
+</mapper>

@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yf.base.dao.sys.vo.SysUserVoMapper">
+  <resultMap id="BaseResultMap" type="com.yf.base.model.sys.SysUser">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="ACCOUNT" jdbcType="VARCHAR" property="account" />
+    <result column="PASSWORD" jdbcType="VARCHAR" property="password" />
+    <result column="SALT" jdbcType="VARCHAR" property="salt" />
+    <result column="PHONE" jdbcType="VARCHAR" property="phone" />
+    <result column="EMAIL" jdbcType="VARCHAR" property="email" />
+    <result column="ORGAN_ID" jdbcType="INTEGER" property="organId" />
+    <result column="SPELL" jdbcType="VARCHAR" property="spell" />
+    <result column="JOB" jdbcType="VARCHAR" property="job" />
+    <result column="TYPE" jdbcType="VARCHAR" property="type" />
+    <result column="STATUS" jdbcType="VARCHAR" property="status" />
+    <result column="NOTE" jdbcType="VARCHAR" property="note" />
+    <result column="CREATE_USER_ID" jdbcType="INTEGER" property="createUserId" />
+    <result column="CREATE_ORGAN_ID" jdbcType="INTEGER" property="createOrganId" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="LAST_UPDATE_USER_ID" jdbcType="INTEGER" property="lastUpdateUserId" />
+    <result column="LAST_UPDATE_TIME" jdbcType="TIMESTAMP" property="lastUpdateTime" />
+    <result column="ACTIVE" jdbcType="INTEGER" property="active" />
+  </resultMap>
+
+  <resultMap id="VoListResultMap" type="com.yf.base.model.sys.vo.SysUserVo"
+             extends="BaseResultMap">
+    <result column="ORGAN_NAME" property="sysOrgan.name" jdbcType="VARCHAR" />
+    <result column="ORGAN_NAME" property="organName" jdbcType="VARCHAR" />
+    <result column="ROLEID" property="roleId" jdbcType="VARCHAR" />
+    <result column="ORGAN_ID" property="sysOrgan.id" jdbcType="VARCHAR" />
+    <result column="roleName" property="roleName" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="VogetResultMap" type="com.yf.base.model.sys.vo.SysUserVo"
+             extends="BaseResultMap">
+    <result column="ORGAN_NAME" property="organName" jdbcType="VARCHAR" />
+    <result column="ROLEID" property="roleId" jdbcType="VARCHAR" />
+    <association column="ORGAN_ID" property="sysOrgan"
+                 javaType="java.lang.Integer" select="com.yf.base.dao.sys.SysOrganMapper.selectByPrimaryKey"/>
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    ID, NAME, ACCOUNT, PASSWORD, SALT, PHONE, EMAIL, ORGAN_ID, SPELL, JOB, TYPE, STATUS,
+    NOTE, CREATE_USER_ID, CREATE_ORGAN_ID, CREATE_TIME, LAST_UPDATE_USER_ID, LAST_UPDATE_TIME,
+    ACTIVE
+  </sql>
+  <sql id="SysUser_Column_List">
+    a.ID, a.NAME, a.ACCOUNT, a.PASSWORD, a.SALT, a.PHONE, a.EMAIL, a.ORGAN_ID, a.SPELL, a.JOB, a.TYPE, a.STATUS,
+    a.NOTE, a.CREATE_USER_ID, a.CREATE_ORGAN_ID, a.CREATE_TIME, a.LAST_UPDATE_USER_ID, a.LAST_UPDATE_TIME,
+    a.ACTIVE,b.id as ORGAN_ID,b.name as ORGAN_NAME
+  </sql>
+  <sql id="SysUser_List">
+    a.ID, a.NAME, a.ACCOUNT, a.PASSWORD, a.SALT, a.PHONE, a.EMAIL, a.ORGAN_ID, a.SPELL, a.JOB, a.TYPE, a.STATUS,
+    a.NOTE, a.CREATE_USER_ID, a.CREATE_ORGAN_ID, a.CREATE_TIME, a.LAST_UPDATE_USER_ID, a.LAST_UPDATE_TIME,
+    a.ACTIVE,b.id as ORGAN_ID,b.name as ORGAN_NAME,e.roleName as roleName
+  </sql>
+  <sql id="SysUser_Where">
+    <if test="id != null and id >0">
+      and a.ID = #{id,jdbcType=INTEGER}
+    </if>
+    <if test="name != null and name !=''">
+      and a.NAME = #{name,jdbcType=VARCHAR}
+    </if>
+    <if test="account != null and account !=''">
+      and a.ACCOUNT = #{account,jdbcType=VARCHAR}
+    </if>
+    <if test="password != null and password !=''">
+      and a.PASSWORD = #{password,jdbcType=VARCHAR}
+    </if>
+    <if test="salt != null and salt !=''">
+      and a.SALT = #{salt,jdbcType=VARCHAR}
+    </if>
+    <if test="phone != null and phone !=''">
+      and a.PHONE = #{phone,jdbcType=VARCHAR}
+    </if>
+    <if test="email != null and email !=''">
+      and a.EMAIL = #{email,jdbcType=VARCHAR}
+    </if>
+    <if test="organId != null and organId >0">
+      and a.ORGAN_ID = #{organId,jdbcType=INTEGER}
+    </if>
+    <if test="spell != null and spell !=''">
+      and a.SPELL = #{spell,jdbcType=VARCHAR}
+    </if>
+    <if test="job != null and job !=''">
+      and a.JOB = #{job,jdbcType=VARCHAR}
+    </if>
+    <if test="type != null and type !=''">
+      and a.TYPE = #{type,jdbcType=VARCHAR}
+    </if>
+    <if test="status != null and status !=''">
+      and a.STATUS = #{status,jdbcType=VARCHAR}
+    </if>
+    <if test="note != null and note !=''">
+      and a.NOTE = #{note,jdbcType=VARCHAR}
+    </if>
+    <if test="createUserId != null and createUserId >0">
+      and a.CREATE_USER_ID = #{createUserId,jdbcType=INTEGER}
+    </if>
+    <if test="createOrganId != null and createOrganId >0">
+      and a.CREATE_ORGAN_ID = #{createOrganId,jdbcType=INTEGER}
+    </if>
+    <if test="createTime != null">
+      and a.CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="lastUpdateUserId != null and lastUpdateUserId >0">
+      and a.LAST_UPDATE_USER_ID = #{lastUpdateUserId,jdbcType=INTEGER}
+    </if>
+    <if test="lastUpdateTime != null">
+      and a.LAST_UPDATE_TIME = #{lastUpdateTime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="active != null">
+      and a.ACTIVE = #{active,jdbcType=INTEGER}
+    </if>
+    <if test="searchCondition != null and searchCondition !='' ">
+      and CONCAT(a.NAME,a.SPELL,a.account)  like CONCAT('%',#{searchCondition},'%')
+    </if>
+  </sql>
+
+  <select id="getSysUserVo" resultMap="VogetResultMap">
+    select
+    <include refid="SysUser_Column_List" />
+    from sys_user a  left join sys_organ b on a.organ_id=b.id where a.active=1
+    <include refid="SysUser_Where" />
+  </select>
+
+  <select id="selectListVo" resultMap="VoListResultMap">
+    select
+    <include refid="SysUser_List" />
+    from sys_user a  left join sys_organ b on a.organ_id=b.id
+    LEFT JOIN (
+    SELECT
+    group_concat(d.name separator ' ') as roleName,
+    c.USER_ID
+    FROM
+    sys_user_role c
+    LEFT JOIN sys_role d ON c.ROLE_ID=d.id
+    GROUP BY
+    c.USER_ID
+    ) e on a.id=e.USER_ID
+    where a.active=1
+    <if test="sysOrgan != null and sysOrgan.path != null and sysOrgan.path !='' ">
+      and b.path  like CONCAT(#{sysOrgan.path},'%')
+    </if>
+    <include refid="SysUser_Where" />
+    ORDER BY a.CREATE_TIME desc
+  </select>
+
+  <select id="getUserListCount" resultType="java.lang.Integer">
+    select
+    count(ID)
+    from sys_user
+    where ACCOUNT = #{account,jdbcType=VARCHAR}
+    <if test="id !=null">
+      and ID != #{id,jdbcType=INTEGER}
+    </if>
+    and ACTIVE=true
+  </select>
+</mapper>

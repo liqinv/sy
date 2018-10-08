@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yf.base.dao.sys.vo.SysOrganVoMapper">
+  <resultMap id="BaseResultMap" type="com.yf.base.model.sys.SysOrgan">
+      <id column="ID" jdbcType="INTEGER" property="id" />
+      <result column="NAME" jdbcType="VARCHAR" property="name" />
+      <result column="PARENT_ID" jdbcType="INTEGER" property="parentId" />
+      <result column="TYPE" jdbcType="VARCHAR" property="type" />
+      <result column="PATH" jdbcType="VARCHAR" property="path" />
+      <result column="LEVEL" jdbcType="INTEGER" property="level" />
+      <result column="SORT" jdbcType="INTEGER" property="sort" />
+      <result column="SHORT_NAME" jdbcType="VARCHAR" property="shortName" />
+      <result column="SPELL" jdbcType="VARCHAR" property="spell" />
+      <result column="SHORT_SPELL" jdbcType="VARCHAR" property="shortSpell" />
+      <result column="NOTE" jdbcType="VARCHAR" property="note" />
+      <result column="CREATE_USER_ID" jdbcType="INTEGER" property="createUserId" />
+      <result column="CREATE_ORGAN_ID" jdbcType="INTEGER" property="createOrganId" />
+      <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+      <result column="LAST_UPDATE_USER_ID" jdbcType="INTEGER" property="lastUpdateUserId" />
+      <result column="LAST_UPDATE_TIME" jdbcType="TIMESTAMP" property="lastUpdateTime" />
+      <result column="ACTIVE" jdbcType="INTEGER" property="active" />
+  </resultMap>
+
+  <resultMap id="VoListResultMap" type="com.yf.base.model.sys.vo.SysOrganVo"
+             extends="BaseResultMap">
+      <result column="PARENT_NAME" property="parentName" jdbcType="VARCHAR" />
+      <result column="USER_NAME" property="sysUserVo.name" jdbcType="VARCHAR" />
+      <result column="PARENT_SHORT_NAME" property="paerantShortName" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    ID, NAME, PARENT_ID, TYPE, PATH, LEVEL, SORT, SHORT_NAME, SPELL, SHORT_SPELL, NOTE,
+    CREATE_USER_ID, CREATE_ORGAN_ID, CREATE_TIME, LAST_UPDATE_USER_ID, LAST_UPDATE_TIME, ACTIVE
+  </sql>
+  <sql id="Organ_Column_List">
+   a.ID, a.NAME, a.PARENT_ID, a.TYPE, a.PATH, a.LEVEL, a.SORT, a.SHORT_NAME, a.SPELL, a.SHORT_SPELL, a.NOTE,
+    a.CREATE_USER_ID, a.CREATE_ORGAN_ID, a.CREATE_TIME, a.LAST_UPDATE_USER_ID, a.LAST_UPDATE_TIME,a.ACTIVE,b.NAME as USER_NAME,c.NAME as PARENT_NAME,c.SHORT_NAME as PARENT_SHORT_NAME
+  </sql>
+  <sql id="Base_where">
+    <if test="id != null and id >0">
+      and a.ID = #{id}
+    </if>
+    <if test="name != null and name !=''">
+     and  a.NAME = #{name,jdbcType=VARCHAR}
+    </if>
+    <if test="parentId != null and parentId > 0">
+     and a.PARENT_ID = #{parentId,jdbcType=INTEGER}
+    </if>
+    <if test="type != null and type !='' ">
+     and a.TYPE = #{type,jdbcType=VARCHAR}
+    </if>
+    <if test="path != null and path !=''">
+     and a.PATH like CONCAT(#{path},'%')
+    </if>
+    <if test="level != null and level >0">
+      and a.LEVEL = #{level,jdbcType=INTEGER}
+    </if>
+    <if test="sort != null and sort>0">
+      and a.SORT = #{sort,jdbcType=INTEGER}
+    </if>
+    <if test="shortName != null and shortName !=''">
+      and a.SHORT_NAME = #{shortName,jdbcType=VARCHAR}
+    </if>
+    <if test="spell != null and spell !=''">
+      and a.SPELL = #{spell,jdbcType=VARCHAR}
+    </if>
+    <if test="shortSpell != null and shortSpell !=''">
+      and a.SHORT_SPELL = #{shortSpell,jdbcType=VARCHAR}
+    </if>
+    <if test="note != null and note !=''">
+      and a.NOTE = #{note,jdbcType=VARCHAR}
+    </if>
+    <if test="createUserId != null and createUserId>0">
+      and a.CREATE_USER_ID = #{createUserId,jdbcType=INTEGER}
+    </if>
+    <if test="createOrganId != null and createOrganId>0">
+      and a.CREATE_ORGAN_ID = #{createOrganId,jdbcType=INTEGER}
+    </if>
+    <if test="createTime != null">
+      and a.CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="lastUpdateUserId != null and lastUpdateUserId>0">
+      and a.LAST_UPDATE_USER_ID = #{lastUpdateUserId,jdbcType=INTEGER}
+    </if>
+    <if test="lastUpdateTime != null">
+      and a.LAST_UPDATE_TIME = #{lastUpdateTime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="active != null">
+      and a.ACTIVE = #{active,jdbcType=INTEGER}
+    </if>
+    <if test="searchCondition != null and searchCondition !='' ">
+      and CONCAT( a.NAME ,a.SPELL,a.SHORT_NAME,a.SHORT_SPELL)  like CONCAT('%',#{searchCondition,jdbcType=VARCHAR},'%')
+    </if>
+  </sql>
+  <select id="selectSysOrganVoList" resultMap="VoListResultMap">
+    select
+    <include refid="Organ_Column_List" />
+    from sys_organ a left join sys_user b on a.CREATE_USER_ID = b.ID left join sys_organ c on a.PARENT_ID=c.ID
+    where a.ACTIVE=1
+    <include refid="Base_where" />
+    ORDER BY a.CREATE_TIME desc
+  </select>
+  <select id="getOrganMaxCode" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		select max(ID) from sys_organ where
+		LEVEL=#{level,jdbcType=INTEGER}
+	</select>
+    <select id="getSysOrganByNameCount"  resultType="java.lang.Integer">
+        select count(ID) from sys_organ  where ACTIVE=1
+        <if test="level != null and level>0">
+            and LEVEL=#{level}
+        </if>
+        <if test="name != null and name !='' ">
+            and NAME = #{name}
+        </if>
+        <if test="id != null and id>0">
+            and ID not in (#{id})
+        </if>
+        <if test="parentId != null and parentId>0">
+            and PARENT_ID=#{parentId}
+        </if>
+	</select>
+
+    <select id="getOrganListCount" resultType="java.lang.Integer">
+        select
+        count(a.ID)
+        from sys_organ a
+        where a.ACTIVE=1
+        <if test="authDeptPath != null">
+            and a.PATH LIKE CONCAT(#{authDeptPath,jdbcType=VARCHAR},'%')
+        </if>
+        <include refid="Base_where" />
+    </select>
+
+    <select id="getOrganVoById" parameterType="java.lang.Integer" resultMap="VoListResultMap">
+        select
+        <include refid="Organ_Column_List" />
+        from sys_organ a left join sys_user b on a.CREATE_USER_ID = b.ID left join sys_organ c on a.PARENT_ID=c.ID
+        where a.id=#{organVoId,jdbcType=INTEGER}
+    </select>
+
+    <select id="getOrganByPath"  resultMap="BaseResultMap">
+	SELECT * FROM sys_organ WHERE LOCATE(path,#{path}) AND TYPE='AC001' ORDER BY LEVEL DESC LIMIT 1
+	</select>
+
+</mapper>

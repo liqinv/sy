@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yf.base.dao.sys.vo.SysRoleVoMapper">
+    <resultMap id="BaseResultMap" type="com.yf.base.model.sys.SysRole">
+        <id column="ID" jdbcType="INTEGER" property="id" />
+        <result column="NAME" jdbcType="VARCHAR" property="name" />
+        <result column="NOTE" jdbcType="VARCHAR" property="note" />
+        <result column="CREATE_USER_ID" jdbcType="INTEGER" property="createUserId" />
+        <result column="CREATE_ORGAN_ID" jdbcType="INTEGER" property="createOrganId" />
+        <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="LAST_UPDATE_USER_ID" jdbcType="INTEGER" property="lastUpdateUserId" />
+        <result column="LAST_UPDATE_TIME" jdbcType="TIMESTAMP" property="lastUpdateTime" />
+        <result column="ACTIVE" jdbcType="INTEGER" property="active" />
+    </resultMap>
+    <resultMap id="VoResultMap" type="com.yf.base.model.sys.vo.SysRoleVo" extends="BaseResultMap">
+        <result column="create_user_name" property="createUserName" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Column">
+        a.ID,
+        a.NAME,
+        a.NOTE,
+        a.CREATE_USER_ID,
+        a.CREATE_ORGAN_ID,
+        a.CREATE_TIME,
+        a.LAST_UPDATE_USER_ID,
+        a.LAST_UPDATE_TIME,
+        a.ACTIVE
+    </sql>
+
+    <sql id="Where">
+        <if test="id != null and id >0">
+            and a.ID = #{id}
+        </if>
+        <if test="name != null and name !=''">
+            and a.NAME = #{name}
+        </if>
+        <if test="note != null and note !=''">
+            and a.NOTE = #{note}
+        </if>
+        <if test="createUserId != null and createUserId>0">
+            and a.CREATE_USER_ID = #{createUserId}
+        </if>
+        <if test="createOrganId != null and createOrganId>0">
+            and a.CREATE_ORGAN_ID = #{createOrganId}
+        </if>
+        <if test="createTime != null">
+            and a.CREATE_TIME = #{createTime}
+        </if>
+        <if test="lastUpdateUserId != null and lastUpdateUserId >0">
+            and a.LAST_UPDATE_USER_ID = #{lastUpdateUserId}
+        </if>
+        <if test="lastUpdateTime != null">
+            and a.LAST_UPDATE_TIME = #{lastUpdateTime}
+        </if>
+        <if test="active != null">
+            and a.ACTIVE = #{active}
+        </if>
+        <if test="searchCondition != null and searchCondition !=''">
+            and a.NAME like CONCAT('%',#{searchCondition},'%')
+        </if>
+
+    </sql>
+
+    <select id="selectByParam" resultMap="VoResultMap">
+        select
+        b.NAME as create_user_name,
+        <include refid="Column"/>
+        from sys_role a
+        LEFT JOIN sys_user b ON b.ID = a.CREATE_USER_ID
+        where a.ACTIVE = 1
+        <include refid="Where"/>
+        ORDER BY a.CREATE_TIME DESC
+    </select>
+
+    <select id="selectRoleListByUserId" resultMap="VoResultMap">
+        select
+        <include refid="Column"/>
+        from sys_role a
+        LEFT JOIN sys_user_role b ON b.ROLE_ID = a.ID
+        where a.ACTIVE = 1
+        AND b.USER_ID = ${userId}
+        ORDER BY a.CREATE_TIME DESC
+    </select>
+
+</mapper>

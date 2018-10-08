@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yf.base.dao.sys.vo.SysPermissionVoMapper">
+    <resultMap id="BaseResultMap" type="com.yf.base.model.sys.SysPermission">
+        <id column="ID" jdbcType="INTEGER" property="id"/>
+        <result column="NAME" jdbcType="VARCHAR" property="name"/>
+        <result column="PARENT_ID" jdbcType="INTEGER" property="parentId"/>
+        <result column="PATH" jdbcType="VARCHAR" property="path"/>
+        <result column="LEVEL" jdbcType="INTEGER" property="level"/>
+        <result column="LEAF" jdbcType="INTEGER" property="leaf"/>
+        <result column="ICON" jdbcType="VARCHAR" property="icon"/>
+        <result column="SORT" jdbcType="INTEGER" property="sort"/>
+        <result column="NOTE" jdbcType="VARCHAR" property="note"/>
+        <result column="PERMISSION" jdbcType="VARCHAR" property="permission"/>
+        <result column="RESOURCE_TYPE" jdbcType="INTEGER" property="resourceType"/>
+        <result column="RESOURCE_URL" jdbcType="VARCHAR" property="resourceUrl"/>
+        <result column="CREATE_USER_ID" jdbcType="INTEGER" property="createUserId"/>
+        <result column="CREATE_ORGAN_ID" jdbcType="INTEGER" property="createOrganId"/>
+        <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="LAST_UPDATE_USER_ID" jdbcType="INTEGER" property="lastUpdateUserId"/>
+        <result column="LAST_UPDATE_TIME" jdbcType="TIMESTAMP" property="lastUpdateTime"/>
+        <result column="ACTIVE" jdbcType="INTEGER" property="active"/>
+    </resultMap>
+    <resultMap id="VoResultMap" type="com.yf.base.model.sys.vo.SysPermissionVo" extends="BaseResultMap">
+    </resultMap>
+    <sql id="Column">
+        a.ID,
+        a.NAME,
+        a.PARENT_ID,
+        a.PATH,
+        a.LEVEL,
+        a.LEAF,
+        a.ICON,
+        a.SORT,
+        a.NOTE,
+        a.PERMISSION,
+        a.RESOURCE_TYPE,
+        a.RESOURCE_URL,
+        a.CREATE_USER_ID,
+        a.CREATE_ORGAN_ID,
+        a.CREATE_TIME,
+        a.LAST_UPDATE_USER_ID,
+        a.LAST_UPDATE_TIME,
+        a.ACTIVE
+    </sql>
+    <sql id="Where">
+        <if test="id != null and id >0">
+            AND a.ID = ${id}
+        </if>
+        <if test="name != null and name !=''">
+            AND a.NAME = #{name}
+        </if>
+        <if test="parentId != null and parentId >0">
+            AND a.PARENT_ID = ${parentId}
+        </if>
+        <if test="path != null and path !=''">
+            AND a.PATH = #{path}
+        </if>
+        <if test="level != null and level >0">
+            AND a.LEVEL = ${level}
+        </if>
+        <if test="leaf != null and leaf>=0">
+            AND a.LEAF = ${leaf}
+        </if>
+        <if test="icon != null and icon !=''">
+            AND a.ICON = #{icon}
+        </if>
+        <if test="note != null and note !=''">
+            AND a.NOTE = #{note}
+        </if>
+        <if test="permission != null and permission !=''">
+            AND a.PERMISSION = #{permission}
+        </if>
+        <if test="resourceType != null and resourceType >0">
+            AND a.RESOURCE_TYPE = ${resourceType}
+        </if>
+        <if test="resourceUrl != null and resourceUrl !=''">
+            AND a.RESOURCE_URL = #{resourceUrl}
+        </if>
+        <if test="createUserId != null and createUserId >0">
+            AND a.CREATE_USER_ID = ${createUserId}
+        </if>
+        <if test="createOrganId != null and createOrganId >0">
+            AND a.CREATE_ORGAN_ID = ${createOrganId}
+        </if>
+        <if test="createTime != null">
+            AND a.CREATE_TIME = #{createTime}
+        </if>
+        <if test="lastUpdateUserId != null and lastUpdateUserId >0">
+            AND a.LAST_UPDATE_USER_ID = ${lastUpdateUserId}
+        </if>
+        <if test="lastUpdateTime != null">
+            AND a.LAST_UPDATE_TIME = #{lastUpdateTime}
+        </if>
+        <if test="active != null and active >=0">
+            AND a.ACTIVE = ${active}
+        </if>
+    </sql>
+    <select id="selectByParam" resultMap="VoResultMap">
+        select
+        <include refid="Column"/>
+        from sys_permission a
+        where a.ACTIVE =1
+        <include refid="Where"/>
+        ORDER BY a.SORT ASC
+    </select>
+
+    <!-- 查询用户的权限 -->
+    <select id="selectPermissionByUserAndType" resultMap="VoResultMap">
+        SELECT
+            DISTINCT
+            <include refid="Column"/>
+        FROM
+            sys_permission a
+        LEFT JOIN sys_role_permission b ON b.PERMISSION_ID = a.ID
+        LEFT JOIN sys_role c ON c.ID = b.ROLE_ID
+        LEFT JOIN sys_user_role d ON d.ROLE_ID = c.ID
+        LEFT JOIN sys_user e ON e.ID = d.USER_ID
+        WHERE
+        a.ACTIVE =1
+        AND e.ACTIVE = 1
+        <if test="userId != null and userId >0">
+            AND d.USER_ID = ${userId}
+        </if>
+        <if test="resourceType != null and resourceType >0">
+            AND a.RESOURCE_TYPE = ${resourceType}
+        </if>
+        ORDER BY a.SORT ASC
+    </select>
+
+    <select id="selectPermissionListByRoleId" resultMap="VoResultMap">
+        SELECT
+            DISTINCT
+            <include refid="Column"/>
+        FROM
+            sys_permission a
+        LEFT JOIN sys_role_permission b ON b.PERMISSION_ID = a.ID
+        WHERE
+        a.ACTIVE = 1
+        AND b.ROLE_ID = ${roleId}
+        ORDER BY a.SORT ASC
+    </select>
+
+    <select id="getMaxIdByLevel" resultType="Integer">
+        select MAX(ID) from sys_permission
+        WHERE
+        LEVEL = ${level}
+    </select>
+
+</mapper>

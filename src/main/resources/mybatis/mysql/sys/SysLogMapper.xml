@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yf.base.dao.sys.SysLogMapper">
+  <resultMap id="BaseResultMap" type="com.yf.base.model.sys.SysLog">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="USER_ID" jdbcType="INTEGER" property="userId" />
+    <result column="ORGAN_ID" jdbcType="INTEGER" property="organId" />
+    <result column="ACTION" jdbcType="VARCHAR" property="action" />
+    <result column="OPRERATION_TIME" jdbcType="TIMESTAMP" property="oprerationTime" />
+    <result column="IP_ADDRESS" jdbcType="VARCHAR" property="ipAddress" />
+    <result column="MAC_ADDRESS" jdbcType="VARCHAR" property="macAddress" />
+    <result column="NOTE" jdbcType="VARCHAR" property="note" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, USER_ID, ORGAN_ID, ACTION, OPRERATION_TIME, IP_ADDRESS, MAC_ADDRESS, NOTE
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_log
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sys_log
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.yf.base.model.sys.SysLog">
+    insert into sys_log (ID, USER_ID, ORGAN_ID, 
+      ACTION, OPRERATION_TIME, IP_ADDRESS, 
+      MAC_ADDRESS, NOTE)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{organId,jdbcType=INTEGER}, 
+      #{action,jdbcType=VARCHAR}, #{oprerationTime,jdbcType=TIMESTAMP}, #{ipAddress,jdbcType=VARCHAR}, 
+      #{macAddress,jdbcType=VARCHAR}, #{note,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id" parameterType="com.yf.base.model.sys.SysLog">
+    insert into sys_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="userId != null">
+        USER_ID,
+      </if>
+      <if test="organId != null">
+        ORGAN_ID,
+      </if>
+      <if test="action != null">
+        ACTION,
+      </if>
+      <if test="oprerationTime != null">
+        OPRERATION_TIME,
+      </if>
+      <if test="ipAddress != null">
+        IP_ADDRESS,
+      </if>
+      <if test="macAddress != null">
+        MAC_ADDRESS,
+      </if>
+      <if test="note != null">
+        NOTE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="organId != null">
+        #{organId,jdbcType=INTEGER},
+      </if>
+      <if test="action != null">
+        #{action,jdbcType=VARCHAR},
+      </if>
+      <if test="oprerationTime != null">
+        #{oprerationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ipAddress != null">
+        #{ipAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="macAddress != null">
+        #{macAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null">
+        #{note,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yf.base.model.sys.SysLog">
+    update sys_log
+    <set>
+      <if test="userId != null">
+        USER_ID = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="organId != null">
+        ORGAN_ID = #{organId,jdbcType=INTEGER},
+      </if>
+      <if test="action != null">
+        ACTION = #{action,jdbcType=VARCHAR},
+      </if>
+      <if test="oprerationTime != null">
+        OPRERATION_TIME = #{oprerationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ipAddress != null">
+        IP_ADDRESS = #{ipAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="macAddress != null">
+        MAC_ADDRESS = #{macAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null">
+        NOTE = #{note,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yf.base.model.sys.SysLog">
+    update sys_log
+    set USER_ID = #{userId,jdbcType=INTEGER},
+      ORGAN_ID = #{organId,jdbcType=INTEGER},
+      ACTION = #{action,jdbcType=VARCHAR},
+      OPRERATION_TIME = #{oprerationTime,jdbcType=TIMESTAMP},
+      IP_ADDRESS = #{ipAddress,jdbcType=VARCHAR},
+      MAC_ADDRESS = #{macAddress,jdbcType=VARCHAR},
+      NOTE = #{note,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

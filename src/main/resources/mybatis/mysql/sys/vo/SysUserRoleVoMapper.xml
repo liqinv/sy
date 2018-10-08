@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yf.base.dao.sys.vo.SysUserRoleVoMapper">
+  <resultMap id="BaseResultMap" type="com.yf.base.model.sys.SysUserRoleKey">
+    <id column="USER_ID" jdbcType="INTEGER" property="userId" />
+    <id column="ROLE_ID" jdbcType="INTEGER" property="roleId" />
+  </resultMap>
+
+  <resultMap id="VoResultMap" type="com.yf.base.model.sys.vo.SysUserRoleKeyVo"
+             extends="BaseResultMap">
+    <result column="roleName" property="roleName" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    a.ROLE_ID,a.USER_ID,b.name as roleName
+  </sql>
+
+  <sql id="SysUserRole_Where">
+    <if test="userId != null and userId>0" >
+     and #{userId,jdbcType=INTEGER}
+    </if>
+    <if test="roleId != null and roleId>0">
+     and #{roleId,jdbcType=INTEGER}
+    </if>
+  </sql>
+
+  <select id="getUserRoleCountByRoleId" resultType="Integer">
+      SELECT COUNT(0) FROM sys_user_role WHERE ROLE_ID = ${roleId}
+  </select>
+
+  <update id="editUserRole">
+    update  sys_user_role set
+    <if test="roleId != null">
+      ROLE_ID = #{roleId}
+    </if>
+    where USER_ID =#{userId}
+  </update>
+
+
+  <delete id="delByUserId" parameterType="java.lang.Integer">
+    delete from sys_user_role  where USER_ID = #{userId}
+  </delete>
+</mapper>
