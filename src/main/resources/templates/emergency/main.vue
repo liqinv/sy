@@ -40,6 +40,7 @@
                         </div>
                         <!-- /.box-tools -->
                     </div>
+
                     <!-- /.box-header -->
                     <div class="box-body" style="overflow:scroll; max-height:300px;">
                         <div class="box-footer box-comments">
