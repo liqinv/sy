@@ -64,9 +64,20 @@ var emergency = new Vue({
                     Utils.showMsg("保存成功！",2000,"success");
                     emergency.$data.eventModel = result.data;
                     emergency.selectEventList();
-                })
+                });
         },
         notice: function(statusKey) {
+            if (this.eventModel.status == "BA005") {
+                this.eventModel.type = $("#addEventSelect").val();
+                var url = "/emergency/save";
+                YF_HTTP
+                    .post(url, this.eventModel)
+                    .then(function (result) {
+                        emergency.$data.eventModel = result.data;
+                        emergency.selectEventList();
+                    });
+            }
+
             this.processModel = {};
             $('#noticeGroupSelect').select2().val(null).trigger('change');
             this.noticeModel.type = statusKey;

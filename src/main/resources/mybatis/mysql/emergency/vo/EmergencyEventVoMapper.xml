@@ -2,30 +2,31 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yf.base.dao.emergency.vo.EmergencyEventVoMapper">
   <resultMap id="BaseResultMap" type="com.yf.base.model.emergency.EmergencyEvent">
-    <id column="ID" jdbcType="INTEGER" property="id" />
-    <result column="NAME" jdbcType="VARCHAR" property="name" />
-    <result column="CATEGORY" jdbcType="VARCHAR" property="category" />
-    <result column="TYPE" jdbcType="VARCHAR" property="type" />
-    <result column="PLAN" jdbcType="VARCHAR" property="plan" />
-    <result column="REPORT_NAME" jdbcType="VARCHAR" property="reportName" />
-    <result column="REPORT_PHONE" jdbcType="VARCHAR" property="reportPhone" />
-    <result column="HAPPEN_TIME" jdbcType="TIMESTAMP" property="happenTime" />
-    <result column="END_TIME" jdbcType="TIMESTAMP" property="endTime" />
-    <result column="COMMUNITY" jdbcType="INTEGER" property="community" />
-    <result column="GRID" jdbcType="INTEGER" property="grid" />
-    <result column="ADDRESS" jdbcType="VARCHAR" property="address" />
-    <result column="LONGITUDE" jdbcType="VARCHAR" property="longitude" />
-    <result column="LATITUDE" jdbcType="VARCHAR" property="latitude" />
-    <result column="LEVEL" jdbcType="VARCHAR" property="level" />
-    <result column="STATUS" jdbcType="VARCHAR" property="status" />
-    <result column="CONTENT" jdbcType="VARCHAR" property="content" />
-    <result column="NOTE" jdbcType="VARCHAR" property="note" />
-    <result column="CREATE_USER_ID" jdbcType="INTEGER" property="createUserId" />
-    <result column="CREATE_ORGAN_ID" jdbcType="INTEGER" property="createOrganId" />
-    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="LAST_UPDATE_USER_ID" jdbcType="INTEGER" property="lastUpdateUserId" />
-    <result column="LAST_UPDATE_TIME" jdbcType="TIMESTAMP" property="lastUpdateTime" />
-    <result column="ACTIVE" jdbcType="INTEGER" property="active" />
+      <id column="ID" jdbcType="INTEGER" property="id" />
+      <result column="NAME" jdbcType="VARCHAR" property="name" />
+      <result column="CATEGORY" jdbcType="VARCHAR" property="category" />
+      <result column="TYPE" jdbcType="VARCHAR" property="type" />
+      <result column="PLAN" jdbcType="VARCHAR" property="plan" />
+      <result column="REPORT_NAME" jdbcType="VARCHAR" property="reportName" />
+      <result column="REPORT_PHONE" jdbcType="VARCHAR" property="reportPhone" />
+      <result column="HAPPEN_TIME" jdbcType="TIMESTAMP" property="happenTime" />
+      <result column="END_TIME" jdbcType="TIMESTAMP" property="endTime" />
+      <result column="COMMUNITY" jdbcType="INTEGER" property="community" />
+      <result column="GRID" jdbcType="INTEGER" property="grid" />
+      <result column="ADDRESS" jdbcType="VARCHAR" property="address" />
+      <result column="LONGITUDE" jdbcType="VARCHAR" property="longitude" />
+      <result column="LATITUDE" jdbcType="VARCHAR" property="latitude" />
+      <result column="LEVEL" jdbcType="VARCHAR" property="level" />
+      <result column="STATUS" jdbcType="VARCHAR" property="status" />
+      <result column="CONTENT" jdbcType="VARCHAR" property="content" />
+      <result column="NOTE" jdbcType="VARCHAR" property="note" />
+      <result column="CREATE_USER_ID" jdbcType="INTEGER" property="createUserId" />
+      <result column="CREATE_ORGAN_ID" jdbcType="INTEGER" property="createOrganId" />
+      <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+      <result column="LAST_UPDATE_USER_ID" jdbcType="INTEGER" property="lastUpdateUserId" />
+      <result column="LAST_UPDATE_TIME" jdbcType="TIMESTAMP" property="lastUpdateTime" />
+      <result column="ACTIVE" jdbcType="INTEGER" property="active" />
+      <result column="CODE" jdbcType="VARCHAR" property="code" />
   </resultMap>
   <resultMap id="VoResultMap" type="com.yf.base.model.emergency.vo.EmergencyEventVo" extends="BaseResultMap">
 
@@ -33,7 +34,7 @@
   <sql id="Base_Column_List">
     e.ID, e.NAME, e.CATEGORY, e.TYPE, e.PLAN, e.REPORT_NAME, e.REPORT_PHONE, e.HAPPEN_TIME, e.END_TIME,
     e.COMMUNITY, e.GRID, e.ADDRESS, e.LONGITUDE, e.LATITUDE, e.LEVEL, e.STATUS, e.CONTENT, e.NOTE, e.CREATE_USER_ID,
-    e.CREATE_ORGAN_ID, e.CREATE_TIME, e.LAST_UPDATE_USER_ID, e.LAST_UPDATE_TIME, e.ACTIVE
+    e.CREATE_ORGAN_ID, e.CREATE_TIME, e.LAST_UPDATE_USER_ID, e.LAST_UPDATE_TIME, e.ACTIVE, e.CODE
   </sql>
 
   <select id="selectByParam"  resultMap="VoResultMap">
