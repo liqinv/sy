@@ -78,7 +78,8 @@ public class EmergencyServiceImpl extends BaseServiceImpl<EmergencyEvent,Integer
         eventMapper.updateByPrimaryKeySelective(event);
         processVo.setUserId(loginUser.getId());
         processVo.setOrganId(loginUser.getOrganId());
-        processVo.setNote("短信发送："+processVo.getSelectedGroupNames());
+        processVo.setCreateTime(new Date());
+        processVo.setNote(processVo.getSelectedGroupNames());
         processMapper.insert(processVo);
     }
 }

@@ -45,14 +45,18 @@ var emergency = new Vue({
                     .then(function (result) {
                         emergency.$data.eventModel = result.data;
                         $('#addEventSelect').select2().val(result.data.type).trigger('change');
+                        if (emergency.$data.eventModel.status == "BA005") {
+                            $('#divAddEvent').modal('show');
+                        } else {
+                            $('#divDetail').modal('show');
+                        }
                     });
             } else {
                 this.eventModel = {};
                 this.eventModel.category = this.categoryList[0].configKey;
                 $('#addEventSelect').select2().val( this.typeList[0].children[0].configKey).trigger('change');
-
+                $('#divAddEvent').modal('show');
             }
-            $('#divAddEvent').modal('show');
         },
         saveEvent: function () {
             this.eventModel.type = $("#addEventSelect").val();

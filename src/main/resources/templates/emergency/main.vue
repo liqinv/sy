@@ -40,9 +40,9 @@
                         </div>
                     </div>
 
-                    <div class="box-body" style="overflow:scroll; max-height:300px;">
+                    <div class="box-body" style="overflow:scroll; max-height:500px;">
                         <div class="box-footer box-comments">
-                            <div class="box-comment" v-for="r in eventList" v-on:click="saveUi(r.id)" style="cursor:pointer;" ees>
+                            <div class="box-comment" v-for="r in eventList" v-on:click="saveUi(r.id)" style="cursor:pointer;" >
                                 <span class="username">
                                 {{r.statusName}}
                                     <span class="text-muted pull-right"><i class="fa fa-clock-o"></i>{{r.happenTime}}</span>
@@ -158,6 +158,152 @@
                                 <button type="submit" class="btn btn-primary pull-right"><i class="fa fa-save"></i> 提交</button>
                             </div>
                         </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 详情弹框 -->
+        <div class="modal fade bs-example-modal-sm" data-backdrop="static" id="divDetail" style="display: none;">
+            <div class="modal-dialog modal-sm" style="width:800px;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span></button>
+                        <h4 class="modal-title">应急指挥</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-sm-5">
+                                    <div class="form-group">
+                                        <div class="col-sm-5 control-label">
+                                            名称
+                                        </div>
+                                        <div class="col-sm-7">
+                                            <label>{{eventModel.name}}</label>
+                                        </div>
+                                    </div><br/>
+                                    <div class="form-group">
+                                        <div class="col-sm-5 control-label">
+                                            类别
+                                        </div>
+                                        <div class="col-sm-7">
+                                            <label>{{eventModel.categoryName}}</label>
+                                        </div>
+                                    </div><br/>
+                                    <div class="form-group">
+                                        <div class="col-sm-5 control-label">
+                                            类型
+                                        </div>
+                                        <div class="col-sm-7">
+                                            <label>{{eventModel.typeName}}</label>
+                                        </div>
+                                    </div><br/>
+                                    <div class="form-group">
+                                        <div class="col-sm-5 control-label">
+                                            报送人姓名
+                                        </div>
+                                        <div class="col-sm-7">
+                                            <label>{{eventModel.reportName}}</label>
+                                        </div>
+                                    </div><br/>
+                                    <div class="form-group">
+                                        <div class="col-sm-5 control-label">
+                                            报送人电话
+                                        </div>
+                                        <div class="col-sm-7">
+                                            <label>{{eventModel.reportPhone}}</label>
+                                        </div>
+                                    </div><br/>
+                                    <div class="form-group">
+                                        <div class="col-sm-5 control-label">
+                                            地点
+                                        </div>
+                                        <div class="col-sm-7">
+                                            <label>{{eventModel.address}}</label>
+                                        </div>
+                                    </div><br/>
+                                    <div class="form-group">
+                                        <div class="col-sm-5 control-label">
+                                            发生时间
+                                        </div>
+                                        <div class="col-sm-7">
+                                            <label>{{eventModel.happenTime}}</label>
+                                        </div>
+                                    </div><br/>
+                                    <div class="form-group">
+                                        <div class="col-sm-5 control-label">
+                                            情况描述
+                                        </div>
+                                        <div class="col-sm-7">
+                                            <label>{{eventModel.content}}</label>
+                                        </div>
+                                    </div>
+                                    <br/>
+                                    <div class="form-group">
+                                        <div class="col-sm-5 control-label">
+                                            备注
+                                        </div>
+                                        <div class="col-sm-7">
+                                            <label>{{eventModel.note}}</label>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-sm-7">
+                                    <ul class="timeline">
+                                        <!-- timeline item -->
+                                        <li v-for="process in eventModel.processVoList">
+                                            <!-- timeline icon -->
+                                            <i class="fa fa-envelope bg-blue"></i>
+                                            <div class="timeline-item">
+                                                <span class="time"><i class="fa fa-clock-o"></i> {{process.createTime}}</span>
+
+                                                <h3 class="timeline-header"><a href="#">{{process.nodeName}}</a></h3>
+
+                                                <div class="timeline-body">
+                                                    短信内容：{{process.sms}}
+                                                    <br/><br/>
+                                                    <a href="#" class="name">短信通知：{{process.note}}</a>
+                                                </div>
+
+                                                <div class="timeline-footer">
+
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <!--<li>
+                                            &lt;!&ndash; timeline icon &ndash;&gt;
+                                            <i class="fa fa-envelope bg-blue"></i>
+                                            <div class="timeline-item">
+                                                <span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
+
+                                                <h3 class="timeline-header"><a href="#">Support Team</a> ...</h3>
+
+                                                <div class="timeline-body">
+                                                    ...
+                                                    Content goes here
+                                                </div>
+
+                                                <div class="timeline-footer">
+                                                    <a class="btn btn-primary btn-xs">...</a>
+                                                </div>
+                                            </div>
+                                        </li>-->
+                                        <!-- END timeline item -->
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="box-footer">
+                            <button v-on:click="notice('BD001')" v-if="eventModel.id != null && eventModel.status=='BA005'" type="button" class="btn btn-primary pull-right"><i class="fa fa-save"></i> 应急准备</button>
+                            <button v-on:click="notice('BD003')" v-if="eventModel.id != null && (eventModel.status == 'BA005' || eventModel.status == 'BA001')" type="button" class="btn btn-primary pull-right"><i class="fa fa-save"></i> 应急启动</button>
+                            <button v-on:click="notice('BD002')" v-if="eventModel.id != null && eventModel.status == 'BA001'" type="button" class="btn btn-primary pull-right"><i class="fa fa-save"></i> 应急取消</button>
+                            <button v-on:click="notice('BD004')" v-if="eventModel.id != null && eventModel.status == 'BA003'" type="button" class="btn btn-primary pull-right"><i class="fa fa-save"></i> 应急解除</button>
+
+                        </div>
                     </div>
                 </div>
             </div>

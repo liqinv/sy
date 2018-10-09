@@ -1,5 +1,6 @@
 package com.yf.base.model.emergency.vo;
 
+import com.yf.base.common.Constants;
 import com.yf.base.model.emergency.EmergencyEventProcess;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,4 +16,10 @@ public class EmergencyEventProcessVo extends EmergencyEventProcess {
     private String userName;
 
     private String organName;
+
+    private String nodeName;
+
+    public String getNodeName() {
+        return Constants.configMap.get(this.getNode());
+    }
 }
