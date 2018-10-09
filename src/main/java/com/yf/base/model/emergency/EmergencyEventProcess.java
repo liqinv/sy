@@ -1,13 +1,12 @@
 package com.yf.base.model.emergency;
 
-import com.yf.base.common.BaseModel;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
 @Setter
 @Getter
-public class EmergencyEventProcess extends BaseModel {
+public class EmergencyEventProcess {
     private Integer id;
 
     private String node;
@@ -21,6 +20,8 @@ public class EmergencyEventProcess extends BaseModel {
     private String note;
 
     private String sms;
+
+    private Integer eventId;
 
 
 }

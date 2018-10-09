@@ -59,6 +59,22 @@ public class GroupInfoController extends BaseController {
         return rr;
     }
 
+    @ApiOperation(value="获取所有分组",  httpMethod ="POST")
+    @RequestMapping("/allList")
+    @ResponseBody
+    public ReturnResult allList(@RequestBody GroupInfoVo param){
+        ReturnResult rr = ReturnResult.SUCCESS();
+        try {
+            param =  param != null?param:new GroupInfoVo();
+            List<GroupInfoVo> result = groupInfoService.selectByParam(param);
+            rr.setData(result);
+        }catch (Exception ex){
+            rr = ReturnResult.FAILUER("获取所有分组出错");
+            ex.printStackTrace();
+        }
+        return rr;
+    }
+
     @ApiOperation(value="新增分组",  httpMethod ="POST")
     @RequestMapping("/add")
     @ResponseBody

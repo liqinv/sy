@@ -7,4 +7,8 @@ import lombok.Setter;
 @Setter
 @Getter
 public class EmergencyEventProcessVo extends EmergencyEventProcess {
+
+    private String selectedGroupIds;
+
+    private String selectedGroupNames;
 }

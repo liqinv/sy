@@ -8,18 +8,25 @@ var emergency = new Vue({
         eventList: {}, //列表对象
         eventModel: {},//临时缓存用
         categoryList:{},
-        typeList:{}
+        typeList:{},
+        groupList:{},
+        noticeModel:{
+            type:"",
+            name:"",
+        },
+        processModel:{}
     },
     mounted: function () {
         this.selectEventList();
         this.initMap();
-        this.initComponent();
-        this.initCategory();
-        this.initType();
+        this.initData();
+
     },
     methods: {
-        initComponent: function() {
-
+        initData: function() {
+            this.initCategory();
+            this.initType();
+            this.initGroup();
         },
 
         selectEventList: function() {
@@ -54,9 +61,45 @@ var emergency = new Vue({
                 .post(url, this.eventModel)
                 .then(function (result) {
                     //$('#divAddEvent').modal('hide');//关闭模态框
+                    Utils.showMsg("保存成功！",2000,"success");
                     emergency.$data.eventModel = result.data;
                     emergency.selectEventList();
                 })
+        },
+        notice: function(statusKey) {
+            this.noticeModel.type = statusKey;
+            switch (statusKey) {
+                case "BD001":
+                    this.noticeModel.name = "应急准备";
+                    break;
+                case "BD002":
+                    this.noticeModel.name = "应急取消";
+                    break;
+                case "BD003":
+                    this.noticeModel.name = "应急启动";
+                    break;
+                case "BD004":
+                    this.noticeModel.name = "应急解除";
+                    break;
+            }
+            $('#divNotice').modal('show');
+        },
+        process: function() {
+            var selectedGroupIds = $("#noticeGroupSelect").val().join(",");//获取多选输入框选中值的方式
+            this.processModel.selectedGroupIds = selectedGroupIds;
+            var selectOpt = [];
+            var options=document.getElementById('noticeGroupSelect').options;
+            for(var i=0;i<options.length;i++){
+                //判断optin是否被选中了
+                if(options[i].selected){
+                    selectOpt.push(options[i].text);
+                }
+            }
+            var selectedGroupNames = selectOpt.join(",");
+            this.processModel.selectedGroupNames = selectedGroupNames;
+
+            this.processModel.node = this.noticeModel.type;
+            console.log(this.processModel);
         },
         initCategory: function () {
             var url = "/common/configList";
@@ -76,7 +119,14 @@ var emergency = new Vue({
                     emergency.$data.typeList = result.data;
                 })
         },
-
+        initGroup: function () {
+            var url = "/group/allList";
+            YF_HTTP
+                .post(url,{})
+                .then(function (result) {
+                    emergency.$data.groupList = result.data;
+                })
+        },
 
         initMap: function () {
             // 百度地图API功能

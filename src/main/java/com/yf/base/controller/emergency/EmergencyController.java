@@ -3,6 +3,7 @@ package com.yf.base.controller.emergency;
 import com.yf.base.common.BaseController;
 import com.yf.base.common.Constants;
 import com.yf.base.common.ReturnResult;
+import com.yf.base.model.emergency.vo.EmergencyEventProcessVo;
 import com.yf.base.model.emergency.vo.EmergencyEventVo;
 import com.yf.base.model.sys.vo.SysUserVo;
 import com.yf.base.service.emergency.EmergencyService;
@@ -84,6 +85,21 @@ public class EmergencyController extends BaseController {
         try {
             EmergencyEventVo vo = emergencyService.getDetailById(eventId);
             rr.setData(vo);
+        }catch (Exception ex){
+            rr = ReturnResult.FAILUER("查看事件详情出错");
+            ex.printStackTrace();
+        }
+        return rr;
+    }
+
+    @ApiOperation(value="事件流程",  httpMethod ="POST")
+    @RequestMapping("/process")
+    @ResponseBody
+    public ReturnResult process(@RequestBody EmergencyEventProcessVo processVo){
+        ReturnResult rr = ReturnResult.SUCCESS();
+        try {
+//            EmergencyEventVo vo = emergencyService.getDetailById(eventId);
+//            rr.setData(vo);
         }catch (Exception ex){
             rr = ReturnResult.FAILUER("查看事件详情出错");
             ex.printStackTrace();

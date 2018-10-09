@@ -9,9 +9,10 @@
     <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
     <result column="NOTE" jdbcType="VARCHAR" property="note" />
     <result column="SMS" jdbcType="VARCHAR" property="sms" />
+    <result column="EVENT_ID" jdbcType="INTEGER" property="eventId" />
   </resultMap>
   <sql id="Base_Column_List">
-    ID, NODE, USER_ID, ORGAN_ID, CREATE_TIME, NOTE, SMS
+    ID, NODE, USER_ID, ORGAN_ID, CREATE_TIME, NOTE, SMS, EVENT_ID
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -26,10 +27,10 @@
   <insert id="insert" parameterType="com.yf.base.model.emergency.EmergencyEventProcess">
     insert into emergency_event_process (ID, NODE, USER_ID, 
       ORGAN_ID, CREATE_TIME, NOTE, 
-      SMS)
+      SMS, EVENT_ID)
     values (#{id,jdbcType=INTEGER}, #{node,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, 
       #{organId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{note,jdbcType=VARCHAR}, 
-      #{sms,jdbcType=VARCHAR})
+      #{sms,jdbcType=VARCHAR}, #{eventId,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.yf.base.model.emergency.EmergencyEventProcess">
     insert into emergency_event_process
@@ -55,6 +56,9 @@
       <if test="sms != null">
         SMS,
       </if>
+      <if test="eventId != null">
+        EVENT_ID,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -77,6 +81,9 @@
       </if>
       <if test="sms != null">
         #{sms,jdbcType=VARCHAR},
+      </if>
+      <if test="eventId != null">
+        #{eventId,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -101,6 +108,9 @@
       <if test="sms != null">
         SMS = #{sms,jdbcType=VARCHAR},
       </if>
+      <if test="eventId != null">
+        EVENT_ID = #{eventId,jdbcType=INTEGER},
+      </if>
     </set>
     where ID = #{id,jdbcType=INTEGER}
   </update>
@@ -111,7 +121,8 @@
       ORGAN_ID = #{organId,jdbcType=INTEGER},
       CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
       NOTE = #{note,jdbcType=VARCHAR},
-      SMS = #{sms,jdbcType=VARCHAR}
+      SMS = #{sms,jdbcType=VARCHAR},
+      EVENT_ID = #{eventId,jdbcType=INTEGER}
     where ID = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
