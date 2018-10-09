@@ -39,6 +39,11 @@ var groupList = new Vue({
                     groupList.$data.groupList = result.data;
                 });
         },
+        addUi: function() {
+            this.groupModel={};
+            $('#addUserSelect').select2().val(null).trigger('change');
+            $('#divAddGroup').modal('show');
+        },
         addGroup: function () {
             var selectedIds = $("#addUserSelect").val().join(",");//获取多选输入框选中值的方式
             this.groupModel.selectedUserIds = selectedIds;
@@ -59,7 +64,7 @@ var groupList = new Vue({
                 .then(function (result) {
                     groupList.$data.groupModel = result.data;
                     $('#editUserSelect').select2().val(result.data.selectedUserIds.split(",")).trigger('change');
-                });
+        });
         },
         editGroup: function () {
             var selectedIds = $("#editUserSelect").val().join(",");//获取多选输入框选中值的方式

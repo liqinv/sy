@@ -67,6 +67,8 @@ var emergency = new Vue({
                 })
         },
         notice: function(statusKey) {
+            this.processModel = {};
+            $('#noticeGroupSelect').select2().val(null).trigger('change');
             this.noticeModel.type = statusKey;
             switch (statusKey) {
                 case "BD001":
@@ -90,7 +92,6 @@ var emergency = new Vue({
             var selectOpt = [];
             var options=document.getElementById('noticeGroupSelect').options;
             for(var i=0;i<options.length;i++){
-                //判断optin是否被选中了
                 if(options[i].selected){
                     selectOpt.push(options[i].text);
                 }
@@ -99,7 +100,17 @@ var emergency = new Vue({
             this.processModel.selectedGroupNames = selectedGroupNames;
 
             this.processModel.node = this.noticeModel.type;
+            this.processModel.eventId = this.eventModel.id;
             console.log(this.processModel);
+            var url = "/emergency/addProcess";
+            YF_HTTP
+                .post(url, this.processModel)
+                .then(function (result) {
+                    $('#divNotice').modal('hide');//关闭模态框
+                    Utils.showMsg("保存成功！",2000,"success");
+                    emergency.$data.eventModel = result.data;
+                    emergency.selectEventList();
+                })
         },
         initCategory: function () {
             var url = "/common/configList";

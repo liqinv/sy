@@ -11,4 +11,8 @@ public class EmergencyEventProcessVo extends EmergencyEventProcess {
     private String selectedGroupIds;
 
     private String selectedGroupNames;
+
+    private String userName;
+
+    private String organName;
 }

@@ -93,15 +93,18 @@ public class EmergencyController extends BaseController {
     }
 
     @ApiOperation(value="事件流程",  httpMethod ="POST")
-    @RequestMapping("/process")
+    @RequestMapping("/addProcess")
     @ResponseBody
-    public ReturnResult process(@RequestBody EmergencyEventProcessVo processVo){
+    public ReturnResult addProcess(@RequestBody EmergencyEventProcessVo processVo){
         ReturnResult rr = ReturnResult.SUCCESS();
         try {
-//            EmergencyEventVo vo = emergencyService.getDetailById(eventId);
-//            rr.setData(vo);
+            SysUserVo loginUser = this.getLoginUser();
+            emergencyService.addProcess(processVo, loginUser);
+
+            EmergencyEventVo vo = emergencyService.getDetailById(processVo.getEventId());
+            rr.setData(vo);
         }catch (Exception ex){
-            rr = ReturnResult.FAILUER("查看事件详情出错");
+            rr = ReturnResult.FAILUER("事件流程出错");
             ex.printStackTrace();
         }
         return rr;

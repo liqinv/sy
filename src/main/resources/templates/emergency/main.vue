@@ -151,7 +151,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>短信内容</label>
-                                    <textarea v-model="processModel.note" class="form-control" rows="3" maxlength="200" placeholder="短信内容" required="required"></textarea>
+                                    <textarea v-model="processModel.sms" class="form-control" rows="3" maxlength="200" placeholder="短信内容" required="required"></textarea>
                                 </div>
                             </div>
                             <div class="box-footer">

@@ -5,6 +5,8 @@ import com.yf.base.model.emergency.EmergencyEvent;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Setter
 @Getter
 public class EmergencyEventVo extends EmergencyEvent {
@@ -12,6 +14,8 @@ public class EmergencyEventVo extends EmergencyEvent {
     private String categoryName;
     private String typeName;
     private String statusName;
+
+    private List<EmergencyEventProcessVo> processVoList;
 
     public String getCategoryName() {
         return Constants.configMap.get(this.getCategory());
