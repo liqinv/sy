@@ -26,11 +26,12 @@
     <result column="LAST_UPDATE_USER_ID" jdbcType="INTEGER" property="lastUpdateUserId" />
     <result column="LAST_UPDATE_TIME" jdbcType="TIMESTAMP" property="lastUpdateTime" />
     <result column="ACTIVE" jdbcType="INTEGER" property="active" />
+    <result column="CODE" jdbcType="VARCHAR" property="code" />
   </resultMap>
   <sql id="Base_Column_List">
     ID, NAME, CATEGORY, TYPE, PLAN, REPORT_NAME, REPORT_PHONE, HAPPEN_TIME, END_TIME, 
     COMMUNITY, GRID, ADDRESS, LONGITUDE, LATITUDE, LEVEL, STATUS, CONTENT, NOTE, CREATE_USER_ID, 
-    CREATE_ORGAN_ID, CREATE_TIME, LAST_UPDATE_USER_ID, LAST_UPDATE_TIME, ACTIVE
+    CREATE_ORGAN_ID, CREATE_TIME, LAST_UPDATE_USER_ID, LAST_UPDATE_TIME, ACTIVE, CODE
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -42,7 +43,7 @@
     delete from emergency_event
     where ID = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.yf.base.model.emergency.EmergencyEvent">
+  <insert id="insert" parameterType="com.yf.base.model.emergency.EmergencyEvent">
     insert into emergency_event (ID, NAME, CATEGORY, 
       TYPE, PLAN, REPORT_NAME, 
       REPORT_PHONE, HAPPEN_TIME, END_TIME, 
@@ -50,8 +51,8 @@
       LONGITUDE, LATITUDE, LEVEL, 
       STATUS, CONTENT, NOTE, 
       CREATE_USER_ID, CREATE_ORGAN_ID, CREATE_TIME, 
-      LAST_UPDATE_USER_ID, LAST_UPDATE_TIME, ACTIVE
-      )
+      LAST_UPDATE_USER_ID, LAST_UPDATE_TIME, ACTIVE, 
+      CODE)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{category,jdbcType=VARCHAR}, 
       #{type,jdbcType=VARCHAR}, #{plan,jdbcType=VARCHAR}, #{reportName,jdbcType=VARCHAR}, 
       #{reportPhone,jdbcType=VARCHAR}, #{happenTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, 
@@ -59,10 +60,10 @@
       #{longitude,jdbcType=VARCHAR}, #{latitude,jdbcType=VARCHAR}, #{level,jdbcType=VARCHAR}, 
       #{status,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{note,jdbcType=VARCHAR}, 
       #{createUserId,jdbcType=INTEGER}, #{createOrganId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{lastUpdateUserId,jdbcType=INTEGER}, #{lastUpdateTime,jdbcType=TIMESTAMP}, #{active,jdbcType=INTEGER}
-      )
+      #{lastUpdateUserId,jdbcType=INTEGER}, #{lastUpdateTime,jdbcType=TIMESTAMP}, #{active,jdbcType=INTEGER}, 
+      #{code,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id" parameterType="com.yf.base.model.emergency.EmergencyEvent">
+  <insert id="insertSelective" parameterType="com.yf.base.model.emergency.EmergencyEvent">
     insert into emergency_event
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -136,6 +137,9 @@
       </if>
       <if test="active != null">
         ACTIVE,
+      </if>
+      <if test="code != null">
+        CODE,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -211,6 +215,9 @@
       <if test="active != null">
         #{active,jdbcType=INTEGER},
       </if>
+      <if test="code != null">
+        #{code,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.yf.base.model.emergency.EmergencyEvent">
@@ -285,6 +292,9 @@
       <if test="active != null">
         ACTIVE = #{active,jdbcType=INTEGER},
       </if>
+      <if test="code != null">
+        CODE = #{code,jdbcType=VARCHAR},
+      </if>
     </set>
     where ID = #{id,jdbcType=INTEGER}
   </update>
@@ -312,7 +322,8 @@
       CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
       LAST_UPDATE_USER_ID = #{lastUpdateUserId,jdbcType=INTEGER},
       LAST_UPDATE_TIME = #{lastUpdateTime,jdbcType=TIMESTAMP},
-      ACTIVE = #{active,jdbcType=INTEGER}
+      ACTIVE = #{active,jdbcType=INTEGER},
+      CODE = #{code,jdbcType=VARCHAR}
     where ID = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
