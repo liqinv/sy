@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yf.base.dao.group.vo.GroupUserVoMapper">
+    <resultMap id="BaseResultMap" type="com.yf.base.model.group.GroupUserKey">
+        <id column="GROUP_ID" jdbcType="INTEGER" property="groupId" />
+        <id column="USER_ID" jdbcType="INTEGER" property="userId" />
+    </resultMap>
+    <resultMap id="VoResultMap" type="com.yf.base.model.group.vo.GroupUserKeyVo" extends="BaseResultMap">
+        <result column="GROUP_NAME" property="groupName" jdbcType="VARCHAR"/>
+        <result column="USER_NAME" property="userName" jdbcType="VARCHAR"/>
+        <result column="USER_PHONE" property="userPhone" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="selectByGroupId"  resultMap="VoResultMap">
+        select
+        k.GROUP_ID, k.USER_ID, b.NAME as USER_NAME, b.PHONE as USER_PHONE, g.NAME as GROUP_NAME
+        from group_user k
+        left join sys_user b on b.ID = k.USER_ID
+        left join group_info g on g.ID = k.GROUP_ID
+        where k.GROUP_ID = #{groupId,jdbcType=INTEGER}
+    </select>
+</mapper>

@@ -2,13 +2,16 @@ package com.yf.base.service.emergency.impl;
 
 import com.yf.base.common.BaseDao;
 import com.yf.base.common.BaseServiceImpl;
+import com.yf.base.common.SmsUtil;
 import com.yf.base.dao.emergency.EmergencyEventMapper;
 import com.yf.base.dao.emergency.EmergencyEventProcessMapper;
 import com.yf.base.dao.emergency.vo.EmergencyEventProcessVoMapper;
 import com.yf.base.dao.emergency.vo.EmergencyEventVoMapper;
+import com.yf.base.dao.group.vo.GroupUserVoMapper;
 import com.yf.base.model.emergency.EmergencyEvent;
 import com.yf.base.model.emergency.vo.EmergencyEventProcessVo;
 import com.yf.base.model.emergency.vo.EmergencyEventVo;
+import com.yf.base.model.group.vo.GroupUserKeyVo;
 import com.yf.base.model.sys.vo.SysUserVo;
 import com.yf.base.service.emergency.EmergencyService;
 import org.springframework.stereotype.Service;
@@ -16,7 +19,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @Transactional
@@ -29,6 +34,8 @@ public class EmergencyServiceImpl extends BaseServiceImpl<EmergencyEvent,Integer
     private EmergencyEventProcessMapper processMapper;
     @Resource
     private EmergencyEventProcessVoMapper processVoMapper;
+    @Resource
+    private GroupUserVoMapper groupUserVoMapper;
     /**
     /**
      * 定义成抽象方法,由子类实现,完成dao的注入
@@ -81,5 +88,17 @@ public class EmergencyServiceImpl extends BaseServiceImpl<EmergencyEvent,Integer
         processVo.setCreateTime(new Date());
         processVo.setNote(processVo.getSelectedGroupNames());
         processMapper.insert(processVo);
+
+        //send SMS
+        Set<String> phoneSet = new HashSet<>();
+        String[] groupIds = processVo.getSelectedGroupIds().split(",");
+        for(String groupId : groupIds) {
+            List<GroupUserKeyVo> list = groupUserVoMapper.selectByGroupId(Integer.parseInt(groupId));
+            for (GroupUserKeyVo gu : list) {
+                phoneSet.add(gu.getUserPhone());
+            }
+        }
+        String[] mobiles = {};
+        SmsUtil.sendSMS(phoneSet.toArray(mobiles),processVo.getSms());
     }
 }
