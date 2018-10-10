@@ -27,7 +27,7 @@
         var baseUrl = [[${#servletContext.contextPath}]];
     </script>
 </head>
-<body class="hold-transition skin-purple sidebar-mini" id="layoutBody">
+<body class="hold-transition skin-blue sidebar-mini" id="layoutBody">
 <div class="wrapper">
     <!-- Main Header -->
     <header class="main-header">
