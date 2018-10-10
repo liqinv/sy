@@ -78,7 +78,7 @@ var groupList = new Vue({
                 })
         },
         deleteGroup: function (group) {
-            Utils.confirm("确认删除【"+this.groupModel.name+"】分组吗？",'warning').then(function(isOk){
+            Utils.confirm("确认删除【"+group.name+"】分组吗？",'warning').then(function(isOk){
                 if(isOk) {
                     var url = "/group/delete";
                     var param = Qs.stringify({groupId: group.id});
