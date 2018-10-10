@@ -130,39 +130,6 @@
             </div>
         </div>
 
-        <!-- 应急通知弹框 -->
-        <div class="modal fade bs-example-modal-sm" data-backdrop="static" id="divNotice" style="display: none;">
-            <div class="modal-dialog modal-sm">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span></button>
-                        <h4 class="modal-title">{{noticeModel.name}}通知</h4>
-                    </div>
-                    <div class="modal-body">
-                        <form role="form" v-on:submit.prevent="process()">
-                            <div class="box-body">
-
-                                <div class="form-group">
-                                    <label>通知群组</label>
-                                    <select id="noticeGroupSelect" class="form-control" multiple="multiple" data-placeholder="选择群组" required="required" style="width: 100%;">
-                                        <option v-for="group  in groupList" :value="group.id">{{group.name}}</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label>短信内容</label>
-                                    <textarea v-model="processModel.sms" class="form-control" rows="3" maxlength="200" placeholder="短信内容" required="required"></textarea>
-                                </div>
-                            </div>
-                            <div class="box-footer">
-                                <button type="submit" class="btn btn-primary pull-right"><i class="fa fa-save"></i> 提交</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <!-- 详情弹框 -->
         <div class="modal fade bs-example-modal-sm" data-backdrop="static" id="divDetail" style="display: none;">
             <div class="modal-dialog modal-sm" style="width:800px;">
@@ -273,25 +240,6 @@
                                                 </div>
                                             </div>
                                         </li>
-                                        <!--<li>
-                                            &lt;!&ndash; timeline icon &ndash;&gt;
-                                            <i class="fa fa-envelope bg-blue"></i>
-                                            <div class="timeline-item">
-                                                <span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
-
-                                                <h3 class="timeline-header"><a href="#">Support Team</a> ...</h3>
-
-                                                <div class="timeline-body">
-                                                    ...
-                                                    Content goes here
-                                                </div>
-
-                                                <div class="timeline-footer">
-                                                    <a class="btn btn-primary btn-xs">...</a>
-                                                </div>
-                                            </div>
-                                        </li>-->
-                                        <!-- END timeline item -->
                                     </ul>
                                 </div>
                             </div>
@@ -308,6 +256,41 @@
                 </div>
             </div>
         </div>
+
+        <!-- 应急通知弹框 -->
+        <div class="modal fade bs-example-modal-sm" data-backdrop="static" id="divNotice" style="display: none;">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span></button>
+                        <h4 class="modal-title">{{noticeModel.name}}通知</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form role="form" v-on:submit.prevent="process()">
+                            <div class="box-body">
+
+                                <div class="form-group">
+                                    <label>通知群组</label>
+                                    <select id="noticeGroupSelect" class="form-control" multiple="multiple" data-placeholder="选择群组" required="required" style="width: 100%;">
+                                        <option v-for="group  in groupList" :value="group.id">{{group.name}}</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>短信内容</label>
+                                    <textarea v-model="processModel.sms" class="form-control" rows="3" maxlength="200" placeholder="短信内容" required="required"></textarea>
+                                </div>
+                            </div>
+                            <div class="box-footer">
+                                <button type="submit" class="btn btn-primary pull-right"><i class="fa fa-save"></i> 提交</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
     </div>
 
 
