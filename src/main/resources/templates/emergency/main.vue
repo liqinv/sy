@@ -120,7 +120,7 @@
                             <div class="box-footer">
                                 <button v-if="eventModel.id == null || eventModel.status=='BA005'" type="submit" class="btn btn-primary pull-right"><i class="fa fa-save"></i> 保存</button>
                                 <button v-on:click="notice('BD001')" v-if="eventModel.id != null && eventModel.status=='BA005'" type="button" class="btn btn-primary pull-right"><i class="fa fa-save"></i> 应急准备</button>
-                                <button v-on:click="notice('BD003')" v-if="eventModel.id != null && (eventModel.status == 'BA005' || eventModel.status == 'BA001')" type="button" class="btn btn-primary pull-right"><i class="fa fa-save"></i> 应急启动</button>
+                                <button v-on:click="notice('BD003')" v-if="eventModel.id != null && eventModel.status == 'BA001'" type="button" class="btn btn-primary pull-right"><i class="fa fa-save"></i> 应急启动</button>
                                 <button v-on:click="notice('BD002')" v-if="eventModel.id != null && eventModel.status == 'BA001'" type="button" class="btn btn-primary pull-right"><i class="fa fa-save"></i> 应急取消</button>
                                 <button v-on:click="notice('BD004')" v-if="eventModel.id != null && eventModel.status == 'BA003'" type="button" class="btn btn-primary pull-right"><i class="fa fa-save"></i> 应急解除</button>
                             </div>
@@ -230,9 +230,14 @@
                                                 <h3 class="timeline-header"><a href="#">{{process.nodeName}}</a></h3>
 
                                                 <div class="timeline-body">
-                                                    短信内容：{{process.sms}}
-                                                    <br/><br/>
-                                                    <a href="#" class="name">短信通知：{{process.note}}</a>
+                                                    <template v-if="process.node == 'BD005'">
+                                                        续报内容：{{process.note}}
+                                                    </template>
+                                                    <template v-else>
+                                                        短信内容：{{process.sms}}
+                                                        <br/><br/>
+                                                        <a href="#" class="name">短信通知：{{process.note}}</a>
+                                                    </template>
                                                 </div>
 
                                                 <div class="timeline-footer">
@@ -246,10 +251,11 @@
                         </div>
 
                         <div class="box-footer">
-                            <button v-on:click="notice('BD001')" v-if="eventModel.id != null && eventModel.status=='BA005'" type="button" class="btn btn-primary pull-right"><i class="fa fa-save"></i> 应急准备</button>
-                            <button v-on:click="notice('BD003')" v-if="eventModel.id != null && (eventModel.status == 'BA005' || eventModel.status == 'BA001')" type="button" class="btn btn-primary pull-right"><i class="fa fa-save"></i> 应急启动</button>
+                            <button v-on:click="notice('BD001')" v-if="eventModel.id != null && eventModel.status == 'BA005'" type="button" class="btn btn-primary pull-right"><i class="fa fa-save"></i> 应急准备</button>
+                            <button v-on:click="notice('BD003')" v-if="eventModel.id != null && eventModel.status == 'BA001'" type="button" class="btn btn-primary pull-right"><i class="fa fa-save"></i> 应急启动</button>
                             <button v-on:click="notice('BD002')" v-if="eventModel.id != null && eventModel.status == 'BA001'" type="button" class="btn btn-primary pull-right"><i class="fa fa-save"></i> 应急取消</button>
                             <button v-on:click="notice('BD004')" v-if="eventModel.id != null && eventModel.status == 'BA003'" type="button" class="btn btn-primary pull-right"><i class="fa fa-save"></i> 应急解除</button>
+                            <button v-on:click="reportUi()" v-if="eventModel.id != null && eventModel.status != 'BA005'" type="button" class="btn btn-primary pull-right"><i class="fa fa-save"></i> 续报</button>
 
                         </div>
                     </div>
@@ -289,7 +295,30 @@
                 </div>
             </div>
         </div>
-
+        <!-- 续报弹框 -->
+        <div class="modal fade bs-example-modal-sm" data-backdrop="static" id="divContinue" style="display: none;">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span></button>
+                        <h4 class="modal-title">续报内容</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form role="form" v-on:submit.prevent="report()">
+                            <div class="box-body">
+                                <div class="form-group">
+                                    <textarea v-model="processModel.note" class="form-control" rows="3" maxlength="200" placeholder="续报内容" required="required"></textarea>
+                                </div>
+                            </div>
+                            <div class="box-footer">
+                                <button type="submit" class="btn btn-primary pull-right"><i class="fa fa-save"></i> 提交</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </div>
 

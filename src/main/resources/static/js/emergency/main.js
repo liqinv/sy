@@ -64,7 +64,7 @@ var emergency = new Vue({
             YF_HTTP
                 .post(url, this.eventModel)
                 .then(function (result) {
-                    //$('#divAddEvent').modal('hide');//关闭模态框
+
                     Utils.showMsg("保存成功！",2000,"success");
                     emergency.$data.eventModel = result.data;
                     emergency.selectEventList();
@@ -122,6 +122,27 @@ var emergency = new Vue({
                 .post(url, this.processModel)
                 .then(function (result) {
                     $('#divNotice').modal('hide');//关闭模态框
+                    Utils.showMsg("保存成功！",2000,"success");
+                    emergency.$data.eventModel = result.data;
+                    emergency.selectEventList();
+                    if (emergency.$data.processModel.node == "BD001") {
+                        $('#divAddEvent').modal('hide');//关闭模态框
+                        $('#divDetail').modal('show');
+                    }
+                })
+        },
+        reportUi: function() {
+            this.processModel = {};
+            $('#divContinue').modal('show');
+        },
+        report: function() {
+            this.processModel.node = "BD005";
+            this.processModel.eventId = this.eventModel.id;
+            var url = "/emergency/addProcess";
+            YF_HTTP
+                .post(url, this.processModel)
+                .then(function (result) {
+                    $('#divContinue').modal('hide');//关闭模态框
                     Utils.showMsg("保存成功！",2000,"success");
                     emergency.$data.eventModel = result.data;
                     emergency.selectEventList();

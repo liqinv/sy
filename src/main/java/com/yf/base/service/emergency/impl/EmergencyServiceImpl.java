@@ -76,6 +76,9 @@ public class EmergencyServiceImpl extends BaseServiceImpl<EmergencyEvent,Integer
             case "BD004":
                 eventStatus = "BA004";
                 break;
+            case "BD005":
+                eventStatus = null;
+                break;
         }
         EmergencyEvent event = new EmergencyEvent();
         event.setId(processVo.getEventId());
@@ -86,19 +89,24 @@ public class EmergencyServiceImpl extends BaseServiceImpl<EmergencyEvent,Integer
         processVo.setUserId(loginUser.getId());
         processVo.setOrganId(loginUser.getOrganId());
         processVo.setCreateTime(new Date());
-        processVo.setNote(processVo.getSelectedGroupNames());
+        if (processVo.getSelectedGroupNames() != null) {
+            processVo.setNote(processVo.getSelectedGroupNames());
+        }
         processMapper.insert(processVo);
 
-        //send SMS
-        Set<String> phoneSet = new HashSet<>();
-        String[] groupIds = processVo.getSelectedGroupIds().split(",");
-        for(String groupId : groupIds) {
-            List<GroupUserKeyVo> list = groupUserVoMapper.selectByGroupId(Integer.parseInt(groupId));
-            for (GroupUserKeyVo gu : list) {
-                phoneSet.add(gu.getUserPhone());
+        if (!"BD005".equals(processVo.getNode())) {
+            //send SMS
+            Set<String> phoneSet = new HashSet<>();
+            String[] groupIds = processVo.getSelectedGroupIds().split(",");
+            for(String groupId : groupIds) {
+                List<GroupUserKeyVo> list = groupUserVoMapper.selectByGroupId(Integer.parseInt(groupId));
+                for (GroupUserKeyVo gu : list) {
+                    phoneSet.add(gu.getUserPhone());
+                }
             }
+            String[] mobiles = {};
+            SmsUtil.sendSMS(phoneSet.toArray(mobiles),processVo.getSms());
         }
-        String[] mobiles = {};
-        SmsUtil.sendSMS(phoneSet.toArray(mobiles),processVo.getSms());
+
     }
 }
