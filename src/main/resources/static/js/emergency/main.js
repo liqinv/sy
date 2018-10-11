@@ -21,14 +21,46 @@ var emergency = new Vue({
         this.initMap();
         this.initData();
 
+
     },
     methods: {
         initData: function() {
             this.initCategory();
             this.initType();
             this.initGroup();
-        },
 
+        },
+        initSaveUi: function() {
+            $("#happenTime").datetimepicker({
+                language: 'zh-CN',
+                autoclose: true,
+                todayHighlight: true,
+                minuteStep: 10
+            }).on("changeDate", function (e) {
+                console.log(e.date);
+                var selectTime = Utils.dateFormat(e.date);
+                emergency.$data.eventModel.happenTime = selectTime.substring(0, selectTime.length - 3) + ":00";
+            });
+            $("#event-files").fileinput({
+                language: 'zh',
+                theme: 'explorer-fa',
+                uploadUrl: '#',
+                showCaption: false,
+                dropZoneEnabled: false,
+                overwriteInitial: false,
+                initialPreviewAsData: true,
+                /*initialPreview: [
+                    "http://lorempixel.com/1920/1080/nature/1",
+                    "http://lorempixel.com/1920/1080/nature/2",
+                    "http://lorempixel.com/1920/1080/nature/3"
+                ],
+                initialPreviewConfig: [
+                    {caption: "nature-1.jpg", size: 329892, width: "120px", url: "{$url}", key: 1},
+                    {caption: "nature-2.jpg", size: 872378, width: "120px", url: "{$url}", key: 2},
+                    {caption: "nature-3.jpg", size: 632762, width: "120px", url: "{$url}", key: 3}
+                ]*/
+            });
+        },
         selectEventList: function() {
             var url = "/emergency/list";
             YF_HTTP
@@ -57,6 +89,7 @@ var emergency = new Vue({
                 $('#addEventSelect').select2().val( this.typeList[0].children[0].configKey).trigger('change');
                 $('#divAddEvent').modal('show');
             }
+            this.initSaveUi();
         },
         saveEvent: function () {
             this.eventModel.type = $("#addEventSelect").val();

@@ -5,8 +5,10 @@
       layout:decorate="~{/layout/layout}"
       xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <head>
-    <title>人员分组</title>
+    <title>应急指挥</title>
     <link rel="stylesheet" th:href="@{/bootstrap/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css}">
+    <link rel="stylesheet" th:href="@{/bootstrap/bootstrap-fileinput/css/fileinput.min.css}">
+    <link rel="stylesheet" th:href="@{/bootstrap/bootstrap-fileinput/themes/explorer-fa/theme.min.css}">
     <style type="text/css">
         #allmap {
             width: 100%;
@@ -115,6 +117,12 @@
                                 <div class="form-group col-sm-6">
                                     <label for="note">备注</label>
                                     <textarea class="form-control" id="note" rows="3" cols="40" v-model="eventModel.note"></textarea>
+                                </div>
+                                <div class="form-group col-sm-12">
+                                    <label>文件上传</label>
+                                    <div class="file-loading">
+                                        <input id="event-files" type="file" multiple>
+                                    </div>
                                 </div>
                             </div>
                             <div class="box-footer">
@@ -322,34 +330,21 @@
                 </div>
             </div>
         </div>
-
     </div>
-
-
     <th:block layout:fragment="javascript">
         <script type="text/javascript" src="http://api.map.baidu.com/api?v=3.0&ak=EDksscNlh4crvQIrlgHuKOPZ"></script>
         <script th:src="@{/js/emergency/main.js}"></script>
         <script th:src="@{/adminlte/components/select2/js/select2.full.min.js}"></script>
         <script th:src="@{/bootstrap/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js}"></script>
         <script th:src="@{/bootstrap/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js}"></script>
-        <script>
-            $(function () {
-                $("#addEventSelect").select2();
-                $("#noticeGroupSelect").select2();
+        <script th:src="@{/bootstrap/bootstrap-fileinput/js/fileinput.js}"></script>
+        <script th:src="@{/bootstrap/bootstrap-fileinput/js/locales/zh.js}"></script>
+        <script th:src="@{/bootstrap/bootstrap-fileinput/themes/explorer-fa/theme.js}"></script>
+        <script th:src="@{/bootstrap/bootstrap-fileinput/themes/fa/theme.js}"></script>
 
-                $("#happenTime").datetimepicker({
-                    language: 'zh-CN',
-                    autoclose: true,
-                    todayHighlight: true,
-                    minuteStep: 10
-                }).on("changeDate", function (e) {
-                    console.log(e.date);
-                    var selectTime = Utils.dateFormat(e.date);
-                    emergency.$data.eventModel.happenTime = selectTime.substring(0, selectTime.length - 3) + ":00";
-                });
-            })
-        </script>
     </th:block>
+
+
 </div>
 </body>
 </html>
