@@ -39,6 +39,10 @@ public class EmergencyController extends BaseController {
         ReturnResult rr = ReturnResult.SUCCESS();
         try {
 
+//            if(!StringUtils.isBlank(param.getFileJson())){
+//                List<SysFile> fileList = JSON.parseArray(param.getFileJson(),SysFile.class);
+//                param.setFileList(fileList);
+//            }
             SysUserVo loginUser = this.getLoginUser();
             if (param.getId() == null) {
                 param.setStatus("BA005");
@@ -48,11 +52,11 @@ public class EmergencyController extends BaseController {
                 param.setCreateOrganId(loginUser.getOrganId());
                 param.setLastUpdateUserId(loginUser.getId());
                 param.setLastUpdateTime(new Date());
-                emergencyService.insert(param);
+                emergencyService.addEvent(param);
             } else {
                 param.setCreateOrganId(loginUser.getOrganId());
                 param.setLastUpdateUserId(loginUser.getId());
-                emergencyService.update(param);
+                emergencyService.updateEvent(param);
             }
             rr.setData(param);
         }catch (Exception ex){

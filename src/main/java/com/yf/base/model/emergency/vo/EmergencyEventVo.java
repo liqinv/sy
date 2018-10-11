@@ -2,6 +2,7 @@ package com.yf.base.model.emergency.vo;
 
 import com.yf.base.common.Constants;
 import com.yf.base.model.emergency.EmergencyEvent;
+import com.yf.base.model.sys.SysFile;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,6 +17,10 @@ public class EmergencyEventVo extends EmergencyEvent {
     private String statusName;
 
     private List<EmergencyEventProcessVo> processVoList;
+
+    private List<SysFile> fileList;
+
+    private String fileJson;
 
     public String getCategoryName() {
         return Constants.configMap.get(this.getCategory());

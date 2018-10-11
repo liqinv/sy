@@ -8,10 +8,12 @@ import com.yf.base.dao.emergency.EmergencyEventProcessMapper;
 import com.yf.base.dao.emergency.vo.EmergencyEventProcessVoMapper;
 import com.yf.base.dao.emergency.vo.EmergencyEventVoMapper;
 import com.yf.base.dao.group.vo.GroupUserVoMapper;
+import com.yf.base.dao.sys.SysFileMapper;
 import com.yf.base.model.emergency.EmergencyEvent;
 import com.yf.base.model.emergency.vo.EmergencyEventProcessVo;
 import com.yf.base.model.emergency.vo.EmergencyEventVo;
 import com.yf.base.model.group.vo.GroupUserKeyVo;
+import com.yf.base.model.sys.SysFile;
 import com.yf.base.model.sys.vo.SysUserVo;
 import com.yf.base.service.emergency.EmergencyService;
 import org.springframework.stereotype.Service;
@@ -36,6 +38,8 @@ public class EmergencyServiceImpl extends BaseServiceImpl<EmergencyEvent,Integer
     private EmergencyEventProcessVoMapper processVoMapper;
     @Resource
     private GroupUserVoMapper groupUserVoMapper;
+    @Resource
+    private SysFileMapper sysFileMapper;
     /**
     /**
      * 定义成抽象方法,由子类实现,完成dao的注入
@@ -55,6 +59,11 @@ public class EmergencyServiceImpl extends BaseServiceImpl<EmergencyEvent,Integer
     @Override
     public EmergencyEventVo getDetailById(Integer id) {
         EmergencyEventVo eventVo = eventVoMapper.getDetailById(id);
+        SysFile fileParam = new SysFile();
+        fileParam.setConnectId(id);
+        fileParam.setTableName("emergency_event");
+        List<SysFile> fileList = sysFileMapper.selectByParam(fileParam);
+        eventVo.setFileList(fileList);
         List<EmergencyEventProcessVo> processVoList = processVoMapper.selectByEventId(id);
         eventVo.setProcessVoList(processVoList);
         return eventVo;
@@ -108,5 +117,31 @@ public class EmergencyServiceImpl extends BaseServiceImpl<EmergencyEvent,Integer
             SmsUtil.sendSMS(phoneSet.toArray(mobiles),processVo.getSms());
         }
 
+    }
+
+    @Override
+    public void addEvent(EmergencyEventVo vo) {
+        eventMapper.insert(vo);
+        if(vo.getFileList() != null && vo.getFileList().size() > 0) {
+            for(SysFile sysFile : vo.getFileList()) {
+                sysFile.setTableName("emergency_event");
+                sysFile.setConnectId(vo.getId());
+                sysFileMapper.insert(sysFile);
+            }
+        }
+    }
+
+    @Override
+    public void updateEvent(EmergencyEventVo vo) {
+        eventMapper.updateByPrimaryKeySelective(vo);
+        if(vo.getFileList() != null && vo.getFileList().size() > 0) {
+            for(SysFile sysFile : vo.getFileList()) {
+                sysFile.setTableName("emergency_event");
+                sysFile.setConnectId(vo.getId());
+                if(sysFile.getId() == null) {
+                    sysFileMapper.insert(sysFile);
+                }
+            }
+        }
     }
 }

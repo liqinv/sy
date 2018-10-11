@@ -16,4 +16,8 @@ public interface EmergencyService extends BaseService<EmergencyEvent,Integer> {
 
     void addProcess(EmergencyEventProcessVo processVo, SysUserVo loginUser);
 
+    void addEvent(EmergencyEventVo vo);
+
+    void updateEvent(EmergencyEventVo vo);
+
 }
