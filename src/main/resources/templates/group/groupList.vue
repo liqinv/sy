@@ -162,12 +162,7 @@
         <script th:src="@{/js/component/page-component.js}"></script>
         <script th:src="@{/js/group/groupList.js}"></script>
         <script th:src="@{/adminlte/components/select2/js/select2.full.min.js}"></script>
-        <script>
-            $(function () {
-                $("#addUserSelect").select2();
-                $("#editUserSelect").select2();
-            })
-        </script>
+
     </th:block>
 </div>
 </body>
