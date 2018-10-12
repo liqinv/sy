@@ -1,5 +1,6 @@
 package com.yf.base.service.emergency.impl;
 
+import cn.hutool.core.date.DateUtil;
 import com.yf.base.common.BaseDao;
 import com.yf.base.common.BaseServiceImpl;
 import com.yf.base.common.SmsUtil;
@@ -16,6 +17,7 @@ import com.yf.base.model.group.vo.GroupUserKeyVo;
 import com.yf.base.model.sys.SysFile;
 import com.yf.base.model.sys.vo.SysUserVo;
 import com.yf.base.service.emergency.EmergencyService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -92,6 +94,9 @@ public class EmergencyServiceImpl extends BaseServiceImpl<EmergencyEvent,Integer
         EmergencyEvent event = new EmergencyEvent();
         event.setId(processVo.getEventId());
         event.setStatus(eventStatus);
+        if ("BA001".equals(eventStatus)) {
+            event.setCode(this.getNextEventCode());
+        }
         event.setLastUpdateTime(new Date());
         event.setLastUpdateUserId(loginUser.getId());
         eventMapper.updateByPrimaryKeySelective(event);
@@ -143,5 +148,24 @@ public class EmergencyServiceImpl extends BaseServiceImpl<EmergencyEvent,Integer
                 }
             }
         }
+    }
+
+    private String getNextEventCode() {
+        String nextCode = "NO.";
+        nextCode = nextCode + DateUtil.format(new Date(), "yyyyMMdd");
+        String maxEventCode = eventVoMapper.getMaxEventCode();
+        if (StringUtils.isNotBlank(maxEventCode)) {
+            if (maxEventCode.startsWith(maxEventCode)) {
+                int maxCodeInt = Integer.parseInt(maxEventCode.substring(nextCode.length(), maxEventCode.length())) + 1;
+                String strMaxCode = String.valueOf(maxCodeInt);
+                String strTemp = "000";
+                nextCode = nextCode + strTemp.substring(0, 3 - strMaxCode.length()) + strMaxCode;
+            } else {
+                nextCode = nextCode + "001";
+            }
+        } else {
+            nextCode = nextCode + "001";
+        }
+        return nextCode;
     }
 }

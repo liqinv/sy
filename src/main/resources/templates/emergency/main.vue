@@ -45,13 +45,29 @@
                     <div class="box-body" style="overflow:scroll; max-height:500px;">
                         <div class="box-footer box-comments">
                             <div class="box-comment" v-for="r in eventList" v-on:click="saveUi(r.id)" style="cursor:pointer;" >
-                                <span class="username">
+                                <!--<span class="username">
                                 {{r.statusName}}
                                     <span class="text-muted pull-right"><i class="fa fa-clock-o"></i>{{r.happenTime}}</span>
                                 </span>
                                 <a href="#" class="name">{{r.name}}</a>
                                 <br/>
-                                {{r.content}}
+                                {{r.content}}-->
+                                <div class="form-group">
+                                    <span>{{r.code}}</span>
+                                    <span v-if="r.status == 'BA001'" class="label label-warning pull-right">{{r.statusName}}</span>
+                                    <span v-if="r.status == 'BA002' || r.status == 'BA004'" class="label label-success pull-right">{{r.statusName}}</span>
+                                    <span v-if="r.status == 'BA003'" class="label label-danger pull-right">{{r.statusName}}</span>
+                                    <span v-if="r.status == 'BA005'" class="label label-default pull-right">{{r.statusName}}</span>
+                                </div>
+                                <div class="">
+                                    <a href="#" class="name">{{r.name}}</a>
+                                </div>
+                                <div class="">
+                                    <span>{{r.content}}</span>
+                                </div>
+                                <div class="">
+                                    <span class="text-muted pull-right"><i class="fa fa-clock-o"></i> {{r.happenTime}}</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -151,15 +167,15 @@
                         <div class="box-body">
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <div class="form-group">
+                                    <div class="form-group  col-sm-12">
                                         <div class="col-sm-5 control-label">
                                             名称
                                         </div>
                                         <div class="col-sm-7">
                                             <label>{{eventModel.name}}</label>
                                         </div>
-                                    </div><br/>
-                                    <div class="form-group">
+                                    </div>
+                                    <div class="form-group col-sm-12">
                                         <div class="col-sm-5 control-label">
                                             类别
                                         </div>
@@ -167,47 +183,47 @@
                                             <label>{{eventModel.categoryName}}</label>
                                         </div>
                                     </div><br/>
-                                    <div class="form-group">
+                                    <div class="form-group col-sm-12">
                                         <div class="col-sm-5 control-label">
                                             类型
                                         </div>
                                         <div class="col-sm-7">
                                             <label>{{eventModel.typeName}}</label>
                                         </div>
-                                    </div><br/>
-                                    <div class="form-group">
+                                    </div>
+                                    <div class="form-group col-sm-12">
                                         <div class="col-sm-5 control-label">
                                             报送人姓名
                                         </div>
                                         <div class="col-sm-7">
                                             <label>{{eventModel.reportName}}</label>
                                         </div>
-                                    </div><br/>
-                                    <div class="form-group">
+                                    </div>
+                                    <div class="form-group col-sm-12">
                                         <div class="col-sm-5 control-label">
                                             报送人电话
                                         </div>
                                         <div class="col-sm-7">
                                             <label>{{eventModel.reportPhone}}</label>
                                         </div>
-                                    </div><br/>
-                                    <div class="form-group">
+                                    </div>
+                                    <div class="form-group col-sm-12">
                                         <div class="col-sm-5 control-label">
                                             地点
                                         </div>
                                         <div class="col-sm-7">
                                             <label>{{eventModel.address}}</label>
                                         </div>
-                                    </div><br/>
-                                    <div class="form-group">
+                                    </div>
+                                    <div class="form-group col-sm-12">
                                         <div class="col-sm-5 control-label">
                                             发生时间
                                         </div>
                                         <div class="col-sm-7">
                                             <label>{{eventModel.happenTime}}</label>
                                         </div>
-                                    </div><br/>
-                                    <div class="form-group">
+                                    </div>
+                                    <div class="form-group col-sm-12">
                                         <div class="col-sm-5 control-label">
                                             情况描述
                                         </div>
@@ -216,7 +232,7 @@
                                         </div>
                                     </div>
                                     <br/>
-                                    <div class="form-group">
+                                    <div class="form-group col-sm-12">
                                         <div class="col-sm-5 control-label">
                                             备注
                                         </div>
@@ -224,8 +240,7 @@
                                             <label>{{eventModel.note}}</label>
                                         </div>
                                     </div>
-                                    <br/>
-                                    <div class="form-group">
+                                    <div class="form-group col-sm-12">
                                         <!--<div class="col-sm-5 control-label">
                                             附件
                                         </div>-->

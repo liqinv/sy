@@ -9,4 +9,6 @@ public interface EmergencyEventVoMapper {
     List<EmergencyEventVo> selectByParam(EmergencyEventVo vo);
 
     EmergencyEventVo getDetailById(Integer id);
+
+    String getMaxEventCode();
 }

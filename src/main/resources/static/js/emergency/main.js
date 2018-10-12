@@ -275,7 +275,20 @@ var emergency = new Vue({
         },
         notice: function(statusKey) {
             if (this.eventModel.status == "BA005") {
-                this.saveEvent();
+                var files = $('#event-files').fileinput('getFileStack');
+                if (files.length > 0) {
+                    $("#event-files").fileinput("upload");
+                } else {
+                    this.eventModel.type = $("#addEventSelect").val();
+                    var url = "/emergency/save";
+                    YF_HTTP
+                        .post(url, this.eventModel)
+                        .then(function (result) {
+                            emergency.$data.eventModel = result.data;
+                            emergency.selectEventList();
+                        });
+                }
+
             }
             this.processModel = {};
             $('#noticeGroupSelect').select2().val(null).trigger('change');

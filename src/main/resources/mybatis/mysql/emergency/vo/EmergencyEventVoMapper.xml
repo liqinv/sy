@@ -54,4 +54,8 @@
     from emergency_event e
     where e.ID = #{id,jdbcType=INTEGER}
   </select>
+
+    <select id="getMaxEventCode" resultType="String">
+        select max(CODE) from emergency_event where ACTIVE=1
+    </select>
 </mapper>
