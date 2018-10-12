@@ -12,10 +12,11 @@
     <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
     <result column="CREATE_USER_ID" jdbcType="INTEGER" property="createUserId" />
     <result column="ACTIVE" jdbcType="INTEGER" property="active" />
+    <result column="FILE_SIZE" jdbcType="BIGINT" property="fileSize" />
   </resultMap>
   <sql id="Base_Column_List">
     ID, FILE_TYPE, FILE_NAME, ORIGINAL_PATH, THUMBNAIL_PATH, TABLE_NAME, CONNECT_ID, 
-    CREATE_TIME, CREATE_USER_ID, ACTIVE
+    CREATE_TIME, CREATE_USER_ID, ACTIVE, FILE_SIZE
   </sql>
   <select id="selectByParam" resultMap="BaseResultMap">
     select
@@ -37,11 +38,11 @@
     insert into sys_file (ID, FILE_TYPE, FILE_NAME, 
       ORIGINAL_PATH, THUMBNAIL_PATH, TABLE_NAME, 
       CONNECT_ID, CREATE_TIME, CREATE_USER_ID, 
-      ACTIVE)
+      ACTIVE,FILE_SIZE)
     values (#{id,jdbcType=INTEGER}, #{fileType,jdbcType=INTEGER}, #{fileName,jdbcType=VARCHAR}, 
       #{originalPath,jdbcType=VARCHAR}, #{thumbnailPath,jdbcType=VARCHAR}, #{tableName,jdbcType=VARCHAR}, 
       #{connectId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{createUserId,jdbcType=INTEGER}, 
-      #{active,jdbcType=INTEGER})
+      #{active,jdbcType=INTEGER},#{fileSize,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id" parameterType="com.yf.base.model.sys.SysFile">
     insert into sys_file
@@ -76,6 +77,9 @@
       <if test="active != null">
         ACTIVE,
       </if>
+      <if test="fileSize != null">
+        FILE_SIZE,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -107,6 +111,9 @@
       </if>
       <if test="active != null">
         #{active,jdbcType=INTEGER},
+      </if>
+      <if test="fileSize != null">
+        #{fileSize,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>

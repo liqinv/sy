@@ -119,12 +119,10 @@
                                     <textarea class="form-control" id="note" rows="3" cols="40" v-model="eventModel.note"></textarea>
                                 </div>
                                 <div class="form-group col-sm-12">
-                                    <label>文件上传</label>
-                                    <!--<form enctype="multipart/form-data">-->
+                                    <!--<label>文件上传</label>-->
                                     <div class="file-loading">
                                         <input id="event-files" type="file" multiple>
                                     </div>
-                                    <!--</form>-->
                                 </div>
                             </div>
                             <div class="box-footer">

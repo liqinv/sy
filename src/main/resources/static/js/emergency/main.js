@@ -91,7 +91,7 @@ var emergency = new Vue({
                     cc.key=file.id;
                     cc.extra={id: file.id};
                     cc.downloadUrl = file.originalPath;
-                    //cc.frameAttr= {style: 'height:10px'};
+                    cc.size = file.fileSize;
                     initialPreviewConfigData.push(cc);
                 }
             }
@@ -101,7 +101,7 @@ var emergency = new Vue({
                 maxFileCount: 3,
                 language: 'zh',
                 theme: 'explorer-fa',
-                uploadUrl: 'http://127.0.0.1:8888/common/fileUpload',
+                uploadUrl: '/common/fileUpload',
                 showCaption: false,
                 enctype:'multipart/form-data',
                 dropZoneEnabled: false,
@@ -113,6 +113,7 @@ var emergency = new Vue({
                     showRemove: true,
                     showUpload: false,
                     showZoom: true,
+                    showDrag: false,
                 },
                 preferIconicPreview: true, // 开启用图标替换预览效果
                 previewFileIconSettings: { // configure your icon file extensions
@@ -152,6 +153,7 @@ var emergency = new Vue({
                     'txt': function(ext) {
                         return ext.match(/(txt|ini|csv|java|php|js|css)$/i);
                     }
+
                 },
 
                 initialPreviewAsData: true,
@@ -159,7 +161,7 @@ var emergency = new Vue({
                 initialPreviewConfig: initialPreviewConfigData
 
             });
-
+            $('.file-preview').attr("style","overflow:scroll; max-height:150px;");
         },
         selectEventList: function() {
             var url = "/emergency/list";

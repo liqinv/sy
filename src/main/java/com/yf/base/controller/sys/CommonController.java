@@ -37,11 +37,10 @@ public class CommonController extends BaseController {
         try {
             MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
             Iterator<String> iter = multiRequest.getFileNames();
-            System.out.println("----------");
             while (iter.hasNext()) {
                 MultipartFile multipartFile = multiRequest.getFile(iter.next());
                 String fileName = multipartFile.getOriginalFilename();
-                System.out.println(fileName);
+                long fileSize = multipartFile.getSize();
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
                 String time = sdf.format(new Date());
                 // 获取文件扩展名
@@ -62,6 +61,7 @@ public class CommonController extends BaseController {
                 sysFile.setActive(1);
                 sysFile.setOriginalPath("/" + generatefileName);
                 sysFile.setFileName(fileName);
+                sysFile.setFileSize(fileSize);
                 if (extName.equals(".jpg") || extName.equals(".png") || extName.equals(".jpeg") || extName.equals(".gif")) {
                     sysFile.setFileType(1);
                     sysFile.setThumbnailPath("/" + generatefileName);
