@@ -20,7 +20,6 @@ public class EmergencyEventVo extends EmergencyEvent {
 
     private List<SysFile> fileList;
 
-    private String fileJson;
 
     public String getCategoryName() {
         return Constants.configMap.get(this.getCategory());

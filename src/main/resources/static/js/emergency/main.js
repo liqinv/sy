@@ -49,6 +49,9 @@ var emergency = new Vue({
             $("#event-files").on("fileuploaded", function (event, data, previewId, index) {
                 console.log(index+":::"+previewId+":::"+JSON.stringify(data.response));
                 if (data.response.code == 200) {
+                    if (!emergency.$data.eventModel.fileList) {
+                        emergency.$data.eventModel.fileList = [];
+                    }
                     emergency.$data.eventModel.fileList.push(data.response.data[0]);
                 }
             });
@@ -153,6 +156,70 @@ var emergency = new Vue({
             });
             $('.file-preview').attr("style","overflow:scroll; max-height:150px;");
         },
+        initFileInputDetail: function() {
+            var initialPreviewData = [];
+            var initialPreviewConfigData = [];
+            if(emergency.$data.eventModel.fileList) {
+                for(var i=0;i<emergency.$data.eventModel.fileList.length;i++) {
+                    var file = emergency.$data.eventModel.fileList[i];
+                    initialPreviewData.push(file.originalPath);
+                    var cc = {};
+                    cc.caption = file.fileName;
+                    cc.key=file.id;
+                    cc.downloadUrl = file.originalPath;
+                    cc.size = file.fileSize;
+                    initialPreviewConfigData.push(cc);
+                }
+            }
+
+            $("#event-files-detail").fileinput('destroy');
+            $("#event-files-detail").fileinput({
+                language: 'zh',
+                theme: 'explorer-fa',
+                showCaption: false,
+                dropZoneEnabled: false,
+                overwriteInitial: false,
+                showRemove: false,
+                showUpload: false,
+                showClose: false,
+                showBrowse: false,
+                fileActionSettings:{
+                    showRemove: false,
+                    showUpload: false,
+                    showZoom: true,
+                    showDrag: false,
+                },
+                preferIconicPreview: true, // 开启用图标替换预览效果
+                previewFileIconSettings: { // configure your icon file extensions
+                    'doc': '<i class="fa fa-file-word-o text-primary"></i>',
+                    'xls': '<i class="fa fa-file-excel-o text-success"></i>',
+                    'ppt': '<i class="fa fa-file-powerpoint-o text-danger"></i>',
+                    'pdf': '<i class="fa fa-file-pdf-o text-danger"></i>',
+                    'txt': '<i class="fa fa-file-text-o text-info"></i>',
+                    'zip': '<i class="fa fa-file-archive-o text-muted"></i>',
+                    'htm': '<i class="fa fa-file-code-o text-info"></i>',
+                    'mov': '<i class="fa fa-file-movie-o text-warning"></i>',
+                    'mp3': '<i class="fa fa-file-audio-o text-warning"></i>'
+                },
+
+                previewFileExtSettings: {
+                    'doc': function(ext) {return ext.match(/(doc|docx)$/i);},
+                    'xls': function(ext) {return ext.match(/(xls|xlsx)$/i);},
+                    'ppt': function(ext) {return ext.match(/(ppt|pptx)$/i);},
+                    'zip': function(ext) {return ext.match(/(zip|rar|tar|gzip|gz|7z)$/i);},
+                    'htm': function(ext) {return ext.match(/(htm|html)$/i);},
+                    'mov': function(ext) {return ext.match(/(avi|mpg|mkv|mov|mp4|3gp|webm|wmv)$/i);},
+                    'mp3': function(ext) {return ext.match(/(mp3|wav)$/i);},
+                    'txt': function(ext) {return ext.match(/(txt|ini|csv|java|php|js|css)$/i);}
+                },
+
+                initialPreviewAsData: true,
+                initialPreview: initialPreviewData,
+                initialPreviewConfig: initialPreviewConfigData
+
+            });
+            $('.file-preview').attr("style","overflow:scroll; max-height:230px;");
+        },
         selectEventList: function() {
             var url = "/emergency/list";
             YF_HTTP
@@ -169,10 +236,12 @@ var emergency = new Vue({
                     .then(function (result) {
                         emergency.$data.eventModel = result.data;
                         $('#addEventSelect').select2().val(result.data.type).trigger('change');
-                        emergency.initFileInput();
+
                         if (emergency.$data.eventModel.status == "BA005") {
+                            emergency.initFileInput();
                             $('#divAddEvent').modal('show');
                         } else {
+                            emergency.initFileInputDetail();
                             $('#divDetail').modal('show');
                         }
                     });
@@ -253,6 +322,7 @@ var emergency = new Vue({
                     emergency.selectEventList();
                     if (emergency.$data.processModel.node == "BD001") {
                         $('#divAddEvent').modal('hide');//关闭模态框
+                        emergency.initFileInputDetail();
                         $('#divDetail').modal('show');
                     }
                 })

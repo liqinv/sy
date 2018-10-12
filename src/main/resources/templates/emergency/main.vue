@@ -140,7 +140,7 @@
 
         <!-- 详情弹框 -->
         <div class="modal fade bs-example-modal-sm" data-backdrop="static" id="divDetail" style="display: none;">
-            <div class="modal-dialog modal-sm" style="width:800px;">
+            <div class="modal-dialog modal-sm" style="width:850px;">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -150,7 +150,7 @@
                     <div class="modal-body">
                         <div class="box-body">
                             <div class="row">
-                                <div class="col-sm-5">
+                                <div class="col-sm-6">
                                     <div class="form-group">
                                         <div class="col-sm-5 control-label">
                                             名称
@@ -224,9 +224,17 @@
                                             <label>{{eventModel.note}}</label>
                                         </div>
                                     </div>
-
+                                    <br/>
+                                    <div class="form-group">
+                                        <!--<div class="col-sm-5 control-label">
+                                            附件
+                                        </div>-->
+                                        <div class="file-loading">
+                                            <input id="event-files-detail" type="file" multiple>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-sm-7" style="overflow:scroll; max-height:500px;">
+                                <div class="col-sm-6" style="overflow:scroll; max-height:500px;">
                                     <ul class="timeline">
                                         <!-- timeline item -->
                                         <li v-for="process in eventModel.processVoList">
@@ -313,14 +321,16 @@
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">×</span></button>
-                        <h4 class="modal-title">续报内容</h4>
+                        <h4 class="modal-title">续报</h4>
                     </div>
                     <div class="modal-body">
                         <form role="form" v-on:submit.prevent="report()">
                             <div class="box-body">
                                 <div class="form-group">
+                                    <label for="address">内容</label>
                                     <textarea v-model="processModel.note" class="form-control" rows="3" maxlength="200" placeholder="续报内容" required="required"></textarea>
                                 </div>
+
                             </div>
                             <div class="box-footer">
                                 <button type="submit" class="btn btn-primary pull-right"><i class="fa fa-save"></i> 提交</button>
