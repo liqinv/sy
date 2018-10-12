@@ -4,6 +4,7 @@ import com.yf.base.common.BaseController;
 import com.yf.base.common.ReturnResult;
 import com.yf.base.model.sys.SysFile;
 import com.yf.base.model.sys.vo.SysConfigVo;
+import com.yf.base.service.sys.CommonService;
 import com.yf.base.service.sys.SysConfigService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -26,8 +27,8 @@ import java.util.*;
 public class CommonController extends BaseController {
     @Autowired
     private SysConfigService configService;
-
-    private static String UPLOADED_FOLDER = "D://emergency/";
+    @Autowired
+    private CommonService commonService;
 
     @ResponseBody
     @RequestMapping("/fileUpload") // //new annotation since 4.3
@@ -76,6 +77,13 @@ public class CommonController extends BaseController {
             e.printStackTrace();
         }
 
+        return rr;
+    }
+    @ResponseBody
+    @RequestMapping("/fileRemove") // //new annotation since 4.3
+    public ReturnResult fileRemove(HttpServletRequest request,Integer id) {
+        ReturnResult rr = ReturnResult.SUCCESS();
+        commonService.deleteFile(id);
         return rr;
     }
 

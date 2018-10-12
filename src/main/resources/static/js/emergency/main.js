@@ -53,15 +53,22 @@ var emergency = new Vue({
                 }
             });
             $("#event-files").on('fileerror', function(event, file, previewId, index) {
-                console.log('e:::i = ' + index + ', id = ' + previewId + ', file = ' + file.name);
+                console.log("fileerror");
             });
             $("#event-files").on("filebatchselected", function(event, files) {
-                //$("#event-files").fileinput("upload");
+                console.log("filebatchselected");
             });
-            $('#event-files').on('filesuccessremove', function(event, id) {
-                console.log('filesuccessremove::::'+id);
+            //初始化的文件删除回调
+            $('#event-files').on('filedeleted', function(event, key) {
+                console.log('filedeleted::::'+key);
+                for(var i=0;i<emergency.$data.eventModel.fileList.length;i++) {
+                    var file = emergency.$data.eventModel.fileList[i];
+                    if (key == file.id)  {
+                        emergency.$data.eventModel.fileList.splice(i,1);
+                    }
+                }
             });
-
+            //文件全部上传完成后回调
             $('#event-files').on('filebatchuploadcomplete', function(event, files, extra) {
                 console.log('File batch upload complete');
                 emergency.$data.eventModel.type = $("#addEventSelect").val();
@@ -87,7 +94,7 @@ var emergency = new Vue({
                     var cc = {};
                     cc.caption = file.fileName;
                     //cc.width = "120px";
-                    cc.url="/fileDelete";
+                    cc.url="/common/fileRemove";
                     cc.key=file.id;
                     cc.extra={id: file.id};
                     cc.downloadUrl = file.originalPath;
@@ -129,31 +136,14 @@ var emergency = new Vue({
                 },
 
                 previewFileExtSettings: {
-                    'doc': function(ext) {
-                        return ext.match(/(doc|docx)$/i);
-                    },
-                    'xls': function(ext) {
-                        return ext.match(/(xls|xlsx)$/i);
-                    },
-                    'ppt': function(ext) {
-                        return ext.match(/(ppt|pptx)$/i);
-                    },
-                    'zip': function(ext) {
-                        return ext.match(/(zip|rar|tar|gzip|gz|7z)$/i);
-                    },
-                    'htm': function(ext) {
-                        return ext.match(/(htm|html)$/i);
-                    },
-                    'mov': function(ext) {
-                        return ext.match(/(avi|mpg|mkv|mov|mp4|3gp|webm|wmv)$/i);
-                    },
-                    'mp3': function(ext) {
-                        return ext.match(/(mp3|wav)$/i);
-                    },
-                    'txt': function(ext) {
-                        return ext.match(/(txt|ini|csv|java|php|js|css)$/i);
-                    }
-
+                    'doc': function(ext) {return ext.match(/(doc|docx)$/i);},
+                    'xls': function(ext) {return ext.match(/(xls|xlsx)$/i);},
+                    'ppt': function(ext) {return ext.match(/(ppt|pptx)$/i);},
+                    'zip': function(ext) {return ext.match(/(zip|rar|tar|gzip|gz|7z)$/i);},
+                    'htm': function(ext) {return ext.match(/(htm|html)$/i);},
+                    'mov': function(ext) {return ext.match(/(avi|mpg|mkv|mov|mp4|3gp|webm|wmv)$/i);},
+                    'mp3': function(ext) {return ext.match(/(mp3|wav)$/i);},
+                    'txt': function(ext) {return ext.match(/(txt|ini|csv|java|php|js|css)$/i);}
                 },
 
                 initialPreviewAsData: true,
@@ -216,16 +206,8 @@ var emergency = new Vue({
         },
         notice: function(statusKey) {
             if (this.eventModel.status == "BA005") {
-                this.eventModel.type = $("#addEventSelect").val();
-                var url = "/emergency/save";
-                YF_HTTP
-                    .post(url, this.eventModel)
-                    .then(function (result) {
-                        emergency.$data.eventModel = result.data;
-                        emergency.selectEventList();
-                    });
+                this.saveEvent();
             }
-
             this.processModel = {};
             $('#noticeGroupSelect').select2().val(null).trigger('change');
             this.noticeModel.type = statusKey;
