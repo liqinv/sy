@@ -19,9 +19,8 @@ var emergency = new Vue({
     },
     mounted: function () {
         this.selectEventList();
-        this.initMap();
         this.initData();
-
+        this.initMap();
 
     },
     methods: {
