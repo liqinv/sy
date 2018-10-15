@@ -24,10 +24,10 @@
 
     <sql id="Where">
         <if test="name != null">
-            and g.NAME = #{name,jdbcType=VARCHAR},
+            and g.NAME = #{name,jdbcType=VARCHAR}
         </if>
         <if test="note != null">
-            and g.NOTE = #{note,jdbcType=VARCHAR},
+            and g.NOTE = #{note,jdbcType=VARCHAR}
         </if>
         <if test="searchCondition != null and searchCondition !=''">
             and (g.NAME like CONCAT('%',#{searchCondition},'%') or g.NOTE like CONCAT('%',#{searchCondition},'%'))
