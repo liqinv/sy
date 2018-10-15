@@ -26,11 +26,20 @@
                     <div class="box box-purple">
                         <div class="box-header">
                             <button type="button" class="pull-right margin-r-5 btn btn-primary" v-on:click="saveUi()"><i class="fa fa-plus"></i> 新增</button>
+
                             <div class="input-group margin-r-5 pull-right" style="width: 200px;">
+
                                 <input type="text" v-model="searchObj.searchCondition" class="form-control" maxlength="10" placeholder="请输入关键字">
                                 <span class="input-group-btn">
                                     <button type="button" class="btn btn-social-icon btn-primary" v-on:click="localList()"><i class="fa fa-search"></i></button>
                                 </span>
+                            </div>
+                            <div class="input-group margin-r-5 pull-right" style="width: 200px;">
+                                <select v-model="searchObj.type" class="form-control">
+                                    <option value="">全部类型</option>
+                                    <option v-for="type  in typeList" :value="type.configKey">{{type.configValue}}
+                                    </option>
+                                </select>
                             </div>
                         </div>
                         <!-- /.box-header -->

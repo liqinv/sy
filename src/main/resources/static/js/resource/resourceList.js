@@ -5,6 +5,7 @@ var resourceList = new Vue({
         searchObj: {  //搜索对象
             pageNo: 1,
             searchCondition: '',
+            type:''
         },
         resourceModel: {}, //临时缓存用
         typeList: {}
