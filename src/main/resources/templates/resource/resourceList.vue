@@ -7,6 +7,16 @@
 <head>
     <title>资源列表</title>
     <link rel="stylesheet" th:href="@{/bootstrap/datatables.net-bs/dataTables.bootstrap.min.css}">
+    <style type="text/css">
+        #selectmap {
+            width: 100%;
+            height: 362px;
+            overflow: hidden;
+            margin: 0;
+            font-family: "微软雅黑";
+            position: relative
+        }
+    </style>
 </head>
 <body>
 <div>
@@ -90,7 +100,7 @@
             </div>
             <!-- 保存弹框 -->
             <div class="modal fade bs-example-modal-sm" data-backdrop="static" id="divSave" style="display: none;">
-                <div class="modal-dialog modal-sm">
+                <div class="modal-dialog modal-sm" style="width:700px;">
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -100,28 +110,39 @@
                         <div class="modal-body">
                             <form role="form" v-on:submit.prevent="save()">
                                 <div class="box-body">
-                                    <div class="form-group">
-                                        <label>名称</label>
-                                        <input type="text" v-model="resourceModel.name" class="form-control" placeholder="名称" maxlength="30" required="required">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>类型</label>
-                                        <select v-model="resourceModel.type" class="form-control" required="required">
-                                            <option v-for="type  in typeList" :value="type.configKey">{{type.configValue}}
-                                            </option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>联系人</label>
-                                        <input type="text" v-model="resourceModel.linkMan" class="form-control" placeholder="联系人" maxlength="10">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>联系电话</label>
-                                        <input type="text" v-model="resourceModel.linkPhone" class="form-control" placeholder="联系电话" maxlength="20">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>备注</label>
-                                        <textarea v-model="resourceModel.note" class="form-control" rows="3" maxlength="200" placeholder="备注"></textarea>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>名称</label>
+                                                <input type="text" v-model="resourceModel.name" class="form-control" placeholder="名称" maxlength="30" required="required">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>类型</label>
+                                                <select v-model="resourceModel.type" class="form-control" required="required">
+                                                    <option v-for="type  in typeList" :value="type.configKey">{{type.configValue}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>联系人</label>
+                                                <input type="text" v-model="resourceModel.linkMan" class="form-control" placeholder="联系人" maxlength="10">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>联系电话</label>
+                                                <input type="text" v-model="resourceModel.linkPhone" class="form-control" placeholder="联系电话" maxlength="20">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>备注</label>
+                                                <textarea v-model="resourceModel.note" class="form-control" rows="3" maxlength="200" placeholder="备注"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>位置标识</label>
+                                                <div id="selectmap"></div>
+                                            </div>
+
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="box-footer">
@@ -136,6 +157,7 @@
         </section>
     </div>
     <th:block layout:fragment="javascript">
+        <script type="text/javascript" src="http://api.map.baidu.com/api?v=3.0&ak=EDksscNlh4crvQIrlgHuKOPZ"></script>
         <script th:src="@{/js/component/page-component.js}"></script>
         <script th:src="@{/js/resource/resourceList.js}"></script>
 
