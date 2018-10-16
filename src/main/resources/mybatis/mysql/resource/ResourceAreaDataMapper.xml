@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yf.base.dao.resource.ResourceAreaDataMapper">
+  <resultMap id="BaseResultMap" type="com.yf.base.model.resource.ResourceAreaData">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="LOCATION_X" jdbcType="VARCHAR" property="locationX" />
+    <result column="LOCATION_Y" jdbcType="VARCHAR" property="locationY" />
+    <result column="AREA_ID" jdbcType="INTEGER" property="areaId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, LOCATION_X, LOCATION_Y, AREA_ID
+  </sql>
+  <select id="selectByAreaId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from resource_area_data
+    where AREA_ID = #{areaId,jdbcType=INTEGER}
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from resource_area_data
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from resource_area_data
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yf.base.model.resource.ResourceAreaData">
+    insert into resource_area_data (ID, LOCATION_X, LOCATION_Y, 
+      AREA_ID)
+    values (#{id,jdbcType=INTEGER}, #{locationX,jdbcType=VARCHAR}, #{locationY,jdbcType=VARCHAR}, 
+      #{areaId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yf.base.model.resource.ResourceAreaData">
+    insert into resource_area_data
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="locationX != null">
+        LOCATION_X,
+      </if>
+      <if test="locationY != null">
+        LOCATION_Y,
+      </if>
+      <if test="areaId != null">
+        AREA_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="locationX != null">
+        #{locationX,jdbcType=VARCHAR},
+      </if>
+      <if test="locationY != null">
+        #{locationY,jdbcType=VARCHAR},
+      </if>
+      <if test="areaId != null">
+        #{areaId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yf.base.model.resource.ResourceAreaData">
+    update resource_area_data
+    <set>
+      <if test="locationX != null">
+        LOCATION_X = #{locationX,jdbcType=VARCHAR},
+      </if>
+      <if test="locationY != null">
+        LOCATION_Y = #{locationY,jdbcType=VARCHAR},
+      </if>
+      <if test="areaId != null">
+        AREA_ID = #{areaId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yf.base.model.resource.ResourceAreaData">
+    update resource_area_data
+    set LOCATION_X = #{locationX,jdbcType=VARCHAR},
+      LOCATION_Y = #{locationY,jdbcType=VARCHAR},
+      AREA_ID = #{areaId,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
