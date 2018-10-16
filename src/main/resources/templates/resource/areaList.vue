@@ -7,10 +7,11 @@
 <head>
     <title>社区列表</title>
     <link rel="stylesheet" th:href="@{/bootstrap/datatables.net-bs/dataTables.bootstrap.min.css}">
+    <link rel="stylesheet" href="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.css" />
     <style type="text/css">
         #selectmap {
             width: 100%;
-            height: 362px;
+            height: 300px;
             overflow: hidden;
             margin: 0;
             font-family: "微软雅黑";
@@ -92,12 +93,12 @@
             </div>
             <!-- 保存弹框 -->
             <div class="modal fade bs-example-modal-sm" data-backdrop="static" id="divSave" style="display: none;">
-                <div class="modal-dialog modal-sm" style="width:700px;">
+                <div class="modal-dialog modal-sm" style="width:850px;">
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">×</span></button>
-                            <h4 class="modal-title">保存资源</h4>
+                            <h4 class="modal-title">保存社区</h4>
                         </div>
                         <div class="modal-body">
                             <form role="form" v-on:submit.prevent="save()">
@@ -123,7 +124,7 @@
                                         </div>
                                         <div class="col-sm-6">
                                             <div class="form-group">
-                                                <label>区域标识</label>&nbsp;&nbsp;<button type="button" class="btn btn-primary btn-xs" v-on:click="drawPoint()"><i class="fa  fa-map-marker"></i> </button>
+                                                <label>区域标识</label>&nbsp;&nbsp;<button type="button" class="btn btn-primary btn-xs" v-on:click="clearArea()"><i class="fa  fa-close"></i> 清空</button>
                                                 <div id="selectmap"></div>
                                             </div>
 
@@ -143,6 +144,7 @@
     </div>
     <th:block layout:fragment="javascript">
         <script type="text/javascript" src="http://api.map.baidu.com/api?v=3.0&ak=EDksscNlh4crvQIrlgHuKOPZ"></script>
+        <script type="text/javascript" src="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.js"></script>
 
         <script th:src="@{/js/component/page-component.js}"></script>
         <script th:src="@{/js/resource/areaList.js}"></script>

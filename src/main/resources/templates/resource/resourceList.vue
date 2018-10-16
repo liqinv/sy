@@ -7,6 +7,7 @@
 <head>
     <title>资源列表</title>
     <link rel="stylesheet" th:href="@{/bootstrap/datatables.net-bs/dataTables.bootstrap.min.css}">
+    <link rel="stylesheet" href="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.css" />
     <style type="text/css">
         #selectmap {
             width: 100%;
@@ -138,7 +139,7 @@
                                         </div>
                                         <div class="col-sm-6">
                                             <div class="form-group">
-                                                <label>位置标识</label>&nbsp;&nbsp;<button type="button" class="btn btn-primary btn-xs" v-on:click="drawPoint()"><i class="fa  fa-map-marker"></i> </button>
+                                                <label>位置标识</label>&nbsp;&nbsp;<button type="button" class="btn btn-primary btn-xs" v-on:click="clearPoint()"><i class="fa  fa-close"></i> 清空</button>
                                                 <div id="selectmap"></div>
                                             </div>
 
@@ -158,6 +159,7 @@
     </div>
     <th:block layout:fragment="javascript">
         <script type="text/javascript" src="http://api.map.baidu.com/api?v=3.0&ak=EDksscNlh4crvQIrlgHuKOPZ"></script>
+        <script type="text/javascript" src="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.js"></script>
 
         <script th:src="@{/js/component/page-component.js}"></script>
         <script th:src="@{/js/resource/resourceList.js}"></script>

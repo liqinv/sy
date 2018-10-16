@@ -69,11 +69,11 @@ public class ResourceAreaController extends BaseController {
                 param.setCreateOrganId(loginUser.getOrganId());
                 param.setLastUpdateUserId(loginUser.getId());
                 param.setLastUpdateTime(new Date());
-                areaService.insert(param);
+                areaService.addArea(param);
             } else {
                 param.setCreateOrganId(loginUser.getOrganId());
                 param.setLastUpdateUserId(loginUser.getId());
-                areaService.update(param);
+                areaService.updateArea(param);
             }
             rr.setData(param);
         }catch (Exception ex){

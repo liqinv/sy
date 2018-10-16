@@ -59,18 +59,13 @@ var resourceList = new Vue({
                     .get(url)
                     .then(function (result) {
                         resourceList.$data.resourceModel = result.data;
-                        if(resourceList.$data.resourceModel.locationX) {
-                            var point = new BMap.Point(resourceList.$data.resourceModel.locationX, resourceList.$data.resourceModel.locationY);
-                            var marker = new BMap.Marker(point); // 创建标注
-                            resourceList.$data.map.addOverlay(marker);// 将标注添加到地图中
-                            //resourceList.$data.map.centerAndZoom(point,8);
-                        }
+                        resourceList.initPoint();
 
                         $('#divSave').modal('show');
                     });
             } else {
                 this.resourceModel = {};
-                this.map.clearOverlays();
+                this.clearPoint();
                 this.resourceModel.type = this.typeList[0].configKey;
                 $('#divSave').modal('show');
             }
@@ -107,16 +102,44 @@ var resourceList = new Vue({
             this.map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
             var top_right_navigation = new BMap.NavigationControl({anchor: BMAP_ANCHOR_BOTTOM_RIGHT, type: BMAP_NAVIGATION_CONTROL_SMALL}); //仅包含平移和缩放按钮
             this.map.addControl(top_right_navigation);
+
+            this.drawPoint();
         },
-        drawPoint: function() {
-            this.map.addEventListener("click",function(e){
-                resourceList.$data.map.clearOverlays();
-                var point = new BMap.Point(e.point.lng, e.point.lat);
+        initPoint: function() {
+            resourceList.$data.map.clearOverlays();
+            if(resourceList.$data.resourceModel.locationX) {
+                var point = new BMap.Point(resourceList.$data.resourceModel.locationX, resourceList.$data.resourceModel.locationY);
                 var marker = new BMap.Marker(point); // 创建标注
                 resourceList.$data.map.addOverlay(marker);// 将标注添加到地图中
-                resourceList.$data.resourceModel.locationX = e.point.lng;
-                resourceList.$data.resourceModel.locationY = e.point.lat;
+                resourceList.$data.map.centerAndZoom(point, 12);
+            }
+        },
+        drawPoint: function() {
+            // 设施画图对象
+            this.drawingManager = new BMapLib.DrawingManager(
+                this.$data.map, {
+                    isOpen : false, // 是否开启绘制模式
+                    enableDrawingTool : true, // 是否显示工具栏
+                    drawingToolOptions : {
+                        anchor : BMAP_ANCHOR_TOP_RIGHT, // 位置
+                        offset : new BMap.Size(5, 5), // 偏离值
+                        drawingModes : [ BMAP_DRAWING_MARKER]
+                    },
+                    polygonOptions : this.$data.styleOptions
+                    // 多边形的样式
+
+                });
+
+            this.drawingManager.addEventListener('overlaycomplete',function(e) {
+                resourceList.$data.resourceModel.locationX = e.overlay.point.lng;
+                resourceList.$data.resourceModel.locationY = e.overlay.point.lat;
             });
+        },
+        clearPoint: function() {
+            resourceList.$data.map.clearOverlays();
+            resourceList.$data.resourceModel.locationX = null;
+            resourceList.$data.resourceModel.locationY = null;
+            resourceList.$data.map.centerAndZoom(new BMap.Point(104.072078,30.663608), 12);
         }
     }
 });

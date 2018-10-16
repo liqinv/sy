@@ -45,4 +45,27 @@ public class ResourceAreaServiceImpl extends BaseServiceImpl<ResourceArea,Intege
         vo.setDataList(dataList);
         return vo;
     }
+
+    @Override
+    public void addArea(ResourceAreaVo vo) {
+        resourceAreaMapper.insert(vo);
+        if(vo.getDataList() != null && vo.getDataList().size() > 0) {
+            for(ResourceAreaData data : vo.getDataList()) {
+                data.setAreaId(vo.getId());
+                resourceAreaDataMapper.insert(data);
+            }
+        }
+    }
+
+    @Override
+    public void updateArea(ResourceAreaVo vo) {
+        resourceAreaMapper.updateByPrimaryKeySelective(vo);
+        resourceAreaDataMapper.deleteByAreaId(vo.getId());
+        if(vo.getDataList() != null && vo.getDataList().size() > 0) {
+            for(ResourceAreaData data : vo.getDataList()) {
+                data.setAreaId(vo.getId());
+                resourceAreaDataMapper.insert(data);
+            }
+        }
+    }
 }

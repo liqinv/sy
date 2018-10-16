@@ -10,4 +10,8 @@ public interface ResourceAreaService  extends BaseService<ResourceArea,Integer> 
     List<ResourceAreaVo> selectByParam(ResourceAreaVo vo);
 
     ResourceAreaVo getDetailById(Integer id);
+
+    void addArea(ResourceAreaVo vo);
+
+    void updateArea(ResourceAreaVo vo);
 }
