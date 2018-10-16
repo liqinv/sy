@@ -71,7 +71,7 @@ pagehelper:
   params: count=countSql
 
 swagger:
-  show: true
+  show: false
 
 #配置log输出地址和级别
 logging:

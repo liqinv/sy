@@ -5,7 +5,7 @@
       layout:decorate="~{/layout/layout}"
       xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <head>
-    <title>资源列表</title>
+    <title>社区列表</title>
     <link rel="stylesheet" th:href="@{/bootstrap/datatables.net-bs/dataTables.bootstrap.min.css}">
     <style type="text/css">
         #selectmap {
@@ -23,14 +23,14 @@
     <div layout:fragment="content">
         <section class="content-header">
             <h1>
-                资源管理
+                社区管理
             </h1>
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i> 首页</a></li>
-                <li><a href="#">资源管理</a></li>
+                <li><a href="#">社区管理</a></li>
             </ol>
         </section>
-        <section class="content" id="resourceList">
+        <section class="content" id="areaList">
             <div class="row">
                 <div class="col-xs-12">
                     <div class="box box-purple">
@@ -44,13 +44,7 @@
                                     <button type="button" class="btn btn-social-icon btn-primary" v-on:click="localList()"><i class="fa fa-search"></i></button>
                                 </span>
                             </div>
-                            <div class="input-group margin-r-5 pull-right" style="width: 200px;">
-                                <select v-model="searchObj.type" class="form-control">
-                                    <option value="">全部类型</option>
-                                    <option v-for="type  in typeList" :value="type.configKey">{{type.configValue}}
-                                    </option>
-                                </select>
-                            </div>
+
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">
@@ -65,7 +59,6 @@
                                             <thead>
                                             <tr>
                                                 <th>名称</th>
-                                                <th>类型</th>
                                                 <th>联系人</th>
                                                 <th>联系电话</th>
                                                 <th>备注</th>
@@ -74,16 +67,15 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            <tr class="odd" v-for="r in resourceList.list">
+                                            <tr class="odd" v-for="r in areaList.list">
                                                 <td>{{r.name}}</td>
-                                                <td>{{r.typeName}}</td>
                                                 <td>{{r.linkMan}}</td>
                                                 <td>{{r.linkPhone}}</td>
                                                 <td>{{r.note}}</td>
                                                 <td>{{r.createTime}}</td>
                                                 <td>
                                                     <span class="span-a" v-on:click="saveUi(r.id)">修改</span>
-                                                    <span class="span-a" v-on:click="deleteResource(r)">删除</span>
+                                                    <span class="span-a" v-on:click="deleteArea(r)">删除</span>
                                                 </td>
                                             </tr>
                                             </tbody>
@@ -91,7 +83,7 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <page-div v-bind:pageobj="resourceList" v-on:prepage="prePage" v-on:currpage="currPage" v-on:nextpage="nextPage"></page-div>
+                                    <page-div v-bind:pageobj="areaList" v-on:prepage="prePage" v-on:currpage="currPage" v-on:nextpage="nextPage"></page-div>
                                 </div>
                             </div>
                         </div>
@@ -114,31 +106,24 @@
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label>名称</label>
-                                                <input type="text" v-model="resourceModel.name" class="form-control" placeholder="名称" maxlength="30" required="required">
-                                            </div>
-                                            <div class="form-group">
-                                                <label>类型</label>
-                                                <select v-model="resourceModel.type" class="form-control" required="required">
-                                                    <option v-for="type  in typeList" :value="type.configKey">{{type.configValue}}
-                                                    </option>
-                                                </select>
+                                                <input type="text" v-model="areaModel.name" class="form-control" placeholder="名称" maxlength="30" required="required">
                                             </div>
                                             <div class="form-group">
                                                 <label>联系人</label>
-                                                <input type="text" v-model="resourceModel.linkMan" class="form-control" placeholder="联系人" maxlength="10">
+                                                <input type="text" v-model="areaModel.linkMan" class="form-control" placeholder="联系人" maxlength="10">
                                             </div>
                                             <div class="form-group">
                                                 <label>联系电话</label>
-                                                <input type="text" v-model="resourceModel.linkPhone" class="form-control" placeholder="联系电话" maxlength="20">
+                                                <input type="text" v-model="areaModel.linkPhone" class="form-control" placeholder="联系电话" maxlength="20">
                                             </div>
                                             <div class="form-group">
                                                 <label>备注</label>
-                                                <textarea v-model="resourceModel.note" class="form-control" rows="3" maxlength="200" placeholder="备注"></textarea>
+                                                <textarea v-model="areaModel.note" class="form-control" rows="3" maxlength="200" placeholder="备注"></textarea>
                                             </div>
                                         </div>
                                         <div class="col-sm-6">
                                             <div class="form-group">
-                                                <label>位置标识</label>&nbsp;&nbsp;<button type="button" class="btn btn-primary btn-xs" v-on:click="drawPoint()"><i class="fa  fa-map-marker"></i> </button>
+                                                <label>区域标识</label>&nbsp;&nbsp;<button type="button" class="btn btn-primary btn-xs" v-on:click="drawPoint()"><i class="fa  fa-map-marker"></i> </button>
                                                 <div id="selectmap"></div>
                                             </div>
 
@@ -160,7 +145,7 @@
         <script type="text/javascript" src="http://api.map.baidu.com/api?v=3.0&ak=EDksscNlh4crvQIrlgHuKOPZ"></script>
 
         <script th:src="@{/js/component/page-component.js}"></script>
-        <script th:src="@{/js/resource/resourceList.js}"></script>
+        <script th:src="@{/js/resource/areaList.js}"></script>
 
     </th:block>
 </div>

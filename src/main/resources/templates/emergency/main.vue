@@ -9,16 +9,10 @@
     <link rel="stylesheet" th:href="@{/bootstrap/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css}">
     <link rel="stylesheet" th:href="@{/bootstrap/bootstrap-fileinput/css/fileinput.min.css}">
     <link rel="stylesheet" th:href="@{/bootstrap/bootstrap-fileinput/themes/explorer-fa/theme.min.css}">
-    <style type="text/css">
-        #allmap {
-            width: 100%;
-            height: 685px;
-            overflow: hidden;
-            margin: 0;
-            font-family: "微软雅黑";
-            position: relative
-        }
-    </style>
+
+    <link rel="stylesheet" href="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.css" />
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+
 </head>
 <body>
 <div>
@@ -355,9 +349,22 @@
                 </div>
             </div>
         </div>
+        <!--右侧工具栏-->
+        <div class="right-tools">
+            <ul>
+                <li title="点位"><img v-on:click="mapOnToolsPoint();" src="/adminlte/dist/img/avatar5.png"/></li>
+                <li title="开启划多边形"><img v-on:click="mapOnToolsArea();" src="/adminlte/dist/img/avatar5.png"/></li>
+                <li title="关闭划多边形"><img v-on:click="clearAll();" src="/adminlte/dist/img/avatar5.png"/></li>
+                <li title="关闭划多边形"><img v-on:click="openMqListener();" src="/adminlte/dist/img/avatar5.png"/></li>
+            </ul>
+        </div>
     </div>
     <th:block layout:fragment="javascript">
         <script type="text/javascript" src="http://api.map.baidu.com/api?v=3.0&ak=EDksscNlh4crvQIrlgHuKOPZ"></script>
+        <script type="text/javascript" src="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.js"></script>
+        <script th:src="@{/js/common/point_convertor.js}"></script>
+        <script th:src="@{/js/common/map_baidu.js}"></script>
+
         <script th:src="@{/js/emergency/main.js}"></script>
         <script th:src="@{/adminlte/components/select2/js/select2.full.min.js}"></script>
         <script th:src="@{/bootstrap/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js}"></script>
@@ -366,6 +373,12 @@
         <script th:src="@{/bootstrap/bootstrap-fileinput/js/locales/zh.js}"></script>
         <script th:src="@{/bootstrap/bootstrap-fileinput/themes/explorer-fa/theme.js}"></script>
         <script th:src="@{/bootstrap/bootstrap-fileinput/themes/fa/theme.js}"></script>
+
+
+        <script th:src="@{/js/common/sockjs-0.3.4.js}"></script>
+        <script th:src="@{/js/common/stomp.js}"></script>
+        <script th:src="@{/js/common/mq.js}"></script>
+
 
     </th:block>
 

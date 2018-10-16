@@ -16,6 +16,18 @@ var emergency = new Vue({
         },
         processModel:{},
         //eventFileList:[],
+        map : {}, // 地图对象
+        // 多边形样式
+        styleOptions : {
+            strokeColor : "red", // 边线颜色。
+            fillColor : "red", // 填充颜色。当参数为空时，圆形将没有填充效果。
+            strokeWeight : 3, // 边线的宽度，以像素为单位。
+            strokeOpacity : 0.8, // 边线透明度，取值范围0 - 1。
+            fillOpacity : 0.6, // 填充的透明度，取值范围0 - 1。
+            strokeStyle : 'solid' // 边线的样式，solid或dashed。
+        },
+        drawingManager : {}, // 画图对象
+        overlays : [], // 画图
     },
     mounted: function () {
         this.selectEventList();
@@ -384,21 +396,79 @@ var emergency = new Vue({
         },
 
         initMap: function () {
+            var that = this;
             // 百度地图API功能
-            var map = new BMap.Map("allmap");    // 创建Map实例
-            map.centerAndZoom(new BMap.Point(104.072078,30.663608), 12);  // 初始化地图,设置中心点坐标和地图级别
-            //添加地图类型控件
-            map.addControl(new BMap.MapTypeControl({
-                mapTypes:[
-                    BMAP_NORMAL_MAP,
-                    BMAP_HYBRID_MAP
-                ]}));
-            map.setCurrentCity("成都");          // 设置地图显示的城市 此项是必须设置的
-            map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
-            var bottom_right_control = new BMap.ScaleControl({anchor: BMAP_ANCHOR_BOTTOM_RIGHT});// 添加比例尺
-            var top_right_navigation = new BMap.NavigationControl({anchor: BMAP_ANCHOR_BOTTOM_RIGHT, type: BMAP_NAVIGATION_CONTROL_SMALL}); //仅包含平移和缩放按钮
-            map.addControl(bottom_right_control);
-            map.addControl(top_right_navigation);
+            that.map = new BMap.Map("allmap"); // 创建Map实例
+            that.map.centerAndZoom(
+                new BMap.Point(104.072078, 30.663608), 12); // 初始化地图,设置中心点坐标和地图级别
+            // 添加地图类型控件
+            that.map.addControl(new BMap.MapTypeControl({
+                mapTypes : [ BMAP_NORMAL_MAP, BMAP_HYBRID_MAP ]
+            }));
+            that.map.setCurrentCity("成都"); // 设置地图显示的城市 此项是必须设置的
+            that.map.enableScrollWheelZoom(true); // 开启鼠标滚轮缩放
+            var bottom_right_control = new BMap.ScaleControl({
+                anchor : BMAP_ANCHOR_BOTTOM_RIGHT
+            });// 添加比例尺
+            var top_right_navigation = new BMap.NavigationControl({
+                anchor : BMAP_ANCHOR_BOTTOM_RIGHT,
+                type : BMAP_NAVIGATION_CONTROL_SMALL
+            }); // 仅包含平移和缩放按钮
+            that.map.addControl(bottom_right_control);
+            that.map.addControl(top_right_navigation);
+            MapManager.setMap(that.map);
         },
+        // 上图点
+        mapOnToolsPoint : function() {
+            var that = this;
+            var point = new BMap.Point(104.072078, 30.663608);
+            var marker = new BMap.Marker(point); // 创建标注
+            that.$data.map.addOverlay(marker);// 将标注添加到地图中
+            marker.setAnimation(BMAP_ANIMATION_BOUNCE); // 跳动的动画
+        },
+        // 多边形///////////////////////////////////by chen
+        mapOnToolsArea : function() {
+            var that = this;
+            // 设施画图对象
+            that.drawingManager = new BMapLib.DrawingManager(
+                that.$data.map, {
+                    isOpen : false, // 是否开启绘制模式
+                    enableDrawingTool : true, // 是否显示工具栏
+                    drawingMode : BMAP_DRAWING_POLYGON,// 绘制模式 多边形
+                    drawingToolOptions : {
+                        anchor : BMAP_ANCHOR_TOP_RIGHT, // 位置
+                        offset : new BMap.Size(5, 5), // 偏离值
+                        drawingModes : [ BMAP_DRAWING_POLYGON,BMAP_DRAWING_RECTANGLE ]
+                    },
+                    polygonOptions : that.$data.styleOptions
+                    // 多边形的样式
+
+                });
+            that.drawingManager.addEventListener('overlaycomplete',
+                that.overlaycomplete);
+
+        },
+        // 多边形画完后 回调用
+        overlaycomplete : function(e) {
+            var that = this;
+            emergency.$data.overlays.push(e.overlay);
+            var path = e.overlay.getPath();
+            for (var i = 0; i < path.length; i++) {
+                alert("lng:" + path[i].lng + "\n lat:" + path[i].lat);
+            }
+        },
+        //清空数据
+        clearAll : function() {
+            var that = this;
+            for (var i = 0; i < that.$data.overlays.length; i++) {
+                that.$data.map.removeOverlay(that.$data.overlays[i]);
+            }
+            that.$data.overlays.length = 0
+            that.drawingManager={};
+        },
+        //开启mq
+        openMqListener:function(){
+            MqManager.initMq("/exchange/GpsTopicExchange/#",MqManager.mqGpsCompleteCallBack);
+        }
     }
 });
