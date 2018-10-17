@@ -97,7 +97,7 @@ var resourceList = new Vue({
         initMap: function () {
             // 百度地图API功能
             this.map = new BMap.Map("selectmap");    // 创建Map实例
-            this.map.centerAndZoom(new BMap.Point(104.072078,30.663608), 12);  // 初始化地图,设置中心点坐标和地图级别
+            this.map.centerAndZoom(new BMap.Point(CONFIG.BAIDU_LOCATION_X,CONFIG.BAIDU_LOCATION_Y), CONFIG.BAIDU_DISPLAY_LEVEL);  // 初始化地图,设置中心点坐标和地图级别
             //this.map.setCurrentCity("成都");          // 设置地图显示的城市 此项是必须设置的
             this.map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
             var top_right_navigation = new BMap.NavigationControl({anchor: BMAP_ANCHOR_BOTTOM_RIGHT, type: BMAP_NAVIGATION_CONTROL_SMALL}); //仅包含平移和缩放按钮
@@ -139,7 +139,7 @@ var resourceList = new Vue({
             resourceList.$data.map.clearOverlays();
             resourceList.$data.resourceModel.locationX = null;
             resourceList.$data.resourceModel.locationY = null;
-            resourceList.$data.map.centerAndZoom(new BMap.Point(104.072078,30.663608), 12);
+            resourceList.$data.map.centerAndZoom(new BMap.Point(CONFIG.BAIDU_LOCATION_X,CONFIG.BAIDU_LOCATION_Y), CONFIG.BAIDU_DISPLAY_LEVEL);
         }
     }
 });
