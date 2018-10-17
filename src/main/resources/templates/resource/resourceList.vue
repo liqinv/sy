@@ -101,7 +101,7 @@
             </div>
             <!-- 保存弹框 -->
             <div class="modal fade bs-example-modal-sm" data-backdrop="static" id="divSave" style="display: none;">
-                <div class="modal-dialog modal-sm" style="width:700px;">
+                <div class="modal-dialog modal-sm" style="width:800px;">
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -112,7 +112,7 @@
                             <form role="form" v-on:submit.prevent="save()">
                                 <div class="box-body">
                                     <div class="row">
-                                        <div class="col-sm-6">
+                                        <div class="col-sm-5">
                                             <div class="form-group">
                                                 <label>名称</label>
                                                 <input type="text" v-model="resourceModel.name" class="form-control" placeholder="名称" maxlength="30" required="required">
@@ -137,7 +137,7 @@
                                                 <textarea v-model="resourceModel.note" class="form-control" rows="3" maxlength="200" placeholder="备注"></textarea>
                                             </div>
                                         </div>
-                                        <div class="col-sm-6">
+                                        <div class="col-sm-7">
                                             <div class="form-group">
                                                 <label>位置标识</label>&nbsp;&nbsp;<button type="button" class="btn btn-primary btn-xs" v-on:click="clearPoint()"><i class="fa  fa-close"></i> 清空</button>
                                                 <div id="selectmap"></div>
