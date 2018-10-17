@@ -68,4 +68,13 @@ public class ResourceAreaServiceImpl extends BaseServiceImpl<ResourceArea,Intege
             }
         }
     }
+
+    @Override
+    public List<ResourceAreaVo> selectMapByParam(ResourceAreaVo vo) {
+        List<ResourceAreaVo> voList = resourceAreaVoMapper.selectByParam(vo);
+        for(ResourceAreaVo areaVo: voList) {
+            areaVo.setDataList(resourceAreaDataMapper.selectByAreaId(areaVo.getId()));
+        }
+        return voList;
+    }
 }

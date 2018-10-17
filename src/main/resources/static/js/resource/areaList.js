@@ -111,7 +111,7 @@ var areaList = new Vue({
                 }
                 var polygon = new BMap.Polygon(initMapDatas,areaList.$data.styleOptions);
                 areaList.$data.map.addOverlay(polygon);
-                this.map.centerAndZoom(new BMap.Point(areaList.$data.areaModel.dataList[0].locationX,areaList.$data.areaModel.dataList[0].locationY), 12);
+                areaList.$data.map.centerAndZoom(new BMap.Point(areaList.$data.areaModel.dataList[0].locationX,areaList.$data.areaModel.dataList[0].locationY), 12);
             }
         },
         drawArea: function() {

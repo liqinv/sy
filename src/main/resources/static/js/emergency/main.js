@@ -7,42 +7,43 @@ var emergency = new Vue({
         },
         eventList: {}, //列表对象
         eventModel: {},//临时缓存用
-        categoryList:{},
-        typeList:{},
-        groupList:{},
-        noticeModel:{
-            type:"",
-            name:"",
+        categoryList: {},
+        typeList: {},
+        groupList: {},
+        noticeModel: {
+            type: "",
+            name: "",
         },
-        processModel:{},
+        processModel: {},
         //eventFileList:[],
-        map : {}, // 地图对象
+        map: {}, // 地图对象
         // 多边形样式
-        styleOptions : {
-            strokeColor : "red", // 边线颜色。
-            fillColor : "red", // 填充颜色。当参数为空时，圆形将没有填充效果。
-            strokeWeight : 3, // 边线的宽度，以像素为单位。
-            strokeOpacity : 0.8, // 边线透明度，取值范围0 - 1。
-            fillOpacity : 0.6, // 填充的透明度，取值范围0 - 1。
-            strokeStyle : 'solid' // 边线的样式，solid或dashed。
+        styleOptions: {
+            strokeColor: "red", // 边线颜色。
+            fillColor: "red", // 填充颜色。当参数为空时，圆形将没有填充效果。
+            strokeWeight: 3, // 边线的宽度，以像素为单位。
+            strokeOpacity: 0.8, // 边线透明度，取值范围0 - 1。
+            fillOpacity: 0.6, // 填充的透明度，取值范围0 - 1。
+            strokeStyle: 'solid' // 边线的样式，solid或dashed。
         },
-        drawingManager : {}, // 画图对象
-        overlays : [], // 画图
+        drawingManager: {}, // 画图对象
+        overlays: [], // 画图
     },
     mounted: function () {
         this.selectEventList();
         this.initData();
         this.initMap();
-
+        this.initPoint({});
+        this.initArea();
     },
     methods: {
-        initData: function() {
+        initData: function () {
             this.initCategory();
             this.initType();
             this.initGroup();
             this.initFileInputCallback();
         },
-        initDatetime: function() {
+        initDatetime: function () {
             $("#happenTime").datetimepicker({
                 language: 'zh-CN',
                 autoclose: true,
@@ -56,9 +57,9 @@ var emergency = new Vue({
 
 
         },
-        initFileInputCallback: function() {
+        initFileInputCallback: function () {
             $("#event-files").on("fileuploaded", function (event, data, previewId, index) {
-                console.log(index+":::"+previewId+":::"+JSON.stringify(data.response));
+                console.log(index + ":::" + previewId + ":::" + JSON.stringify(data.response));
                 if (data.response.code == 200) {
                     if (!emergency.$data.eventModel.fileList) {
                         emergency.$data.eventModel.fileList = [];
@@ -66,31 +67,31 @@ var emergency = new Vue({
                     emergency.$data.eventModel.fileList.push(data.response.data[0]);
                 }
             });
-            $("#event-files").on('fileerror', function(event, file, previewId, index) {
+            $("#event-files").on('fileerror', function (event, file, previewId, index) {
                 console.log("fileerror");
             });
-            $("#event-files").on("filebatchselected", function(event, files) {
+            $("#event-files").on("filebatchselected", function (event, files) {
                 console.log("filebatchselected");
             });
             //初始化的文件删除回调
-            $('#event-files').on('filedeleted', function(event, key) {
-                console.log('filedeleted::::'+key);
-                for(var i=0;i<emergency.$data.eventModel.fileList.length;i++) {
+            $('#event-files').on('filedeleted', function (event, key) {
+                console.log('filedeleted::::' + key);
+                for (var i = 0; i < emergency.$data.eventModel.fileList.length; i++) {
                     var file = emergency.$data.eventModel.fileList[i];
-                    if (key == file.id)  {
-                        emergency.$data.eventModel.fileList.splice(i,1);
+                    if (key == file.id) {
+                        emergency.$data.eventModel.fileList.splice(i, 1);
                     }
                 }
             });
             //文件全部上传完成后回调
-            $('#event-files').on('filebatchuploadcomplete', function(event, files, extra) {
+            $('#event-files').on('filebatchuploadcomplete', function (event, files, extra) {
                 console.log('File batch upload complete');
                 emergency.$data.eventModel.type = $("#addEventSelect").val();
                 var url = "/emergency/save";
                 YF_HTTP
                     .post(url, emergency.$data.eventModel)
                     .then(function (result) {
-                        Utils.showMsg("保存成功！",2000,"success");
+                        Utils.showMsg("保存成功！", 2000, "success");
                         emergency.$data.eventModel = result.data;
                         emergency.initFileInput();
                         emergency.selectEventList();
@@ -98,19 +99,19 @@ var emergency = new Vue({
                     });
             });
         },
-        initFileInput: function() {
+        initFileInput: function () {
             var initialPreviewData = [];
             var initialPreviewConfigData = [];
-            if(emergency.$data.eventModel.fileList) {
-                for(var i=0;i<emergency.$data.eventModel.fileList.length;i++) {
+            if (emergency.$data.eventModel.fileList) {
+                for (var i = 0; i < emergency.$data.eventModel.fileList.length; i++) {
                     var file = emergency.$data.eventModel.fileList[i];
                     initialPreviewData.push(file.originalPath);
                     var cc = {};
                     cc.caption = file.fileName;
                     //cc.width = "120px";
-                    cc.url="/common/fileRemove";
-                    cc.key=file.id;
-                    cc.extra={id: file.id};
+                    cc.url = "/common/fileRemove";
+                    cc.key = file.id;
+                    cc.extra = {id: file.id};
                     cc.downloadUrl = file.originalPath;
                     cc.size = file.fileSize;
                     initialPreviewConfigData.push(cc);
@@ -124,13 +125,13 @@ var emergency = new Vue({
                 theme: 'explorer-fa',
                 uploadUrl: '/common/fileUpload',
                 showCaption: false,
-                enctype:'multipart/form-data',
+                enctype: 'multipart/form-data',
                 dropZoneEnabled: false,
                 overwriteInitial: false,
                 showRemove: false,
                 showUpload: false,
                 showClose: false,
-                fileActionSettings:{
+                fileActionSettings: {
                     showRemove: true,
                     showUpload: false,
                     showZoom: true,
@@ -150,14 +151,30 @@ var emergency = new Vue({
                 },
 
                 previewFileExtSettings: {
-                    'doc': function(ext) {return ext.match(/(doc|docx)$/i);},
-                    'xls': function(ext) {return ext.match(/(xls|xlsx)$/i);},
-                    'ppt': function(ext) {return ext.match(/(ppt|pptx)$/i);},
-                    'zip': function(ext) {return ext.match(/(zip|rar|tar|gzip|gz|7z)$/i);},
-                    'htm': function(ext) {return ext.match(/(htm|html)$/i);},
-                    'mov': function(ext) {return ext.match(/(avi|mpg|mkv|mov|mp4|3gp|webm|wmv)$/i);},
-                    'mp3': function(ext) {return ext.match(/(mp3|wav)$/i);},
-                    'txt': function(ext) {return ext.match(/(txt|ini|csv|java|php|js|css)$/i);}
+                    'doc': function (ext) {
+                        return ext.match(/(doc|docx)$/i);
+                    },
+                    'xls': function (ext) {
+                        return ext.match(/(xls|xlsx)$/i);
+                    },
+                    'ppt': function (ext) {
+                        return ext.match(/(ppt|pptx)$/i);
+                    },
+                    'zip': function (ext) {
+                        return ext.match(/(zip|rar|tar|gzip|gz|7z)$/i);
+                    },
+                    'htm': function (ext) {
+                        return ext.match(/(htm|html)$/i);
+                    },
+                    'mov': function (ext) {
+                        return ext.match(/(avi|mpg|mkv|mov|mp4|3gp|webm|wmv)$/i);
+                    },
+                    'mp3': function (ext) {
+                        return ext.match(/(mp3|wav)$/i);
+                    },
+                    'txt': function (ext) {
+                        return ext.match(/(txt|ini|csv|java|php|js|css)$/i);
+                    }
                 },
 
                 initialPreviewAsData: true,
@@ -165,18 +182,18 @@ var emergency = new Vue({
                 initialPreviewConfig: initialPreviewConfigData
 
             });
-            $('.file-preview').attr("style","overflow:scroll; max-height:150px;");
+            $('.file-preview').attr("style", "overflow:scroll; max-height:150px;");
         },
-        initFileInputDetail: function() {
+        initFileInputDetail: function () {
             var initialPreviewData = [];
             var initialPreviewConfigData = [];
-            if(emergency.$data.eventModel.fileList) {
-                for(var i=0;i<emergency.$data.eventModel.fileList.length;i++) {
+            if (emergency.$data.eventModel.fileList) {
+                for (var i = 0; i < emergency.$data.eventModel.fileList.length; i++) {
                     var file = emergency.$data.eventModel.fileList[i];
                     initialPreviewData.push(file.originalPath);
                     var cc = {};
                     cc.caption = file.fileName;
-                    cc.key=file.id;
+                    cc.key = file.id;
                     cc.downloadUrl = file.originalPath;
                     cc.size = file.fileSize;
                     initialPreviewConfigData.push(cc);
@@ -194,7 +211,7 @@ var emergency = new Vue({
                 showUpload: false,
                 showClose: false,
                 showBrowse: false,
-                fileActionSettings:{
+                fileActionSettings: {
                     showRemove: false,
                     showUpload: false,
                     showZoom: true,
@@ -214,14 +231,30 @@ var emergency = new Vue({
                 },
 
                 previewFileExtSettings: {
-                    'doc': function(ext) {return ext.match(/(doc|docx)$/i);},
-                    'xls': function(ext) {return ext.match(/(xls|xlsx)$/i);},
-                    'ppt': function(ext) {return ext.match(/(ppt|pptx)$/i);},
-                    'zip': function(ext) {return ext.match(/(zip|rar|tar|gzip|gz|7z)$/i);},
-                    'htm': function(ext) {return ext.match(/(htm|html)$/i);},
-                    'mov': function(ext) {return ext.match(/(avi|mpg|mkv|mov|mp4|3gp|webm|wmv)$/i);},
-                    'mp3': function(ext) {return ext.match(/(mp3|wav)$/i);},
-                    'txt': function(ext) {return ext.match(/(txt|ini|csv|java|php|js|css)$/i);}
+                    'doc': function (ext) {
+                        return ext.match(/(doc|docx)$/i);
+                    },
+                    'xls': function (ext) {
+                        return ext.match(/(xls|xlsx)$/i);
+                    },
+                    'ppt': function (ext) {
+                        return ext.match(/(ppt|pptx)$/i);
+                    },
+                    'zip': function (ext) {
+                        return ext.match(/(zip|rar|tar|gzip|gz|7z)$/i);
+                    },
+                    'htm': function (ext) {
+                        return ext.match(/(htm|html)$/i);
+                    },
+                    'mov': function (ext) {
+                        return ext.match(/(avi|mpg|mkv|mov|mp4|3gp|webm|wmv)$/i);
+                    },
+                    'mp3': function (ext) {
+                        return ext.match(/(mp3|wav)$/i);
+                    },
+                    'txt': function (ext) {
+                        return ext.match(/(txt|ini|csv|java|php|js|css)$/i);
+                    }
                 },
 
                 initialPreviewAsData: true,
@@ -229,9 +262,9 @@ var emergency = new Vue({
                 initialPreviewConfig: initialPreviewConfigData
 
             });
-            $('.file-preview').attr("style","overflow:scroll; max-height:230px;");
+            $('.file-preview').attr("style", "overflow:scroll; max-height:230px;");
         },
-        selectEventList: function() {
+        selectEventList: function () {
             var url = "/emergency/list";
             YF_HTTP
                 .post(url, this.searchObj)
@@ -239,8 +272,8 @@ var emergency = new Vue({
                     emergency.$data.eventList = result.data;
                 });
         },
-        saveUi: function(eventId) {
-            if(eventId) {
+        saveUi: function (eventId) {
+            if (eventId) {
                 var url = "/emergency/get?eventId=" + eventId;
                 YF_HTTP
                     .get(url)
@@ -260,7 +293,7 @@ var emergency = new Vue({
                 this.eventModel = {};
                 emergency.initFileInput();
                 this.eventModel.category = this.categoryList[0].configKey;
-                $('#addEventSelect').select2().val( this.typeList[0].children[0].configKey).trigger('change');
+                $('#addEventSelect').select2().val(this.typeList[0].children[0].configKey).trigger('change');
                 $('#divAddEvent').modal('show');
             }
             emergency.initDatetime();
@@ -277,14 +310,14 @@ var emergency = new Vue({
                     .post(url, this.eventModel)
                     .then(function (result) {
 
-                        Utils.showMsg("保存成功！",2000,"success");
+                        Utils.showMsg("保存成功！", 2000, "success");
                         emergency.$data.eventModel = result.data;
                         emergency.selectEventList();
                     });
             }
 
         },
-        notice: function(statusKey) {
+        notice: function (statusKey) {
             if (this.eventModel.status == "BA005") {
                 var files = $('#event-files').fileinput('getFileStack');
                 if (files.length > 0) {
@@ -320,13 +353,13 @@ var emergency = new Vue({
             }
             $('#divNotice').modal('show');
         },
-        process: function() {
+        process: function () {
             var selectedGroupIds = $("#noticeGroupSelect").val().join(",");//获取多选输入框选中值的方式
             this.processModel.selectedGroupIds = selectedGroupIds;
             var selectOpt = [];
-            var options=document.getElementById('noticeGroupSelect').options;
-            for(var i=0;i<options.length;i++){
-                if(options[i].selected){
+            var options = document.getElementById('noticeGroupSelect').options;
+            for (var i = 0; i < options.length; i++) {
+                if (options[i].selected) {
                     selectOpt.push(options[i].text);
                 }
             }
@@ -341,7 +374,7 @@ var emergency = new Vue({
                 .post(url, this.processModel)
                 .then(function (result) {
                     $('#divNotice').modal('hide');//关闭模态框
-                    Utils.showMsg("保存成功！",2000,"success");
+                    Utils.showMsg("保存成功！", 2000, "success");
                     emergency.$data.eventModel = result.data;
                     emergency.selectEventList();
                     if (emergency.$data.processModel.node == "BD001") {
@@ -351,11 +384,11 @@ var emergency = new Vue({
                     }
                 })
         },
-        reportUi: function() {
+        reportUi: function () {
             this.processModel = {};
             $('#divContinue').modal('show');
         },
-        report: function() {
+        report: function () {
             this.processModel.node = "BD005";
             this.processModel.eventId = this.eventModel.id;
             var url = "/emergency/addProcess";
@@ -363,7 +396,7 @@ var emergency = new Vue({
                 .post(url, this.processModel)
                 .then(function (result) {
                     $('#divContinue').modal('hide');//关闭模态框
-                    Utils.showMsg("保存成功！",2000,"success");
+                    Utils.showMsg("保存成功！", 2000, "success");
                     emergency.$data.eventModel = result.data;
                     emergency.selectEventList();
                 })
@@ -389,67 +422,136 @@ var emergency = new Vue({
         initGroup: function () {
             var url = "/group/allList";
             YF_HTTP
-                .post(url,{})
+                .post(url, {})
                 .then(function (result) {
                     emergency.$data.groupList = result.data;
                 })
         },
 
         initMap: function () {
-            var that = this;
             // 百度地图API功能
-            that.map = new BMap.Map("allmap"); // 创建Map实例
-            that.map.centerAndZoom(
-                new BMap.Point(104.072078, 30.663608), 12); // 初始化地图,设置中心点坐标和地图级别
+            this.map = new BMap.Map("allmap"); // 创建Map实例
+            this.map.centerAndZoom(
+                new BMap.Point(CONFIG.BAIDU_LOCATION_X, CONFIG.BAIDU_LOCATION_Y), CONFIG.BAIDU_DISPLAY_LEVEL); // 初始化地图,设置中心点坐标和地图级别
             // 添加地图类型控件
-            that.map.addControl(new BMap.MapTypeControl({
-                mapTypes : [ BMAP_NORMAL_MAP, BMAP_HYBRID_MAP ]
+            this.map.addControl(new BMap.MapTypeControl({
+                mapTypes: [BMAP_NORMAL_MAP, BMAP_HYBRID_MAP]
             }));
-            that.map.setCurrentCity("成都"); // 设置地图显示的城市 此项是必须设置的
-            that.map.enableScrollWheelZoom(true); // 开启鼠标滚轮缩放
+            this.map.setCurrentCity("成都"); // 设置地图显示的城市 此项是必须设置的
+            this.map.enableScrollWheelZoom(true); // 开启鼠标滚轮缩放
             var bottom_right_control = new BMap.ScaleControl({
-                anchor : BMAP_ANCHOR_BOTTOM_RIGHT
+                anchor: BMAP_ANCHOR_BOTTOM_RIGHT
             });// 添加比例尺
             var top_right_navigation = new BMap.NavigationControl({
-                anchor : BMAP_ANCHOR_BOTTOM_RIGHT,
-                type : BMAP_NAVIGATION_CONTROL_SMALL
+                anchor: BMAP_ANCHOR_BOTTOM_RIGHT,
+                type: BMAP_NAVIGATION_CONTROL_SMALL
             }); // 仅包含平移和缩放按钮
-            that.map.addControl(bottom_right_control);
-            that.map.addControl(top_right_navigation);
-            MapManager.setMap(that.map);
+            this.map.addControl(bottom_right_control);
+            this.map.addControl(top_right_navigation);
+
+        },
+        initArea: function (param) {
+            var url = "/resource/area/listMap";
+            YF_HTTP
+                .post(url, {})
+                .then(function (result) {
+                    //点位上图
+                    console.log(result.data);
+                    var areaList = result.data;
+                    var styleOptions = {
+                        strokeColor : "red", // 边线颜色。
+                            fillColor : "red", // 填充颜色。当参数为空时，圆形将没有填充效果。
+                            strokeWeight : 3, // 边线的宽度，以像素为单位。
+                            strokeOpacity : 0.8, // 边线透明度，取值范围0 - 1。
+                            fillOpacity : 0.6, // 填充的透明度，取值范围0 - 1。
+                            strokeStyle : 'solid' // 边线的样式，solid或dashed。
+                    };
+                    for (var i = 0; i < areaList.length; i++) {
+                        if(areaList[i].dataList) {
+                            var initMapDatas = [];
+                            for (var j = 0; j < areaList[i].dataList.length; j++) {
+                                var data = new BMap.Point(areaList[i].dataList[j].locationX,areaList[i].dataList[j].locationY);
+                                initMapDatas.push(data);
+                            }
+                            var polygon = new BMap.Polygon(initMapDatas,styleOptions);
+                            emergency.$data.map.addOverlay(polygon);
+                        }
+                    }
+                });
+        },
+        initPoint: function (param) {
+            var url = "/resource/point/listMap";
+            YF_HTTP
+                .post(url, param)
+                .then(function (result) {
+                    //点位上图
+                    console.log(result.data);
+                    var pointList = result.data;
+                    for (var i = 0; i < pointList.length; i++) {
+                        var point = new BMap.Point(pointList[i].locationX, pointList[i].locationY);
+
+                        var marker = new BMap.Marker(point); // 创建标注
+                        marker.pointType = pointList[i].type;
+                        emergency.$data.map.addOverlay(marker);// 将标注添加到地图中
+
+                        var winContents = "<div class=\"form-group\">" + pointList[i].name + "</div>"
+                            + "<div class=\"form-group\">联系人：" + pointList[i].linkMan + "</div>"
+                            + "<div class=\"form-group\">电话：" + pointList[i].linkPhone + "</div>";
+                        emergency.addClickHandler(winContents, marker);
+                    }
+                });
+        },
+        addClickHandler: function (content, marker) {
+            marker.addEventListener("click", function (e) {
+                emergency.openInfo(content, e)
+            });
+        },
+        openInfo: function (content, e) {
+            var p = e.target;
+            var point = new BMap.Point(p.getPosition().lng, p.getPosition().lat);
+            var infoWindow = new BMap.InfoWindow(content);  // 创建信息窗口对象
+            emergency.$data.map.openInfoWindow(infoWindow, point); //开启信息窗口
+        },
+        deletePoint: function () {
+            var allOverlay = emergency.$data.map.getOverlays();
+            for (var i = 0; i < allOverlay.length - 1; i++) {
+                /*if (allOverlay[i].getLabel().content == "我是id=1") {
+                    map.removeOverlay(allOverlay[i]);
+                    return false;
+                }*/
+                console.log(allOverlay[i].pointType);
+            }
         },
         // 上图点
-        mapOnToolsPoint : function() {
-            var that = this;
+        mapOnToolsPoint: function () {
             var point = new BMap.Point(104.072078, 30.663608);
             var marker = new BMap.Marker(point); // 创建标注
-            that.$data.map.addOverlay(marker);// 将标注添加到地图中
+            this.$data.map.addOverlay(marker);// 将标注添加到地图中
             marker.setAnimation(BMAP_ANIMATION_BOUNCE); // 跳动的动画
         },
         // 多边形///////////////////////////////////by chen
-        mapOnToolsArea : function() {
-            var that = this;
+        mapOnToolsArea: function () {
             // 设施画图对象
-            that.drawingManager = new BMapLib.DrawingManager(
-                that.$data.map, {
-                    isOpen : false, // 是否开启绘制模式
-                    enableDrawingTool : true, // 是否显示工具栏
-                    drawingMode : BMAP_DRAWING_POLYGON,// 绘制模式 多边形
-                    drawingToolOptions : {
-                        anchor : BMAP_ANCHOR_TOP_RIGHT, // 位置
-                        offset : new BMap.Size(5, 5), // 偏离值
-                        drawingModes : [ BMAP_DRAWING_POLYGON,BMAP_DRAWING_RECTANGLE ]
+            this.drawingManager = new BMapLib.DrawingManager(
+                this.$data.map, {
+                    isOpen: false, // 是否开启绘制模式
+                    enableDrawingTool: true, // 是否显示工具栏
+                    drawingMode: BMAP_DRAWING_POLYGON,// 绘制模式 多边形
+                    drawingToolOptions: {
+                        anchor: BMAP_ANCHOR_TOP_RIGHT, // 位置
+                        offset: new BMap.Size(5, 5), // 偏离值
+                        drawingModes: [BMAP_DRAWING_POLYGON, BMAP_DRAWING_RECTANGLE]
                     },
-                    polygonOptions : that.$data.styleOptions
+                    polygonOptions: this.$data.styleOptions
                     // 多边形的样式
 
                 });
-            that.drawingManager.addEventListener('overlaycomplete',
-                that.overlaycomplete);
+            this.drawingManager.addEventListener('overlaycomplete',
+                this.overlaycomplete);
 
         },
         // 多边形画完后 回调用
-        overlaycomplete : function(e) {
+        overlaycomplete: function (e) {
             var that = this;
             emergency.$data.overlays.push(e.overlay);
             var path = e.overlay.getPath();
@@ -458,17 +560,17 @@ var emergency = new Vue({
             }
         },
         //清空数据
-        clearAll : function() {
+        clearAll: function () {
             var that = this;
-            for (var i = 0; i < that.$data.overlays.length; i++) {
-                that.$data.map.removeOverlay(that.$data.overlays[i]);
+            for (var i = 0; i < this.$data.overlays.length; i++) {
+                this.$data.map.removeOverlay(this.$data.overlays[i]);
             }
-            that.$data.overlays.length = 0
-            that.drawingManager={};
+            this.$data.overlays.length = 0
+            this.drawingManager = {};
         },
         //开启mq
-        openMqListener:function(){
-            MqManager.initMq("/exchange/GpsTopicExchange/#",MqManager.mqGpsCompleteCallBack);
+        openMqListener: function () {
+            MqManager.initMq("/exchange/GpsTopicExchange/#", MqManager.mqGpsCompleteCallBack);
         }
     }
 });

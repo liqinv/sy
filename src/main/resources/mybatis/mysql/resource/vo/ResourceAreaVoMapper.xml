@@ -22,7 +22,7 @@
     ID, NAME, TYPE, LINK_MAN, LINK_PHONE, NOTE, CREATE_USER_ID, CREATE_ORGAN_ID, CREATE_TIME,
     LAST_UPDATE_USER_ID, LAST_UPDATE_TIME, ACTIVE
   </sql>
-    <select id="selectByParam" resultMap="BaseResultMap">
+    <select id="selectByParam" resultMap="VoResultMap">
         select
         <include refid="Base_Column_List" />
         from resource_area

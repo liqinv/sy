@@ -55,6 +55,22 @@ public class ResourceAreaController extends BaseController {
         return rr;
     }
 
+    @ApiOperation(value="上图资源查询",  httpMethod ="POST")
+    @RequestMapping("/listMap")
+    @ResponseBody
+    public ReturnResult listMap(@RequestBody ResourceAreaVo param){
+        ReturnResult rr = ReturnResult.SUCCESS();
+        try {
+            param =  param != null?param:new ResourceAreaVo();
+            List<ResourceAreaVo> result = areaService.selectMapByParam(param);
+            rr.setData(result);
+        }catch (Exception ex){
+            rr = ReturnResult.FAILUER("上图资源查询出错");
+            ex.printStackTrace();
+        }
+        return rr;
+    }
+
     @ApiOperation(value="保存区域资源",  httpMethod ="POST")
     @RequestMapping("/save")
     @ResponseBody

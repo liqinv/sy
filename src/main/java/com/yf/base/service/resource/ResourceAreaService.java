@@ -14,4 +14,6 @@ public interface ResourceAreaService  extends BaseService<ResourceArea,Integer> 
     void addArea(ResourceAreaVo vo);
 
     void updateArea(ResourceAreaVo vo);
+
+    List<ResourceAreaVo> selectMapByParam(ResourceAreaVo vo);
 }

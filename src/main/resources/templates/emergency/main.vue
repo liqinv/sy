@@ -356,6 +356,11 @@
                 <li title="开启划多边形"><img v-on:click="mapOnToolsArea();" src="/adminlte/dist/img/avatar5.png"/></li>
                 <li title="关闭划多边形"><img v-on:click="clearAll();" src="/adminlte/dist/img/avatar5.png"/></li>
                 <li title="关闭划多边形"><img v-on:click="openMqListener();" src="/adminlte/dist/img/avatar5.png"/></li>
+
+                <li title="社区"><i class="fa fa-cubes"></i></li>
+                <li title="党委"><i class="fa fa-bank"></i></li>
+                <li title="危险源"><i class="fa fa-bolt"></i></li>
+                <li title="应急物资存放点"><i v-on:click="deletePoint();" class="fa fa-database"></i></li>
             </ul>
         </div>
     </div>
