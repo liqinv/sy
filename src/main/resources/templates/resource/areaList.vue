@@ -11,7 +11,7 @@
     <style type="text/css">
         #selectmap {
             width: 100%;
-            height: 300px;
+            height: 350px;
             overflow: hidden;
             margin: 0;
             font-family: "微软雅黑";
@@ -104,7 +104,7 @@
                             <form role="form" v-on:submit.prevent="save()">
                                 <div class="box-body">
                                     <div class="row">
-                                        <div class="col-sm-6">
+                                        <div class="col-sm-5">
                                             <div class="form-group">
                                                 <label>名称</label>
                                                 <input type="text" v-model="areaModel.name" class="form-control" placeholder="名称" maxlength="30" required="required">
@@ -119,10 +119,10 @@
                                             </div>
                                             <div class="form-group">
                                                 <label>备注</label>
-                                                <textarea v-model="areaModel.note" class="form-control" rows="3" maxlength="200" placeholder="备注"></textarea>
+                                                <textarea v-model="areaModel.note" class="form-control" rows="6" maxlength="200" placeholder="备注"></textarea>
                                             </div>
                                         </div>
-                                        <div class="col-sm-6">
+                                        <div class="col-sm-7">
                                             <div class="form-group">
                                                 <label>区域标识</label>&nbsp;&nbsp;<button type="button" class="btn btn-primary btn-xs" v-on:click="clearArea()"><i class="fa  fa-close"></i> 清空</button>
                                                 <div id="selectmap"></div>
