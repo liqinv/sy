@@ -352,15 +352,15 @@
         <!--右侧工具栏-->
         <div class="right-tools">
             <ul>
-                <li title="点位"><img v-on:click="mapOnToolsPoint();" src="/adminlte/dist/img/avatar5.png"/></li>
+                <!--<li title="点位"><img v-on:click="mapOnToolsPoint();" src="/adminlte/dist/img/avatar5.png"/></li>
                 <li title="开启划多边形"><img v-on:click="mapOnToolsArea();" src="/adminlte/dist/img/avatar5.png"/></li>
                 <li title="关闭划多边形"><img v-on:click="clearAll();" src="/adminlte/dist/img/avatar5.png"/></li>
-                <li title="关闭划多边形"><img v-on:click="openMqListener();" src="/adminlte/dist/img/avatar5.png"/></li>
+                <li title="关闭划多边形"><img v-on:click="openMqListener();" src="/adminlte/dist/img/avatar5.png"/></li>-->
 
-                <li title="社区"><i class="fa fa-cubes"></i></li>
-                <li title="党委"><i class="fa fa-bank"></i></li>
-                <li title="危险源"><i class="fa fa-bolt"></i></li>
-                <li title="应急物资存放点"><i v-on:click="deletePoint();" class="fa fa-database"></i></li>
+                <li id="area" title="社区" style="background-color:#3c8dbc;" v-on:click="switchArea('area');"><i class="fa fa-cubes"></i></li>
+                <li id="AD001" title="党委" style="background-color:#3c8dbc;" v-on:click="switchPoint('AD001');"><i class="fa fa-bank"></i></li>
+                <li id="AD002" title="危险源" style="background-color:#3c8dbc;" v-on:click="switchPoint('AD002');"><i class="fa fa-bolt"></i></li>
+                <li id="AD003" title="应急物资存放点" style="background-color:#3c8dbc;" v-on:click="switchPoint('AD003');"><i class="fa fa-database"></i></li>
             </ul>
         </div>
     </div>

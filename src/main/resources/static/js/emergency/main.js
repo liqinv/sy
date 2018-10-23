@@ -474,6 +474,7 @@ var emergency = new Vue({
                                 initMapDatas.push(data);
                             }
                             var polygon = new BMap.Polygon(initMapDatas,styleOptions);
+                            polygon.areaType="area";
                             emergency.$data.map.addOverlay(polygon);
                         }
                     }
@@ -512,15 +513,41 @@ var emergency = new Vue({
             var infoWindow = new BMap.InfoWindow(content);  // 创建信息窗口对象
             emergency.$data.map.openInfoWindow(infoWindow, point); //开启信息窗口
         },
-        deletePoint: function () {
-            var allOverlay = emergency.$data.map.getOverlays();
-            for (var i = 0; i < allOverlay.length - 1; i++) {
-                /*if (allOverlay[i].getLabel().content == "我是id=1") {
-                    map.removeOverlay(allOverlay[i]);
-                    return false;
-                }*/
-                console.log(allOverlay[i].pointType);
+        switchPoint: function (pointType) {
+            if($("#"+pointType).css("background-color") =="rgb(60, 141, 188)") { //关闭
+                $("#"+pointType).css("background-color","#4b646f");
+                var allOverlay = emergency.$data.map.getOverlays();
+                for (var i = 0; i < allOverlay.length ; i++) {
+
+                    console.log(allOverlay[i].pointType);
+                    if(allOverlay[i].pointType && allOverlay[i].pointType == pointType) {
+                        emergency.$data.map.removeOverlay(allOverlay[i]);
+                    }
+
+                }
+            } else { //开启
+                $("#"+pointType).css("background-color","rgb(60, 141, 188)");
+                this.initPoint({type:pointType});
             }
+
+        },
+        switchArea: function (areaType) {
+            if($("#"+areaType).css("background-color") =="rgb(60, 141, 188)") { //关闭
+                $("#"+areaType).css("background-color","#4b646f");
+                var allOverlay = emergency.$data.map.getOverlays();
+                for (var i = 0; i < allOverlay.length ; i++) {
+
+                    console.log(allOverlay[i].areaType);
+                    if(allOverlay[i].areaType && allOverlay[i].areaType == areaType) {
+                        emergency.$data.map.removeOverlay(allOverlay[i]);
+                    }
+
+                }
+            } else { //开启
+                $("#"+areaType).css("background-color","rgb(60, 141, 188)");
+                this.initArea({});
+            }
+
         },
         // 上图点
         mapOnToolsPoint: function () {
