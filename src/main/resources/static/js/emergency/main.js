@@ -489,9 +489,25 @@ var emergency = new Vue({
                     console.log(result.data);
                     var pointList = result.data;
                     for (var i = 0; i < pointList.length; i++) {
-                        var point = new BMap.Point(pointList[i].locationX, pointList[i].locationY);
+                        var myIcon ;
+                        switch (pointList[i].type) {
+                            case "AD001":
+                                myIcon = new BMap.Icon("/img/dw.png", new BMap.Size(30, 30));
+                                myIcon.setImageSize(new BMap.Size(30, 30));
+                                break;
+                            case "AD002":
+                                myIcon = new BMap.Icon("/img/wxy.png", new BMap.Size(30, 30));
+                                myIcon.setImageSize(new BMap.Size(30, 30));
+                                break;
+                            case "AD003":
+                                myIcon = new BMap.Icon("/img/yjwz.png", new BMap.Size(45, 45));
+                                myIcon.setImageSize(new BMap.Size(45, 45));
+                                break;
 
-                        var marker = new BMap.Marker(point); // 创建标注
+                        }
+
+                        var point = new BMap.Point(pointList[i].locationX, pointList[i].locationY);
+                        var marker = new BMap.Marker(point,{icon:myIcon});  // 创建标注
                         marker.pointType = pointList[i].type;
                         emergency.$data.map.addOverlay(marker);// 将标注添加到地图中
 

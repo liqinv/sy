@@ -358,9 +358,9 @@
                 <li title="关闭划多边形"><img v-on:click="openMqListener();" src="/adminlte/dist/img/avatar5.png"/></li>-->
 
                 <li id="area" title="社区" style="background-color:#3c8dbc;" v-on:click="switchArea('area');"><i class="fa fa-cubes"></i></li>
-                <li id="AD001" title="党委" style="background-color:#3c8dbc;" v-on:click="switchPoint('AD001');"><i class="fa fa-bank"></i></li>
-                <li id="AD002" title="危险源" style="background-color:#3c8dbc;" v-on:click="switchPoint('AD002');"><i class="fa fa-bolt"></i></li>
-                <li id="AD003" title="应急物资存放点" style="background-color:#3c8dbc;" v-on:click="switchPoint('AD003');"><i class="fa fa-database"></i></li>
+                <li id="AD001" title="党委" style="background-color:#3c8dbc;" v-on:click="switchPoint('AD001');"><img th:src="@{/img/dw1.png}" ></li>
+                <li id="AD002" title="危险源" style="background-color:#3c8dbc;" v-on:click="switchPoint('AD002');"><img th:src="@{/img/wxy1.png}" ></li>
+                <li id="AD003" title="应急物资存放点" style="background-color:#3c8dbc;" v-on:click="switchPoint('AD003');"><img th:src="@{/img/yjwz.png}" ></li>
             </ul>
         </div>
     </div>
