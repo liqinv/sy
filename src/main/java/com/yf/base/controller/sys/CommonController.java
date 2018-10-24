@@ -49,7 +49,7 @@ public class CommonController extends BaseController {
                 // 文件新名称
                 String generatefileName = this.getUUID32() + extName;
                 String realPath = request.getSession().getServletContext().getRealPath("/");
-                String filePath = realPath + "/" + generatefileName;
+                String filePath = realPath + "/upload/" + generatefileName;
 //                String filePath = realPath +"/event/"+ time + "/" + generatefileName;
 //                File dirFile = new File(realPath +"/event/"+ time + "/");
 //                if(!dirFile.exists()){ {

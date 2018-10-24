@@ -25,10 +25,10 @@ import java.util.List;
 @Controller
 public class LoginController extends BaseController {
 	@ApiIgnore()
-	@RequestMapping("/other/main")
-	public String index(){
+	@RequestMapping("/home")
+	public String home(){
 //		System.out.println(this.getLoginUser().getName());
-		return "index";
+		return "home";
 	}
 
 	@ApiOperation(value="用户登录接口",  httpMethod ="POST")

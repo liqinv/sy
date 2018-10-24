@@ -60,6 +60,7 @@ public class ShiroConfig {
         //其他路径
         filterChainDefinitionMap.put("/login", "anon");
         filterChainDefinitionMap.put("/403", "anon");
+        filterChainDefinitionMap.put("/home", "anon");
         //配置退出 过滤器,其中的具体的退出代码Shiro已经替我们实现了
         filterChainDefinitionMap.put("/logout", "logout");
         //从数据库permission表获取生成,controller层权限控制
