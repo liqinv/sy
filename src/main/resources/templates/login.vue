@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta content="Copyright &copy;www.sc-yongfeng.com 版权所有" name="copyright"/>
     <meta content="权限管理" name="keywords"/>
-    <title>登录</title>
+    <title>应急指挥-登录</title>
     <link th:href="@{/bootstrap/dist/css/bootstrap.min.css}" rel="stylesheet">
     <link th:href="@{/css/sign.css}" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/adminlte/font-awesome/css/font-awesome.min.css}">
@@ -25,7 +25,12 @@
 <body class="hold-transition login-page">
 <div class="login-box">
     <div class="login-logo">
-        <a href="#"><b>石羊街办</b></a>
+        <div class="form-group">
+        <a href="#"><b>石羊街道</b></a>
+        </div>
+        <div class="form-group">
+        <a href="#"><b>应急指挥系统</b></a>
+        </div>
     </div>
     <div class="login-box-body">
         <p class="login-box-msg"></p>
