@@ -60,12 +60,12 @@ public class CommonController extends BaseController {
                 sysFile.setCreateUserId(this.getLoginUser().getId());
                 sysFile.setCreateTime(new Date());
                 sysFile.setActive(1);
-                sysFile.setOriginalPath("/" + generatefileName);
+                sysFile.setOriginalPath("/upload/" + generatefileName);
                 sysFile.setFileName(fileName);
                 sysFile.setFileSize(fileSize);
                 if (extName.equals(".jpg") || extName.equals(".png") || extName.equals(".jpeg") || extName.equals(".gif")) {
                     sysFile.setFileType(1);
-                    sysFile.setThumbnailPath("/" + generatefileName);
+                    sysFile.setThumbnailPath("/upload/" + generatefileName);
                 } else {
                     sysFile.setFileType(2);
                 }

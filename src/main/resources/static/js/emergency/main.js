@@ -105,14 +105,14 @@ var emergency = new Vue({
             if (emergency.$data.eventModel.fileList) {
                 for (var i = 0; i < emergency.$data.eventModel.fileList.length; i++) {
                     var file = emergency.$data.eventModel.fileList[i];
-                    initialPreviewData.push(file.originalPath);
+                    initialPreviewData.push(baseUrl+file.originalPath);
                     var cc = {};
                     cc.caption = file.fileName;
                     //cc.width = "120px";
-                    cc.url = "/common/fileRemove";
+                    cc.url = baseUrl+"/common/fileRemove";
                     cc.key = file.id;
                     cc.extra = {id: file.id};
-                    cc.downloadUrl = file.originalPath;
+                    cc.downloadUrl = baseUrl+file.originalPath;
                     cc.size = file.fileSize;
                     initialPreviewConfigData.push(cc);
                 }
@@ -123,7 +123,7 @@ var emergency = new Vue({
                 maxFileCount: 3,
                 language: 'zh',
                 theme: 'explorer-fa',
-                uploadUrl: '/common/fileUpload',
+                uploadUrl: baseUrl+'/common/fileUpload',
                 showCaption: false,
                 enctype: 'multipart/form-data',
                 dropZoneEnabled: false,
@@ -190,11 +190,11 @@ var emergency = new Vue({
             if (emergency.$data.eventModel.fileList) {
                 for (var i = 0; i < emergency.$data.eventModel.fileList.length; i++) {
                     var file = emergency.$data.eventModel.fileList[i];
-                    initialPreviewData.push(file.originalPath);
+                    initialPreviewData.push(baseUrl+file.originalPath);
                     var cc = {};
                     cc.caption = file.fileName;
                     cc.key = file.id;
-                    cc.downloadUrl = file.originalPath;
+                    cc.downloadUrl = baseUrl+file.originalPath;
                     cc.size = file.fileSize;
                     initialPreviewConfigData.push(cc);
                 }
@@ -492,15 +492,15 @@ var emergency = new Vue({
                         var myIcon ;
                         switch (pointList[i].type) {
                             case "AD001":
-                                myIcon = new BMap.Icon("/img/dw.png", new BMap.Size(30, 30));
+                                myIcon = new BMap.Icon(baseUrl+"/img/dw.png", new BMap.Size(30, 30));
                                 myIcon.setImageSize(new BMap.Size(30, 30));
                                 break;
                             case "AD002":
-                                myIcon = new BMap.Icon("/img/wxy.png", new BMap.Size(30, 30));
+                                myIcon = new BMap.Icon(baseUrl+"/img/wxy.png", new BMap.Size(30, 30));
                                 myIcon.setImageSize(new BMap.Size(30, 30));
                                 break;
                             case "AD003":
-                                myIcon = new BMap.Icon("/img/yjwz.png", new BMap.Size(45, 45));
+                                myIcon = new BMap.Icon(baseUrl+"/img/yjwz.png", new BMap.Size(45, 45));
                                 myIcon.setImageSize(new BMap.Size(45, 45));
                                 break;
 
