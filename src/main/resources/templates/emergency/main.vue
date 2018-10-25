@@ -56,7 +56,7 @@
                                 <div class="">
                                     <a href="#" class="name">{{r.name}}</a>
                                 </div>
-                                <div class="">
+                                <div class="form-group">
                                     <span>{{r.content}}</span>
                                 </div>
                                 <div class="">
@@ -383,6 +383,9 @@
         <script th:src="@{/js/common/sockjs-0.3.4.js}"></script>
         <script th:src="@{/js/common/stomp.js}"></script>
         <script th:src="@{/js/common/mq.js}"></script>
+        <script>
+            MqManager.initMq("/exchange/GpsTopicExchange/#", MqManager.mqGpsCompleteCallBack);
+        </script>
 
 
     </th:block>

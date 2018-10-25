@@ -22,14 +22,14 @@
         var baseUrl = [[${#httpServletRequest.contextPath}]];
     </script>
 </head>
-<body class="hold-transition login-page">
+<body class="hold-transition login-page" style="background: url(img/emergency-bk.jpg)no-repeat;background-size:100% 100%;">
 <div class="login-box">
     <div class="login-logo">
         <div class="form-group">
-        <a href="#"><b>石羊街道</b></a>
+        <b style="color: white;">石羊街道</b>
         </div>
         <div class="form-group">
-        <a href="#"><b>应急指挥系统</b></a>
+        <b style="color: white;">应急指挥系统</b>
         </div>
     </div>
     <div class="login-box-body">
