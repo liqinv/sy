@@ -7,8 +7,8 @@ import java.net.URLEncoder;
 @Slf4j
 public class SmsUtil {
 
-    private static final String CorpID = "CorpID";
-    private static final String Pwd = "Pwd";
+    private static final String CorpID = "zhangxuomei";
+    private static final String Pwd = "123456";
 
     public static String sendSMS(String[] mobiles, String content ) {
         try {
@@ -33,7 +33,7 @@ public class SmsUtil {
     }
 
     public static void main(String[] args) {
-        String[] mobiles = {"131","132","133"};
+        String[] mobiles = {"13880403060","18080013016"};
         String content = "你好，测试！";
         sendSMS(mobiles,content);
     }
