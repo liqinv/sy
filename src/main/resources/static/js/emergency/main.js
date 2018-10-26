@@ -6,7 +6,7 @@ var emergency = new Vue({
             searchCondition: '',
         },
         eventList: {}, //列表对象
-        eventModel: {},//临时缓存用
+        eventModel: {gpsMqIsInit: false},//临时缓存用
         categoryList: {},
         typeList: {},
         groupList: {},
@@ -35,6 +35,7 @@ var emergency = new Vue({
         this.initMap();
         this.initPoint({});
         this.initArea();
+        this.getCurUser();
     },
     methods: {
         initData: function () {
@@ -448,7 +449,7 @@ var emergency = new Vue({
             }); // 仅包含平移和缩放按钮
             this.map.addControl(bottom_right_control);
             this.map.addControl(top_right_navigation);
-
+            MapManager.setMap(this.map);
         },
         initArea: function (param) {
             var url = "/resource/area/listMap";
@@ -611,9 +612,24 @@ var emergency = new Vue({
             this.$data.overlays.length = 0
             this.drawingManager = {};
         },
-        //开启mq
-        openMqListener: function () {
-            MqManager.initMq("/exchange/GpsTopicExchange/#", MqManager.mqGpsCompleteCallBack);
+        openMqListener:function(){
+		    if(!emergency.$data.eventModel.gpsMqIsInit){
+		        emergency.$data.eventModel.gpsMqIsInit = true;
+		        MqManager.initMq("/exchange/GpsTopicExchange/#",MqManager.mqGpsCompleteCallBack);
+		    }
+		    var type = 4
+
+            setTimeout("MapToobar.initResourceChart("+type+")", 200);
+		},
+		getCurUser : function() {
+            var url = "/emergency/getCurUser";
+            YF_HTTP.post(url, this.searchObj).then(function(result) {
+                emergency.$data.curuser = result.data;
+                $("#organId").val(result.data.organId);
+                $("#organPath").val(result.data.sysOrgan.path);
+
+                MapToobar.initResourceDatas(true);
+            });
         }
     }
 });

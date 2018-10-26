@@ -1,0 +1,526 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yf.base.dao.device.GpsMapper">
+	<resultMap id="BaseResultMap" type="com.yf.base.model.device.Gps">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="type_id" jdbcType="INTEGER" property="typeId" />
+		<result column="org_id" jdbcType="INTEGER" property="orgId" />
+		<result column="number" jdbcType="VARCHAR" property="number" />
+		<result column="gps_name" jdbcType="VARCHAR" property="gpsName" />
+		<result column="sync_state" jdbcType="BIT" property="syncState" />
+		<result column="platform_id" jdbcType="INTEGER" property="platformId" />
+		<result column="icon_url" jdbcType="VARCHAR" property="iconUrl" />
+		<result column="icon_id" jdbcType="INTEGER" property="iconId" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id, type_id, org_id, number, gps_name, sync_state,
+		platform_id,
+		icon_url,icon_id
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_gps
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from t_gps
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<delete id="deleteByNumber" parameterType="java.lang.String">
+		delete from t_gps
+		where number = #{number,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.yf.base.model.device.Gps">
+		<selectKey resultType="INTEGER" keyProperty="id">
+			SELECT
+			LAST_INSERT_ID()
+		</selectKey>
+		insert into t_gps (id, type_id, org_id,
+		number, gps_name, sync_state,
+		platform_id, icon_url,icon_id)
+		values
+		(#{id,jdbcType=INTEGER}, #{typeId,jdbcType=INTEGER},
+		#{orgId,jdbcType=INTEGER},
+		#{number,jdbcType=VARCHAR},
+		#{gpsName,jdbcType=VARCHAR}, #{syncState,jdbcType=BIT},
+		#{platformId,jdbcType=INTEGER},
+		#{iconUrl,jdbcType=VARCHAR},#{iconId,jdbcType=INTEGER})
+	</insert>
+
+	<insert id="insertSelective" parameterType="com.yf.base.model.device.Gps">
+		insert into t_gps
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="typeId != null">
+				type_id,
+			</if>
+			<if test="orgId != null">
+				org_id,
+			</if>
+			<if test="number != null">
+				number,
+			</if>
+			<if test="gpsName != null">
+				gps_name,
+			</if>
+			<if test="syncState != null">
+				sync_state,
+			</if>
+			<if test="platformId != null">
+				platform_id,
+			</if>
+			<if test="iconUrl != null">
+				icon_url,
+			</if>
+			<if test="iconId != null">
+				icon_id,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="typeId != null">
+				#{typeId,jdbcType=INTEGER},
+			</if>
+			<if test="orgId != null">
+				#{orgId,jdbcType=INTEGER},
+			</if>
+			<if test="number != null">
+				#{number,jdbcType=VARCHAR},
+			</if>
+			<if test="gpsName != null">
+				#{gpsName,jdbcType=VARCHAR},
+			</if>
+			<if test="syncState != null">
+				#{syncState,jdbcType=BIT},
+			</if>
+			<if test="platformId != null">
+				#{platformId,jdbcType=INTEGER},
+			</if>
+			<if test="iconUrl != null">
+				#{iconUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="iconId != null">
+				#{iconId,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.yf.base.model.device.Gps">
+		update t_gps
+		<set>
+			<if test="typeId != null">
+				type_id = #{typeId,jdbcType=INTEGER},
+			</if>
+			<if test="orgId != null">
+				org_id = #{orgId,jdbcType=INTEGER},
+			</if>
+			<if test="number != null">
+				number = #{number,jdbcType=VARCHAR},
+			</if>
+			<if test="gpsName != null">
+				gps_name = #{gpsName,jdbcType=VARCHAR},
+			</if>
+			<if test="syncState != null">
+				sync_state = #{syncState,jdbcType=BIT},
+			</if>
+			<if test="platformId != null">
+				platform_id = #{platformId,jdbcType=INTEGER},
+			</if>
+			<if test="iconUrl != null">
+				icon_url = #{iconUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="iconId != null">
+				icon_id = #{iconId,jdbcType=INTEGER},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.yf.base.model.device.Gps">
+		update t_gps
+		set
+		type_id = #{typeId,jdbcType=INTEGER},
+		org_id =
+		#{orgId,jdbcType=INTEGER},
+		number = #{number,jdbcType=VARCHAR},
+		gps_name = #{gpsName,jdbcType=VARCHAR},
+		sync_state =
+		#{syncState,jdbcType=BIT},
+		platform_id =
+		#{platformId,jdbcType=INTEGER},
+		icon_url = #{iconUrl,jdbcType=VARCHAR},
+		icon_id = #{iconId,jdbcType=INTEGER},
+		orgIds =
+		#{orgIds,jdbcType=VARCHAR},
+		orgNames=#{orgNames,jdbcType=VARCHAR}
+		where
+		id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateGpsByPrimaryKey" parameterType="com.yf.base.model.device.Gps">
+		update t_gps
+		set
+		type_id = #{typeId,jdbcType=INTEGER},
+		org_id =
+		#{orgId,jdbcType=INTEGER},
+		number = #{number,jdbcType=VARCHAR},
+		gps_name = #{gpsName,jdbcType=VARCHAR},
+		sync_state =
+		#{syncState,jdbcType=BIT},
+		platform_id =
+		#{platformId,jdbcType=INTEGER},
+		icon_url = #{iconUrl,jdbcType=VARCHAR},
+		icon_id = #{iconId,jdbcType=INTEGER},
+		orgIds =
+		#{orgIds,jdbcType=VARCHAR},
+		orgNames=#{orgNames,jdbcType=VARCHAR},
+		police_type_id=#{policeTypeId,jdbcType=INTEGER}
+		where
+		id = #{id,jdbcType=INTEGER}
+	</update>
+
+
+	<delete id="deleteByIds" parameterType="java.util.Map">
+		delete from t_gps where id in
+
+		<foreach item="item" index="index" collection="ids" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+
+	</delete>
+
+	<select id="selectGpsType" resultType="com.yf.base.model.device.GpsType">
+		select * from t_gpstype where gps_type=1
+		order by id asc
+	</select>
+
+	<select id="selectGpsVoList" parameterType="com.yf.base.model.device.Gps"
+		resultType="com.yf.base.model.device.Gps">
+		select
+		g.id as id,
+		g.type_id as typeId,
+		g.org_id as orgId,
+		g.number as
+		number,
+		g.gps_name as gpsName,
+		g.sync_state as syncState,
+		g.platform_id
+		as platformId,
+		g.icon_url as iconUrl,
+		g.icon_id as iconId,
+		y.name as typeName
+		from t_gps as g
+		left join t_gpstype y on y.id = g.type_id
+		where 1=1
+		<if test="orgId != null">
+			and g.org_id = #{orgId,jdbcType=INTEGER}
+		</if>
+		<if test="searchCondition != null and searchCondition != ''">
+			and CONCAT( g.gps_name ,g.number) like CONCAT('%',#{searchCondition,jdbcType=VARCHAR},'%')
+		</if>
+
+	</select>
+
+
+	<select id="loadVMCount" parameterType="java.util.Map"
+		resultType="java.lang.Integer">
+		select
+		count(*)
+		from
+		t_gps as g
+		left join t_organ as org on
+		g.org_id=org.organ_id
+		left join t_gpstype as gt on g.type_id=gt.id
+		where (
+		org.organ_id = #{orgId,jdbcType=INTEGER}
+		<if test="orgCode !=null">
+			or
+			o.code =#{orgCode,jdbcType=VARCHAR}
+		</if>
+		<if test="isSubOrg ==2">
+			or org.path like
+			CONCAT(#{orgPath,jdbcType=VARCHAR},"/","%")
+		</if>
+		)
+		<if test="name != null ">
+			and g.gps_name like CONCAT("%",'${name}',"%")
+		</if>
+
+		<if test="number != null ">
+			and g.number like CONCAT("%",'${number}',"%")
+		</if>
+
+		<if test="ids !=null ">
+			and g.type_id in
+
+			<foreach item="item" index="index" collection="ids" open="("
+				separator="," close=")">
+				#{item}
+			</foreach>
+
+		</if>
+		<if test="typeId !=null ">
+			and g.type_id = #{typeId,jdbcType=INTEGER}
+		</if>
+		<if test="gpsType !=null ">
+			and gt.gps_type = #{gpsType,jdbcType=INTEGER}
+		</if>
+		<if test="searchKey != null ">
+			and (g.gps_name like CONCAT("%",'${searchKey}',"%") or
+			g.number like
+			CONCAT("%",'${searchKey}',"%")
+			or org.name like
+			CONCAT("%",'${searchKey}',"%") or gt.name like
+			CONCAT("%",'${searchKey}',"%")
+			)
+		</if>
+	</select>
+	<select id="loadVMGpsCount" parameterType="java.util.Map"
+		resultType="java.lang.Integer">
+		select
+		count(*)
+		from
+		t_gps as g
+		left join t_organ as org on
+		g.org_id=org.organ_id
+		left join t_gpstype as gt on g.type_id=gt.id
+		where (
+		org.organ_id = #{orgId,jdbcType=INTEGER}
+		<if test="orgCode !=null">
+			or
+			o.code =#{orgCode,jdbcType=VARCHAR}
+		</if>
+		<if test="isSubOrg ==2">
+			or org.path like
+			CONCAT(#{orgPath,jdbcType=VARCHAR},"/","%")
+		</if>
+		)
+
+
+		<if test="name != null ">
+			and g.gps_name like CONCAT("%",'${name}',"%")
+		</if>
+
+		<if test="number != null ">
+			and g.number like CONCAT("%",'${number}',"%")
+		</if>
+
+		<if test="ids !=null ">
+			and g.type_id in
+
+			<foreach item="item" index="index" collection="ids" open="("
+				separator="," close=")">
+				#{item}
+			</foreach>
+
+		</if>
+		<if test="typeId !=null ">
+			and g.type_id = #{typeId,jdbcType=INTEGER}
+		</if>
+		<if test="gpsType !=null ">
+			and gt.gps_type = #{gpsType,jdbcType=INTEGER}
+		</if>
+		<if test="searchKey != null ">
+			and (g.gps_name like CONCAT("%",'${searchKey}',"%") or
+			g.number like
+			CONCAT("%",'${searchKey}',"%")
+			or org.name like
+			CONCAT("%",'${searchKey}',"%") or gt.name like
+			CONCAT("%",'${searchKey}',"%")
+			)
+		</if>
+	</select>
+
+
+
+	<select id="loadVMListCountWithGroup" parameterType="java.util.Map"
+		resultType="java.lang.Integer">
+		select count(*)
+		from t_gps g
+		left join t_gpstype gt on gt.id = g.type_id
+		left join t_organ o on o.organ_id = g.org_id
+		<if test="gids !=null">
+			left join t_duty_gps_group_member gm on gm.gps_id = g.id
+			left join t_duty_gps_group pg on pg.id = gm.group_id
+		</if>
+		where 1=1 and
+		(
+		o.organ_id = #{orgId,jdbcType=INTEGER}
+		<if test="orgparentPath!=null">
+			or o.path = #{orgparentPath,jdbcType=VARCHAR}
+		</if>
+		)
+		<if test="number !=null">
+			and g.number like CONCAT('%','${number}','%' )
+		</if>
+		<if test="gpsname !=null">
+			and g.gps_name like CONCAT('%','${gpsname}','%' )
+		</if>
+		<if test="ids !=null">
+			and g.type_id in
+
+			<foreach item="item" index="index" collection="ids" open="("
+				separator="," close=")">
+				#{item}
+			</foreach>
+
+		</if>
+		<if test="gids !=null">
+			and pg.id in
+
+			<foreach item="gitem" index="index" collection="gids" open="("
+				separator="," close=")">
+				#{gitem}
+			</foreach>
+
+		</if>
+	</select>
+
+	<select id="selectGpsByNumber" parameterType="com.yf.base.model.device.Gps"
+		resultType="com.yf.base.model.device.Gps">
+		select
+		g.id as id,
+		g.type_id as typeId,
+		g.org_id as orgId,
+		g.number as number,
+		g.gps_name as gpsName,
+		g.sync_state as syncState,
+		g.platform_id as platformId,
+		g.icon_url as iconUrl,
+		g.icon_id as iconId
+		from t_gps g
+		where g.number = #{number}
+	</select>
+	<select id="hasGpsId" parameterType="java.lang.Integer"
+		resultType="java.util.HashMap">
+		select
+		case when p.id > 0 then p.id else v.id end as id,
+		case when p.id > 0 then p.name else v.number end as name,
+		t.id as gpsId
+		from t_gps t
+		left join t_police p on p.gps_id = t.id
+		left join t_vehicle
+		v
+		on v.gps_id = t.id
+		where (p.id > 0 or v.id > 0)
+		and t.id = #{gpsId}
+	</select>
+
+	<!-- 根据组织机构id删除gps设备 -->
+	<delete id="deleteGPSByOrganId">
+		delete from t_gps where org_id in
+		<foreach collection="organIds" open="(" close=")" separator=","
+			item="id">
+			#{id}
+		</foreach>
+	</delete>
+
+
+
+	<select id="selectAllPolices" resultType="map">
+		select t.id gpsId,t.number gpsNumber,t.gps_name gpsName ,tor.code
+		groupId,tor.path routeKey
+		from t_gps t left join t_organ tor on
+		t.org_id = tor.organ_id
+		where 1=1
+		<if test="orgId !=null and orgId != 0 ">
+			AND t.org_id = #{orgId}
+		</if>
+
+	</select>
+	<select id="selectByGpsNumber" resultType="java.lang.String" parameterType="java.lang.String">
+		SELECT
+		GROUP_CONCAT(r.organ_code SEPARATOR ',') AS organCodes
+		FROM
+		r_gpsdevice_organ r
+		WHERE
+		1=1
+		<if test="number !=null and number != '' ">
+			AND r.gps_device_number = #{number}
+		</if>
+		GROUP BY
+		r.gps_device_number
+	</select>
+	
+	<select id="selectGpsById" parameterType="com.yf.base.model.device.Gps"
+		resultType="com.yf.base.model.device.Gps">
+		select
+		g.id as id,
+		g.type_id as typeId,
+		g.org_id as orgId,
+		g.number as number,
+		g.gps_name as gpsName,
+		g.sync_state as syncState,
+		g.platform_id as platformId,
+		g.icon_url as iconUrl,
+		g.icon_id as iconId
+		from t_gps g
+		where g.id = #{id}
+	</select>
+	<select id="selectByName" resultType="com.yf.base.model.device.Gps">
+		select
+		g.id as id,
+		g.type_id as typeId,
+		g.org_id as orgId,
+		g.number as number,
+		g.gps_name as gpsName,
+		g.sync_state as syncState,
+		g.platform_id as platformId,
+		g.icon_url as iconUrl,
+		g.icon_id as iconId
+		from t_gps g WHERE g.number = #{number,jdbcType=VARCHAR}
+		<if test="id != null">
+			and g.id != #{id}
+		</if>
+	</select>
+
+	<resultMap id="GpsMap" type="com.yf.base.model.device.vo.GpsBean">
+		<result column="gpsId" property="gpsId" jdbcType="INTEGER" />
+		<result column="gpsTypeId" property="gpsTypeId" jdbcType="INTEGER" />
+		<result column="gpsNumber" property="gpsNumber" jdbcType="VARCHAR" />
+		<result column="orgId" property="orgId" jdbcType="INTEGER" />
+		<result column="gpsName" property="gpsName" jdbcType="VARCHAR" />
+		<result column="userNumber" property="userNumber" jdbcType="VARCHAR" />
+		<result column="typeName" property="typeName" jdbcType="VARCHAR" />
+		<result column="policeId" property="policeId" jdbcType="INTEGER" />
+		<result column="policeName" property="policeName" jdbcType="VARCHAR" />
+
+		<result column="policeNumber" property="policeNumber" jdbcType="VARCHAR" />
+		<result column="policeMobile" property="policeMobile" jdbcType="VARCHAR" />
+		<result column="iconUrl" property="iconUrl" jdbcType="VARCHAR" />
+		<result column="iconUrlHigh" property="iconUrlHigh" jdbcType="VARCHAR" />
+		<result column="organName" property="organName" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<select id="selectGpsByOrgan" resultMap="GpsMap">
+		SELECT
+		tg.id gpsId,
+		tg.type_id gpsTypeId,
+		tg.org_id orgId,
+		IFNULL(tg.number, '') gpsNumber,
+		tg.gps_name gpsName,
+		ty.`name` typeName,
+		ty.TYPE_ICON_URL iconUrl,
+		ty.HIGN_ICON_URL iconUrlHigh,
+		o.short_name organName
+		FROM
+		t_gps tg
+		LEFT JOIN t_gpstype ty ON tg.type_id = ty.id
+		LEFT JOIN sys_organ o ON o.ID = tg.org_id
+		WHERE 1=1
+		<if test="organCode !=null and organCode != '' ">
+			AND o.id = #{organCode,jdbcType=VARCHAR}
+		</if>
+		<if test="organPath !=null and organPath != '' ">
+			AND o.path like CONCAT('${organPath}','%' )
+		</if>
+
+	</select>
+
+
+</mapper>

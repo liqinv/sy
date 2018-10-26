@@ -54,7 +54,7 @@ public interface SysOrganService extends BaseService<SysOrgan,Integer> {
      * @param organVoId 机构ID
      * @return
      */
-    SysOrganVo getOrganVoById(@Param("organVoId")Integer organVoId);
+    SysOrganVo getOrganVoById(@Param("organVoId") Integer organVoId);
     /**
      * 获取Kendo树所需要的数据源，根据指定的机构节点开始显示
      * @param organId 指定的机构节点ID

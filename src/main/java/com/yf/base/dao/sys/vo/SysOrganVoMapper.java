@@ -37,7 +37,7 @@ public interface SysOrganVoMapper {
      * @param organVoId 机构ID
      * @return
      */
-    SysOrganVo getOrganVoById(@Param("organVoId")Integer organVoId);
+    SysOrganVo getOrganVoById(@Param("organVoId") Integer organVoId);
     /**
      * 获取最近路径的层级机构对象
      * @param sysOrganVo
@@ -50,5 +50,5 @@ public interface SysOrganVoMapper {
      * @param level
      * @return
      */
-    Integer getOrganMaxCode(@Param("level")Integer level);
+    Integer getOrganMaxCode(@Param("level") Integer level);
 }

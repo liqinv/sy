@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yf.base.dao.device.GpsTypeMapper" >
+  <resultMap id="BaseResultMap" type="com.yf.base.model.device.GpsType" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="sync_state" property="syncState" jdbcType="BIT" />
+    <result column="platform_id" property="platformId" jdbcType="INTEGER" />
+    <result column="ICON_GROUP_ID" property="iconGroupId" jdbcType="INTEGER" />
+    <result column="PARENT_ICON_TYPE" property="parentIconType" jdbcType="INTEGER" />
+    <result column="NOMAL_URL" property="nomalUrl" jdbcType="VARCHAR" />
+    <result column="SELECTED_URL" property="selectedUrl" jdbcType="VARCHAR" />
+    <result column="INTO_ENCLOSURE_URL" property="intoEnclosureUrl" jdbcType="VARCHAR" />
+    <result column="DISPATCH_URL" property="dispatchUrl" jdbcType="VARCHAR" />
+    <result column="ARRIVE_URL" property="arriveUrl" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    gt.id, gt.name, gt.sync_state, gt.platform_id,gt.ICON_GROUP_ID,gt.PARENT_ICON_TYPE,i.NOMAL_URL as nomalUrl,i.SELECTED_URL as selectedUrl,i.INTO_ENCLOSURE_URL as intoEnclosureUrl,
+    i.DISPATCH_URL as dispatchUrl,i.ARRIVE_URL as arriveUrl
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_gpstype gt
+    left join t_icon_group i on i.GROUP_ID = gt.ICON_GROUP_ID
+    where gt.id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectGpsTypeList" resultMap="BaseResultMap" parameterType="com.yf.base.model.device.GpsType">
+    select 
+    <include refid="Base_Column_List" />
+    from t_gpstype gt
+    left join t_icon_group i on i.GROUP_ID = gt.ICON_GROUP_ID
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_gpstype
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yf.base.model.device.GpsType" >
+    insert into t_gpstype (id, name, sync_state, 
+      platform_id,ICON_GROUP_ID,PARENT_ICON_TYPE)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{syncState,jdbcType=BIT}, 
+      #{platformId,jdbcType=INTEGER},#{iconGroupId,jdbcType=INTEGER},#{parentIconType,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yf.base.model.device.GpsType" >
+    insert into t_gpstype
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="syncState != null" >
+        sync_state,
+      </if>
+      <if test="platformId != null" >
+        platform_id,
+      </if>
+      <if test="iconGroupId != null" >
+        ICON_GROUP_ID,
+      </if>
+      <if test="iconGroupId != null" >
+        PARENT_ICON_TYPE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="syncState != null" >
+        #{syncState,jdbcType=BIT},
+      </if>
+      <if test="platformId != null" >
+        #{platformId,jdbcType=INTEGER},
+      </if>
+      <if test="iconGroupId != null" >
+        #{iconGroupId,jdbcType=INTEGER},
+      </if>
+      <if test="parentIconType != null" >
+        #{parentIconType,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yf.base.model.device.GpsType" >
+    update t_gpstype
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="syncState != null" >
+        sync_state = #{syncState,jdbcType=BIT},
+      </if>
+      <if test="platformId != null" >
+        platform_id = #{platformId,jdbcType=INTEGER},
+      </if>
+      <if test="iconGroupId != null" >
+        ICON_GROUP_ID = #{iconGroupId,jdbcType=INTEGER},
+      </if>
+      <if test="parentIconType != null" >
+        PARENT_ICON_TYPE = #{parentIconType,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yf.base.model.device.GpsType" >
+    update t_gpstype
+    set name = #{name,jdbcType=VARCHAR},
+      sync_state = #{syncState,jdbcType=BIT},
+      platform_id = #{platformId,jdbcType=INTEGER},
+      ICON_GROUP_ID = #{iconGroupId,jdbcType=INTEGER},
+      PARENT_ICON_TYPE = #{parentIconType,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectByName" resultType="com.yf.base.model.device.GpsType">
+    select
+      id as id,
+      name as name
+    from t_gpstype WHERE name = #{name,jdbcType=VARCHAR}
+  </select>
+  <select id="findGpsType" resultType="com.yf.base.model.device.GpsType">
+    select
+    id as id,
+    name as name
+    from t_gpstype WHERE 1=1
+    <if test="name != null and name != ''" >
+      and name = #{name,jdbcType=VARCHAR}
+    </if>
+  </select>
+</mapper>

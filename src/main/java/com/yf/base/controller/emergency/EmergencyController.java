@@ -3,15 +3,18 @@ package com.yf.base.controller.emergency;
 import com.yf.base.common.BaseController;
 import com.yf.base.common.Constants;
 import com.yf.base.common.ReturnResult;
+import com.yf.base.model.device.vo.GpsBean;
 import com.yf.base.model.emergency.vo.EmergencyEventProcessVo;
 import com.yf.base.model.emergency.vo.EmergencyEventVo;
 import com.yf.base.model.sys.vo.SysUserVo;
+import com.yf.base.service.device.GpsService;
 import com.yf.base.service.emergency.EmergencyService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import springfox.documentation.annotations.ApiIgnore;
 
@@ -25,6 +28,8 @@ import java.util.List;
 public class EmergencyController extends BaseController {
     @Resource
     private EmergencyService emergencyService;
+    @Resource
+    private GpsService gpsService;
 
     @ApiIgnore
     @RequestMapping("/main")
@@ -112,5 +117,41 @@ public class EmergencyController extends BaseController {
             ex.printStackTrace();
         }
         return rr;
+    }
+    
+    @ApiOperation(value="查看当前登录人信息",  httpMethod ="POST")
+    @RequestMapping("/getCurUser")
+    @ResponseBody
+    public ReturnResult getCurUser(Integer eventId){
+        ReturnResult rr = ReturnResult.SUCCESS();
+        try {
+            SysUserVo userVo = this.getLoginUser();
+            rr.setData(userVo);
+        }catch (Exception ex){
+            rr = ReturnResult.FAILUER("查看当前登录人信息出错");
+            ex.printStackTrace();
+        }
+        return rr;
+    }
+
+    /**
+     * 获取设备上图列表
+     *
+     * @return
+     */
+    @ApiOperation(value = "获取设备上图列表", httpMethod = "POST")
+    @ResponseBody
+    @RequestMapping("/getGpslist")
+    public ReturnResult getGpslist(@RequestParam(required = false, value = "organId") String organId,
+                                   @RequestParam(required = false, value = "organPath") String organPath) {
+        ReturnResult json = ReturnResult.SUCCESS();
+        try {
+            List<GpsBean> gts = gpsService.selectGpsByOrgan(organId, organPath);
+            json.setData(gts);
+        } catch (Exception e) {
+            json = ReturnResult.FAILUER(Constants.EDIT_ERROR);
+            e.printStackTrace();
+        }
+        return json;
     }
 }

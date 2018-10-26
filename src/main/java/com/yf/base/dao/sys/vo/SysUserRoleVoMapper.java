@@ -13,7 +13,7 @@ public interface SysUserRoleVoMapper {
      * @param roleId
      * @return
      */
-    Integer getUserRoleCountByRoleId(@Param("roleId")Integer roleId);
+    Integer getUserRoleCountByRoleId(@Param("roleId") Integer roleId);
 
     /**
      * 修改用户角色
@@ -26,5 +26,5 @@ public interface SysUserRoleVoMapper {
      * @param userId
      * @return
      */
-    int delByUserId(@Param("userId")Integer userId);
+    int delByUserId(@Param("userId") Integer userId);
 }

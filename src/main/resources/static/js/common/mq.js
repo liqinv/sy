@@ -38,7 +38,18 @@ var MqManager = {
 	 */
 	mqGpsCompleteCallBack : function(datas) {
 		console.log('gps收到mq推送的数据:' + datas);
-		if (!datas)
+		if(!datas) return;
+        var data = datas.split("-");
+        if(data.length == 1){//down
+           if(typeof MapToobar.pushGpsOffline == "function"){
+               MapToobar.pushGpsOffline(data[0]);
+           }
+        }else{//up
+             if(typeof MapToobar.bulidPoliceAndCar == "function"){
+                 MapToobar.bulidPoliceAndCar(datas);
+             }
+        }
+		/*if (!datas)
 			return;
 		var data = datas.split("|");
 		if (data.length == 1) {
@@ -46,7 +57,7 @@ var MqManager = {
 			return;
 		} else {// up
 			MqManager.bulidPoliceAndCar(datas);
-		}
+		}*/
 	},
 	/**
 	 * 解析MQ推送的GPS数据
@@ -66,15 +77,15 @@ var MqManager = {
 	dobulidPoliceAndCar: function(datas){
 		if(!datas || datas == null) return;
 		var gpsId = null, lon,lat;
-		var mqDatas = datas.split("|");
-		if(mqDatas && mqDatas.length > 6){
+		var mqDatas = datas.split("-");
+		if(mqDatas && mqDatas.length > 4){
 			var en = new Object();
-			en.id = en.name = mqDatas[1];
-			en.longitude = mqDatas[5];
-			en.latitude = mqDatas[6];
+			en.id = en.name = mqDatas[0];
+			en.longitude = mqDatas[1];
+			en.latitude = mqDatas[2];
 			en.type = 4;
-			en.height = 30;
-			en.width = 30;
+			en.height = 50;
+			en.width = 50;
 			MqManager.mqResourceChart(en);
 		}
 	},
@@ -91,7 +102,7 @@ var MqManager = {
 
 		 MapManager.clearOverlayByIdType(entity);
 		 if(entity.type == 4){
-   			entity.iconUrl = "http://127.0.0.1:8888/adminlte/dist/img/avatar5.png";
+   			entity.iconUrl = baseUrl+"/img/resource/q1-on.png";
 		 }
 		 try{
 			 MapManager.doResourceChart(entity);
@@ -116,18 +127,18 @@ var MqManager = {
 	requestMqResource : function(subscribe, callBack, url, userName, password) {
 		/** ************初始值处理**start************ */
 		if (!url)
-			url = "http://25.30.9.3:15674/stomp";
+			url = "http://171.221.172.73:15674/stomp";
 		if (!userName)
 			userName = "guest";
 		if (!password)
-			password = "guest";
+			password = "guest123";
 		if (!subscribe) {
 			return;
 		}
 		/** ************初始值处理**end************ */
 		if (!url || url == "")
 			return;
-
+        url = "http://171.221.172.73:15674/stomp";
 		var ws = new SockJS(url);
 		var client = Stomp.over(ws);
 		// SockJS does not support heart-beat: disable heart-beats
@@ -155,13 +166,10 @@ var MqManager = {
 		};
 		var on_error = function(er) {
 			client.disconnect(function() {
-				mq_connection_error.count++;
 				console.log('mq连接错误(' + url + ')，连接已释放，正在重连...');
 			});
 			// 错误链接次数超过设定值时，强制刷新界面20170922
-			if (mq_connection_error.count > mq_connection_error.alarmNum) {
-				window.location.reload();
-			}
+
 			// 断网报错时，重新建立连接
 			try {
 				setTimeout(function() {

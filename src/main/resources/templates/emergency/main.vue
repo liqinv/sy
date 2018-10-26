@@ -361,6 +361,7 @@
                 <li id="AD001" title="党委" style="background-color:#3c8dbc;" v-on:click="switchPoint('AD001');"><i class="fa fa-bank"></i></li>
                 <li id="AD002" title="危险源" style="background-color:#3c8dbc;" v-on:click="switchPoint('AD002');"><i class="fa fa-bolt"></i></li>
                 <li id="AD003" title="应急物资存放点" style="background-color:#3c8dbc;" v-on:click="switchPoint('AD003');"><i class="fa fa-database"></i></li>
+                <li title="开启gps设备"><img v-on:click="openMqListener();" th:src="@{/img/resource/q1-off.png}"/></li>
             </ul>
         </div>
     </div>
@@ -369,6 +370,7 @@
         <script type="text/javascript" src="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.js"></script>
         <script th:src="@{/js/common/point_convertor.js}"></script>
         <script th:src="@{/js/common/map_baidu.js}"></script>
+       <script th:src="@{/js/common/toobar.js}"></script>
 
         <script th:src="@{/js/emergency/main.js}"></script>
         <script th:src="@{/adminlte/components/select2/js/select2.full.min.js}"></script>
@@ -383,11 +385,6 @@
         <script th:src="@{/js/common/sockjs-0.3.4.js}"></script>
         <script th:src="@{/js/common/stomp.js}"></script>
         <script th:src="@{/js/common/mq.js}"></script>
-        <script>
-            MqManager.initMq("/exchange/GpsTopicExchange/#", MqManager.mqGpsCompleteCallBack);
-        </script>
-
-
     </th:block>
 
 

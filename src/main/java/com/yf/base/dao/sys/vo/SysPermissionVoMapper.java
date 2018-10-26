@@ -21,19 +21,19 @@ public interface SysPermissionVoMapper extends BaseDao<SysPermission,Integer> {
      * @param userId 用户ID
      * @return
      */
-    List<SysPermissionVo> selectPermissionByUserAndType(@Param("userId") Integer userId,@Param("resourceType") Integer resourceType);
+    List<SysPermissionVo> selectPermissionByUserAndType(@Param("userId") Integer userId, @Param("resourceType") Integer resourceType);
 
     /**
      * 获取树形结构的权限列表
      * @param roleId
      * @return
      */
-    List<SysPermissionVo> selectPermissionListByRoleId(@Param("roleId")Integer roleId);
+    List<SysPermissionVo> selectPermissionListByRoleId(@Param("roleId") Integer roleId);
 
     /**
      * 获取同层级最大ID
      * @param level
      * @return
      */
-    Integer getMaxIdByLevel(@Param("level")Integer level);
+    Integer getMaxIdByLevel(@Param("level") Integer level);
 }

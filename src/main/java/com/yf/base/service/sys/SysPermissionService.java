@@ -64,7 +64,7 @@ public interface SysPermissionService extends BaseService<SysPermission,Integer>
      * @param resourceType
      * @return
      */
-    List<SysPermissionVo> selectTreeByUserAndType(Integer userId,Integer resourceType);
+    List<SysPermissionVo> selectTreeByUserAndType(Integer userId, Integer resourceType);
 
     /**
      * 获取ID

@@ -30,7 +30,7 @@ public interface SysRoleService extends BaseService<SysRole,Integer> {
      * @param roleId 角色ID
      * @return
      */
-    Integer addRolePermission(List<Integer> permissionIdList,Integer roleId);
+    Integer addRolePermission(List<Integer> permissionIdList, Integer roleId);
 
     /**
      * 获取角色列表，根据用户ID
@@ -59,7 +59,7 @@ public interface SysRoleService extends BaseService<SysRole,Integer> {
      * @param loginUser
      * @return
      */
-    Integer delete(Integer roleId,SysUserVo loginUser);
+    Integer delete(Integer roleId, SysUserVo loginUser);
 
     /**
      * 获取用户角色记录数，根据角色ID

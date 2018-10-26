@@ -45,5 +45,5 @@ public interface SysUserService extends BaseService<SysUser,Integer> {
      * @param newPwd
      * @return
      */
-    Integer editPwd(Integer userId,String newPwd);
+    Integer editPwd(Integer userId, String newPwd);
 }

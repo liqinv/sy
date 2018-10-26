@@ -18,5 +18,5 @@ public interface SysRolePermissionVoMapper extends BaseDao<SysRolePermissionKey,
      * @param permissionIds 权限id字符串，多个用英文逗号","隔开
      * @return
      */
-    Integer deleteByPermissionIdIn(@Param("permissionIds")String permissionIds);
+    Integer deleteByPermissionIdIn(@Param("permissionIds") String permissionIds);
 }
