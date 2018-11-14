@@ -361,7 +361,7 @@
                 <li id="AD001" title="党委" style="background-color:#3c8dbc;" v-on:click="switchPoint('AD001');"><i class="fa fa-bank"></i></li>
                 <li id="AD002" title="危险源" style="background-color:#3c8dbc;" v-on:click="switchPoint('AD002');"><i class="fa fa-bolt"></i></li>
                 <li id="AD003" title="应急物资存放点" style="background-color:#3c8dbc;" v-on:click="switchPoint('AD003');"><i class="fa fa-database"></i></li>
-                <li title="开启gps设备"><img v-on:click="openMqListener();" th:src="@{/img/resource/q1-off.png}"/></li>
+                <li id="person" title="人员" style="background-color:#4b646f;" v-on:click="switchPerson();"><i class="fa fa-male"></i></li>
             </ul>
         </div>
     </div>

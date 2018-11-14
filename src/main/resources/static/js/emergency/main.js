@@ -618,6 +618,16 @@ var emergency = new Vue({
             this.$data.overlays.length = 0
             this.drawingManager = {};
         },
+        switchPerson: function () {
+            if($("#person").css("background-color") =="rgb(60, 141, 188)") { //关闭
+                $("#person").css("background-color","#4b646f");
+                //todo 断开mq，清除地图上已有人员图标
+                this.openMqListener();
+            } else { //开启
+                $("#person").css("background-color","rgb(60, 141, 188)");
+                this.openMqListener();
+            }
+        },
         openMqListener:function(){
 		    if(!emergency.$data.eventModel.gpsMqIsInit){
 		        emergency.$data.eventModel.gpsMqIsInit = true;
