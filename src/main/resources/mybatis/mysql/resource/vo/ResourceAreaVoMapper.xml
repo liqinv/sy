@@ -14,13 +14,14 @@
         <result column="LAST_UPDATE_USER_ID" jdbcType="INTEGER" property="lastUpdateUserId" />
         <result column="LAST_UPDATE_TIME" jdbcType="TIMESTAMP" property="lastUpdateTime" />
         <result column="ACTIVE" jdbcType="INTEGER" property="active" />
+        <result column="AREA_COLOR" jdbcType="VARCHAR" property="areaColor" />
     </resultMap>
     <resultMap id="VoResultMap" type="com.yf.base.model.resource.vo.ResourceAreaVo" extends="BaseResultMap">
 
     </resultMap>
     <sql id="Base_Column_List">
     ID, NAME, TYPE, LINK_MAN, LINK_PHONE, NOTE, CREATE_USER_ID, CREATE_ORGAN_ID, CREATE_TIME,
-    LAST_UPDATE_USER_ID, LAST_UPDATE_TIME, ACTIVE
+    LAST_UPDATE_USER_ID, LAST_UPDATE_TIME, ACTIVE,AREA_COLOR
   </sql>
     <select id="selectByParam" resultMap="VoResultMap">
         select

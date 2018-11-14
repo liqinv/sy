@@ -459,14 +459,7 @@ var emergency = new Vue({
                     //点位上图
                     console.log(result.data);
                     var areaList = result.data;
-                    var styleOptions = {
-                        strokeColor : "red", // 边线颜色。
-                            fillColor : "red", // 填充颜色。当参数为空时，圆形将没有填充效果。
-                            strokeWeight : 3, // 边线的宽度，以像素为单位。
-                            strokeOpacity : 0.8, // 边线透明度，取值范围0 - 1。
-                            fillOpacity : 0.6, // 填充的透明度，取值范围0 - 1。
-                            strokeStyle : 'solid' // 边线的样式，solid或dashed。
-                    };
+
                     for (var i = 0; i < areaList.length; i++) {
                         if(areaList[i].dataList) {
                             var initMapDatas = [];
@@ -474,6 +467,19 @@ var emergency = new Vue({
                                 var data = new BMap.Point(areaList[i].dataList[j].locationX,areaList[i].dataList[j].locationY);
                                 initMapDatas.push(data);
                             }
+                            var displayColor = "red";
+                            if(areaList[i].areaColor && areaList[i].areaColor !='') {
+                                displayColor = areaList[i].areaColor;
+                            }
+
+                            var styleOptions = {
+                                strokeColor : displayColor, // 边线颜色。
+                                fillColor : displayColor, // 填充颜色。当参数为空时，圆形将没有填充效果。
+                                strokeWeight : 3, // 边线的宽度，以像素为单位。
+                                strokeOpacity : 0.3, // 边线透明度，取值范围0 - 1。
+                                fillOpacity : 0.2, // 填充的透明度，取值范围0 - 1。
+                                strokeStyle : 'solid' // 边线的样式，solid或dashed。
+                            };
                             var polygon = new BMap.Polygon(initMapDatas,styleOptions);
                             polygon.areaType="area";
                             emergency.$data.map.addOverlay(polygon);

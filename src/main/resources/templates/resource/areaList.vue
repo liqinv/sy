@@ -7,6 +7,7 @@
 <head>
     <title>社区列表</title>
     <link rel="stylesheet" th:href="@{/bootstrap/datatables.net-bs/dataTables.bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/adminlte/components/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css}">
     <link rel="stylesheet" href="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.css" />
     <style type="text/css">
         #selectmap {
@@ -118,6 +119,15 @@
                                                 <input type="text" v-model="areaModel.linkPhone" class="form-control" placeholder="联系电话" maxlength="20">
                                             </div>
                                             <div class="form-group">
+                                                <label>区域颜色</label>
+                                                <div class="input-group my-colorpicker2">
+                                                    <input type="text" id="ac" v-model="areaModel.areaColor" class="form-control" readonly>
+                                                    <div class="input-group-addon">
+                                                        <i v-bind:style="{'background-color': areaModel.areaColor}"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
                                                 <label>备注</label>
                                                 <textarea v-model="areaModel.note" class="form-control" rows="6" maxlength="200" placeholder="备注"></textarea>
                                             </div>
@@ -148,6 +158,7 @@
 
         <script th:src="@{/js/component/page-component.js}"></script>
         <script th:src="@{/js/resource/areaList.js}"></script>
+        <script th:src="@{/adminlte/components/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js}"></script>
 
     </th:block>
 </div>

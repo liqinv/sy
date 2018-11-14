@@ -32,4 +32,6 @@ public class ResourceArea extends BaseModel {
 
     private Integer active;
 
+    private String areaColor;
+
 }

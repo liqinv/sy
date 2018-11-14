@@ -51,6 +51,7 @@ var areaList = new Vue({
         },
         
         saveUi: function(areaId) {
+            $('.my-colorpicker2').colorpicker();
             if(areaId) {
                 var url = "/resource/area/get?areaId=" + areaId;
                 YF_HTTP
@@ -68,6 +69,7 @@ var areaList = new Vue({
             }
         },
         save: function () {
+            this.areaModel.areaColor = $("#ac").val();
             var url = "/resource/area/save";
             YF_HTTP
                 .post(url, this.areaModel)

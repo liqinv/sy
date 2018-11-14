@@ -14,10 +14,11 @@
     <result column="LAST_UPDATE_USER_ID" jdbcType="INTEGER" property="lastUpdateUserId" />
     <result column="LAST_UPDATE_TIME" jdbcType="TIMESTAMP" property="lastUpdateTime" />
     <result column="ACTIVE" jdbcType="INTEGER" property="active" />
+    <result column="AREA_COLOR" jdbcType="VARCHAR" property="areaColor" />
   </resultMap>
   <sql id="Base_Column_List">
     ID, NAME, TYPE, LINK_MAN, LINK_PHONE, NOTE, CREATE_USER_ID, CREATE_ORGAN_ID, CREATE_TIME, 
-    LAST_UPDATE_USER_ID, LAST_UPDATE_TIME, ACTIVE
+    LAST_UPDATE_USER_ID, LAST_UPDATE_TIME, ACTIVE, AREA_COLOR
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -29,19 +30,19 @@
     delete from resource_area
     where ID = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.yf.base.model.resource.ResourceArea">
+  <insert id="insert" parameterType="com.yf.base.model.resource.ResourceArea">
     insert into resource_area (ID, NAME, TYPE, 
       LINK_MAN, LINK_PHONE, NOTE, 
       CREATE_USER_ID, CREATE_ORGAN_ID, CREATE_TIME, 
-      LAST_UPDATE_USER_ID, LAST_UPDATE_TIME, ACTIVE
-      )
+      LAST_UPDATE_USER_ID, LAST_UPDATE_TIME, ACTIVE, 
+      AREA_COLOR)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
       #{linkMan,jdbcType=VARCHAR}, #{linkPhone,jdbcType=VARCHAR}, #{note,jdbcType=VARCHAR}, 
       #{createUserId,jdbcType=INTEGER}, #{createOrganId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{lastUpdateUserId,jdbcType=INTEGER}, #{lastUpdateTime,jdbcType=TIMESTAMP}, #{active,jdbcType=INTEGER}
-      )
+      #{lastUpdateUserId,jdbcType=INTEGER}, #{lastUpdateTime,jdbcType=TIMESTAMP}, #{active,jdbcType=INTEGER}, 
+      #{areaColor,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id" parameterType="com.yf.base.model.resource.ResourceArea">
+  <insert id="insertSelective" parameterType="com.yf.base.model.resource.ResourceArea">
     insert into resource_area
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -79,6 +80,9 @@
       </if>
       <if test="active != null">
         ACTIVE,
+      </if>
+      <if test="areaColor != null">
+        AREA_COLOR,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -118,6 +122,9 @@
       <if test="active != null">
         #{active,jdbcType=INTEGER},
       </if>
+      <if test="areaColor != null">
+        #{areaColor,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.yf.base.model.resource.ResourceArea">
@@ -156,6 +163,9 @@
       <if test="active != null">
         ACTIVE = #{active,jdbcType=INTEGER},
       </if>
+      <if test="areaColor != null">
+        AREA_COLOR = #{areaColor,jdbcType=VARCHAR},
+      </if>
     </set>
     where ID = #{id,jdbcType=INTEGER}
   </update>
@@ -171,7 +181,8 @@
       CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
       LAST_UPDATE_USER_ID = #{lastUpdateUserId,jdbcType=INTEGER},
       LAST_UPDATE_TIME = #{lastUpdateTime,jdbcType=TIMESTAMP},
-      ACTIVE = #{active,jdbcType=INTEGER}
+      ACTIVE = #{active,jdbcType=INTEGER},
+      AREA_COLOR = #{areaColor,jdbcType=VARCHAR}
     where ID = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
