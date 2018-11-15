@@ -475,10 +475,10 @@ var emergency = new Vue({
                             var styleOptions = {
                                 strokeColor : displayColor, // 边线颜色。
                                 fillColor : displayColor, // 填充颜色。当参数为空时，圆形将没有填充效果。
-                                strokeWeight : 3, // 边线的宽度，以像素为单位。
+                                strokeWeight : 2, // 边线的宽度，以像素为单位。
                                 strokeOpacity : 0.3, // 边线透明度，取值范围0 - 1。
-                                fillOpacity : 0.2, // 填充的透明度，取值范围0 - 1。
-                                strokeStyle : 'solid' // 边线的样式，solid或dashed。
+                                fillOpacity : 0.1, // 填充的透明度，取值范围0 - 1。
+                                strokeStyle : 'dashed' // 边线的样式，solid或dashed。
                             };
                             var polygon = new BMap.Polygon(initMapDatas,styleOptions);
                             polygon.areaType="area";
