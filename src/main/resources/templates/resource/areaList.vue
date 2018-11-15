@@ -12,7 +12,7 @@
     <style type="text/css">
         #selectmap {
             width: 100%;
-            height: 350px;
+            height: 420px;
             overflow: hidden;
             margin: 0;
             font-family: "微软雅黑";

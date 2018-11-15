@@ -56,7 +56,7 @@ var areaList = new Vue({
             } else {
                 this.areaModel = {};
                 this.clearArea();
-                this.map.clearOverlays();
+                //this.map.clearOverlays();
                 $('#divSave').modal('show');
             }
         },
