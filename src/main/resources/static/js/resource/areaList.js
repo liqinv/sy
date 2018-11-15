@@ -8,15 +8,7 @@ var areaList = new Vue({
         },
         areaModel: {}, //临时缓存用
         map : {}, // 地图对象
-        // 多边形样式
-        styleOptions : {
-            strokeColor : "red", // 边线颜色。
-            fillColor : "red", // 填充颜色。当参数为空时，圆形将没有填充效果。
-            strokeWeight : 3, // 边线的宽度，以像素为单位。
-            strokeOpacity : 0.8, // 边线透明度，取值范围0 - 1。
-            fillOpacity : 0.6, // 填充的透明度，取值范围0 - 1。
-            strokeStyle : 'solid' // 边线的样式，solid或dashed。
-        },
+
         drawingManager : {}, // 画图对象
         //overlays : [], // 画图
     },
@@ -104,6 +96,20 @@ var areaList = new Vue({
             this.drawArea();
         },
         initArea: function() {
+
+            let displayColor = "red";
+            if(areaList.$data.areaModel.areaColor && areaList.$data.areaModel.areaColor !='') {
+                displayColor = areaList.$data.areaModel.areaColor;
+            }
+
+            let styleOptions = {
+                strokeColor : displayColor, // 边线颜色。
+                fillColor : displayColor, // 填充颜色。当参数为空时，圆形将没有填充效果。
+                strokeWeight : 2, // 边线的宽度，以像素为单位。
+                strokeOpacity : 0.3, // 边线透明度，取值范围0 - 1。
+                fillOpacity : 0.1, // 填充的透明度，取值范围0 - 1。
+                strokeStyle : 'solid' // 边线的样式，solid或dashed。
+            };
             areaList.$data.map.clearOverlays();
             if(areaList.$data.areaModel.dataList) {
                 var initMapDatas = [];
@@ -111,13 +117,24 @@ var areaList = new Vue({
                     var data = new BMap.Point(areaList.$data.areaModel.dataList[i].locationX,areaList.$data.areaModel.dataList[i].locationY);
                     initMapDatas.push(data);
                 }
-                var polygon = new BMap.Polygon(initMapDatas,areaList.$data.styleOptions);
+                var polygon = new BMap.Polygon(initMapDatas,styleOptions);
                 areaList.$data.map.addOverlay(polygon);
                 areaList.$data.map.centerAndZoom(new BMap.Point(areaList.$data.areaModel.dataList[0].locationX,areaList.$data.areaModel.dataList[0].locationY), 12);
             }
         },
         drawArea: function() {
-
+            let displayColor = $("#ac").val();
+            if(!displayColor || displayColor =='') {
+                displayColor = "red";
+            }
+            let styleOptions = {
+                strokeColor : displayColor, // 边线颜色。
+                fillColor : displayColor, // 填充颜色。当参数为空时，圆形将没有填充效果。
+                strokeWeight : 2, // 边线的宽度，以像素为单位。
+                strokeOpacity : 0.3, // 边线透明度，取值范围0 - 1。
+                fillOpacity : 0.1, // 填充的透明度，取值范围0 - 1。
+                strokeStyle : 'solid' // 边线的样式，solid或dashed。
+            };
             // 设施画图对象
             this.drawingManager = new BMapLib.DrawingManager(
                 this.$data.map, {
@@ -128,7 +145,7 @@ var areaList = new Vue({
                         offset : new BMap.Size(5, 5), // 偏离值
                         drawingModes : [ BMAP_DRAWING_POLYGON]
                     },
-                    polygonOptions : this.$data.styleOptions
+                    polygonOptions : styleOptions
                     // 多边形的样式
 
                 });
