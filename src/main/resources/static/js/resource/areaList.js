@@ -59,6 +59,7 @@ var areaList = new Vue({
                 //this.map.clearOverlays();
                 $('#divSave').modal('show');
             }
+            this.drawArea();
         },
         save: function () {
             this.areaModel.areaColor = $("#ac").val();
@@ -93,34 +94,41 @@ var areaList = new Vue({
             this.map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
             var top_right_navigation = new BMap.NavigationControl({anchor: BMAP_ANCHOR_BOTTOM_RIGHT, type: BMAP_NAVIGATION_CONTROL_SMALL}); //仅包含平移和缩放按钮
             this.map.addControl(top_right_navigation);
-            this.drawArea();
         },
         initArea: function() {
+            let flag = true;
+            areaList.$data.map.addEventListener("tilesloaded", function() {
+                if(flag) {
+                    console.log("tilesloaded");
+                    flag = false;
+                    let displayColor = "red";
+                    if(areaList.$data.areaModel.areaColor && areaList.$data.areaModel.areaColor !='') {
+                        displayColor = areaList.$data.areaModel.areaColor;
+                    }
 
-            let displayColor = "red";
-            if(areaList.$data.areaModel.areaColor && areaList.$data.areaModel.areaColor !='') {
-                displayColor = areaList.$data.areaModel.areaColor;
-            }
-
-            let styleOptions = {
-                strokeColor : displayColor, // 边线颜色。
-                fillColor : displayColor, // 填充颜色。当参数为空时，圆形将没有填充效果。
-                strokeWeight : 2, // 边线的宽度，以像素为单位。
-                strokeOpacity : 0.3, // 边线透明度，取值范围0 - 1。
-                fillOpacity : 0.1, // 填充的透明度，取值范围0 - 1。
-                strokeStyle : 'solid' // 边线的样式，solid或dashed。
-            };
-            areaList.$data.map.clearOverlays();
-            if(areaList.$data.areaModel.dataList) {
-                var initMapDatas = [];
-                for (var i = 0; i < areaList.$data.areaModel.dataList.length; i++) {
-                    var data = new BMap.Point(areaList.$data.areaModel.dataList[i].locationX,areaList.$data.areaModel.dataList[i].locationY);
-                    initMapDatas.push(data);
+                    let styleOptions = {
+                        strokeColor : displayColor, // 边线颜色。
+                        fillColor : displayColor, // 填充颜色。当参数为空时，圆形将没有填充效果。
+                        strokeWeight : 2, // 边线的宽度，以像素为单位。
+                        strokeOpacity : 0.3, // 边线透明度，取值范围0 - 1。
+                        fillOpacity : 0.1, // 填充的透明度，取值范围0 - 1。
+                        strokeStyle : 'solid' // 边线的样式，solid或dashed。
+                    };
+                    areaList.$data.map.clearOverlays();
+                    if(areaList.$data.areaModel.dataList) {
+                        var initMapDatas = [];
+                        for (var i = 0; i < areaList.$data.areaModel.dataList.length; i++) {
+                            var data = new BMap.Point(areaList.$data.areaModel.dataList[i].locationX,areaList.$data.areaModel.dataList[i].locationY);
+                            initMapDatas.push(data);
+                        }
+                        var polygon = new BMap.Polygon(initMapDatas,styleOptions);
+                        areaList.$data.map.addOverlay(polygon);
+                        areaList.$data.map.centerAndZoom(new BMap.Point(areaList.$data.areaModel.dataList[0].locationX,areaList.$data.areaModel.dataList[0].locationY), CONFIG.BAIDU_DISPLAY_LEVEL);
+                    }
                 }
-                var polygon = new BMap.Polygon(initMapDatas,styleOptions);
-                areaList.$data.map.addOverlay(polygon);
-                areaList.$data.map.centerAndZoom(new BMap.Point(areaList.$data.areaModel.dataList[0].locationX,areaList.$data.areaModel.dataList[0].locationY), 12);
-            }
+
+            });
+
         },
         drawArea: function() {
             let displayColor = $("#ac").val();

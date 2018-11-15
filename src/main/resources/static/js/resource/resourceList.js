@@ -69,6 +69,7 @@ var resourceList = new Vue({
                 this.resourceModel.type = this.typeList[0].configKey;
                 $('#divSave').modal('show');
             }
+            this.drawPoint();
         },
         save: function () {
             var url = "/resource/point/save";
@@ -103,16 +104,23 @@ var resourceList = new Vue({
             var top_right_navigation = new BMap.NavigationControl({anchor: BMAP_ANCHOR_BOTTOM_RIGHT, type: BMAP_NAVIGATION_CONTROL_SMALL}); //仅包含平移和缩放按钮
             this.map.addControl(top_right_navigation);
 
-            this.drawPoint();
         },
         initPoint: function() {
-            resourceList.$data.map.clearOverlays();
-            if(resourceList.$data.resourceModel.locationX) {
-                var point = new BMap.Point(resourceList.$data.resourceModel.locationX, resourceList.$data.resourceModel.locationY);
-                var marker = new BMap.Marker(point); // 创建标注
-                resourceList.$data.map.addOverlay(marker);// 将标注添加到地图中
-                resourceList.$data.map.centerAndZoom(point, 12);
-            }
+            let flag = true;
+            resourceList.$data.map.addEventListener("tilesloaded", function() {
+                if (flag) {
+                    console.log("tilesloaded");
+                    flag = false;
+                    resourceList.$data.map.clearOverlays();
+                    if(resourceList.$data.resourceModel.locationX) {
+                        var point = new BMap.Point(resourceList.$data.resourceModel.locationX, resourceList.$data.resourceModel.locationY);
+                        var marker = new BMap.Marker(point); // 创建标注
+                        resourceList.$data.map.addOverlay(marker);// 将标注添加到地图中
+                        resourceList.$data.map.centerAndZoom(point, CONFIG.BAIDU_DISPLAY_LEVEL);
+                    }
+                }
+            });
+
         },
         drawPoint: function() {
             // 设施画图对象
