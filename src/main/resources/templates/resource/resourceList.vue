@@ -69,7 +69,7 @@
                                                 <th>类型</th>
                                                 <th>联系人</th>
                                                 <th>联系电话</th>
-                                                <th>备注</th>
+                                                <th>地址</th>
                                                 <th style="width: 200px">创建时间</th>
                                                 <th style="width: 120px">操作</th>
                                             </tr>
@@ -80,7 +80,7 @@
                                                 <td>{{r.typeName}}</td>
                                                 <td>{{r.linkMan}}</td>
                                                 <td>{{r.linkPhone}}</td>
-                                                <td>{{r.note}}</td>
+                                                <td>{{r.address}}</td>
                                                 <td>{{r.createTime}}</td>
                                                 <td>
                                                     <span class="span-a" v-on:click="saveUi(r.id)">修改</span>

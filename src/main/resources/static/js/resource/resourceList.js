@@ -145,8 +145,8 @@ var resourceList = new Vue({
         },
         clearPoint: function() {
             resourceList.$data.map.clearOverlays();
-            resourceList.$data.resourceModel.locationX = null;
-            resourceList.$data.resourceModel.locationY = null;
+            resourceList.$data.resourceModel.locationX = "";
+            resourceList.$data.resourceModel.locationY = "";
             resourceList.$data.map.centerAndZoom(new BMap.Point(CONFIG.BAIDU_LOCATION_X,CONFIG.BAIDU_LOCATION_Y), CONFIG.BAIDU_DISPLAY_LEVEL);
         },
         pointMap: function() {
