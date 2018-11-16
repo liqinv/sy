@@ -499,16 +499,48 @@ var emergency = new Vue({
                         var myIcon ;
                         switch (pointList[i].type) {
                             case "AD001":
-                                myIcon = new BMap.Icon(baseUrl+"/img/dw.png", new BMap.Size(30, 30));
-                                myIcon.setImageSize(new BMap.Size(30, 30));
+                                myIcon = new BMap.Icon(baseUrl+"/img/9.png", new BMap.Size(25, 25));
+                                myIcon.setImageSize(new BMap.Size(25, 25));
                                 break;
                             case "AD002":
-                                myIcon = new BMap.Icon(baseUrl+"/img/wxy.png", new BMap.Size(30, 30));
-                                myIcon.setImageSize(new BMap.Size(30, 30));
+                                myIcon = new BMap.Icon(baseUrl+"/img/1.png", new BMap.Size(25, 25));
+                                myIcon.setImageSize(new BMap.Size(25, 25));
                                 break;
                             case "AD003":
-                                myIcon = new BMap.Icon(baseUrl+"/img/yjwz.png", new BMap.Size(45, 45));
-                                myIcon.setImageSize(new BMap.Size(45, 45));
+                                myIcon = new BMap.Icon(baseUrl+"/img/7.png", new BMap.Size(25, 25));
+                                myIcon.setImageSize(new BMap.Size(25, 25));
+                                break;
+                            case "AD004":
+                                myIcon = new BMap.Icon(baseUrl+"/img/3.png", new BMap.Size(25, 25));
+                                myIcon.setImageSize(new BMap.Size(25, 25));
+                                break;
+                            case "AD005":
+                                myIcon = new BMap.Icon(baseUrl+"/img/4.png", new BMap.Size(25, 25));
+                                myIcon.setImageSize(new BMap.Size(25, 25));
+                                break;
+                            case "AD006":
+                                myIcon = new BMap.Icon(baseUrl+"/img/5.png", new BMap.Size(25, 25));
+                                myIcon.setImageSize(new BMap.Size(25, 25));
+                                break;
+                            case "AD007":
+                                myIcon = new BMap.Icon(baseUrl+"/img/8.png", new BMap.Size(25, 25));
+                                myIcon.setImageSize(new BMap.Size(25, 25));
+                                break;
+                            case "AD008":
+                                myIcon = new BMap.Icon(baseUrl+"/img/2.png", new BMap.Size(25, 25));
+                                myIcon.setImageSize(new BMap.Size(25, 25));
+                                break;
+                            case "AD009":
+                                myIcon = new BMap.Icon(baseUrl+"/img/6.png", new BMap.Size(25, 25));
+                                myIcon.setImageSize(new BMap.Size(25, 25));
+                                break;
+                            case "AD010":
+                                myIcon = new BMap.Icon(baseUrl+"/img/7.png", new BMap.Size(25, 25));
+                                myIcon.setImageSize(new BMap.Size(25, 25));
+                                break;
+                            default:
+                                myIcon = new BMap.Icon(baseUrl+"/img/test.png", new BMap.Size(25, 25));
+                                myIcon.setImageSize(new BMap.Size(25, 25));
                                 break;
 
                         }
@@ -518,9 +550,25 @@ var emergency = new Vue({
                         marker.pointType = pointList[i].type;
                         emergency.$data.map.addOverlay(marker);// 将标注添加到地图中
 
-                        var winContents = "<div class=\"form-group\">" + pointList[i].name + "</div>"
-                            + "<div class=\"form-group\">联系人：" + pointList[i].linkMan + "</div>"
-                            + "<div class=\"form-group\">电话：" + pointList[i].linkPhone + "</div>";
+                        var winContents = "<div class=\"form-group\" style=\"text-align: center;\"><label>" + pointList[i].name + "</label></div>";
+                        if(pointList[i].linkMan && pointList[i].linkMan != "") {
+                            winContents = winContents + "<div class=\"form-group\">联系人：" + pointList[i].linkMan + "</div>";
+                            //winContents = winContents + "<div class=\"form-group\"><div class=\"col-sm-3\" >联系人：</div><div class=\"col-sm-9\">" + pointList[i].linkMan + "</div></div>";
+                        }
+                        if(pointList[i].linkPhone && pointList[i].linkPhone != "") {
+                            winContents = winContents + "<div class=\"form-group\"> 电话：" + pointList[i].linkPhone + "</div>";
+                            //winContents = winContents + "<div class=\"form-group\"><div class=\"col-sm-3\" >电话：</div><div class=\"col-sm-9\">" + pointList[i].linkPhone + "</div></div>";
+                        }
+                        if(pointList[i].address && pointList[i].address != "") {
+                            winContents = winContents + "<div class=\"form-group\"> 地址：" + pointList[i].address + "</div>";
+                            //winContents = winContents + "<div class=\"form-group\"><div class=\"col-sm-3\" >地址：</div><div class=\"col-sm-9\">" + pointList[i].address + "</div></div>";
+                        }
+                        if(pointList[i].note && pointList[i].note != "") {
+                            winContents = winContents + "<div class=\"form-group\"> 备注：" + pointList[i].note + "</div>";
+                            //winContents = winContents + "<div class=\"form-group\"><div class=\"col-sm-3\" >备注：</div><div class=\"col-sm-9\">" + pointList[i].note + "</div></div>";
+                        }
+
+
                         emergency.addClickHandler(winContents, marker);
                     }
                 });

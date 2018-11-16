@@ -148,6 +148,25 @@ var resourceList = new Vue({
             resourceList.$data.resourceModel.locationX = null;
             resourceList.$data.resourceModel.locationY = null;
             resourceList.$data.map.centerAndZoom(new BMap.Point(CONFIG.BAIDU_LOCATION_X,CONFIG.BAIDU_LOCATION_Y), CONFIG.BAIDU_DISPLAY_LEVEL);
+        },
+        pointMap: function() {
+            let address = this.resourceModel.address;
+            if(!address || address.trim() == '' ) {
+                Utils.alert("请输入正确的地址进行定位标注","warning");
+            }
+            let myGeo = new BMap.Geocoder();
+            myGeo.getPoint(address, function(point){
+                if (point) {
+                    resourceList.$data.map.centerAndZoom(point, 15);
+                    resourceList.$data.map.clearOverlays();
+                    let sgsMark = new BMap.Marker(point);  // 创建标注
+                    resourceList.$data.map.addOverlay(sgsMark);
+                    resourceList.$data.resourceModel.locationX = point.lng;
+                    resourceList.$data.resourceModel.locationY = point.lat;
+                } else {
+                    Utils.alert('地址解析失败,请手动定位!','warning');
+                }
+            });
         }
     }
 });

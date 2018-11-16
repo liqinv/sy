@@ -11,7 +11,7 @@
     <style type="text/css">
         #selectmap {
             width: 100%;
-            height: 362px;
+            height: 415px;
             overflow: hidden;
             margin: 0;
             font-family: "微软雅黑";
@@ -133,8 +133,18 @@
                                                 <input type="text" v-model="resourceModel.linkPhone" class="form-control" placeholder="联系电话" maxlength="20">
                                             </div>
                                             <div class="form-group">
+                                                <label>地址</label>
+                                                <!--<input type="text" v-model="resourceModel.address" class="form-control" placeholder="地址" maxlength="20"><i class="fa fa-bolt"></i>-->
+                                                <div class="input-group">
+                                                    <input type="text" id="ac" v-model="resourceModel.address" class="form-control" placeholder="地址" maxlength="50">
+                                                    <div class="input-group-addon" title="点击标注" style="cursor:pointer;" v-on:click="pointMap()">
+                                                        <i class="fa fa-map-marker"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
                                                 <label>备注</label>
-                                                <textarea v-model="resourceModel.note" class="form-control" rows="3" maxlength="200" placeholder="备注"></textarea>
+                                                <textarea v-model="resourceModel.note" class="form-control" rows="2" maxlength="200" placeholder="备注"></textarea>
                                             </div>
                                         </div>
                                         <div class="col-sm-7">

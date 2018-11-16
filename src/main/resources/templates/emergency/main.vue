@@ -359,9 +359,18 @@
 
                 <li id="area" title="社区" style="background-color:#3c8dbc;" v-on:click="switchArea('area');"><i class="fa fa-cubes"></i></li>
                 <li id="AD001" title="党委" style="background-color:#3c8dbc;" v-on:click="switchPoint('AD001');"><i class="fa fa-bank"></i></li>
-                <li id="AD002" title="危险源" style="background-color:#3c8dbc;" v-on:click="switchPoint('AD002');"><i class="fa fa-bolt"></i></li>
-                <li id="AD003" title="应急物资存放点" style="background-color:#3c8dbc;" v-on:click="switchPoint('AD003');"><i class="fa fa-database"></i></li>
+                <li id="AD002" title="应急物资存放点" style="background-color:#3c8dbc;" v-on:click="switchPoint('AD002');"><i class="fa fa-database"></i></li>
+
                 <li id="person" title="人员" style="background-color:#4b646f;" v-on:click="switchPerson();"><i class="fa fa-male"></i></li>
+
+                <li id="AD003" title="危化（加油加气站）" style="background-color:#3c8dbc;" v-on:click="switchPoint('AD003');"><i class="fa fa-bolt"></i></li>
+                <li id="AD004" title="重点危化品使用单位" style="background-color:#3c8dbc;" v-on:click="switchPoint('AD004');"><i class="fa fa-rebel"></i></li>
+                <li id="AD005" title="危化品储存单位" style="background-color:#3c8dbc;" v-on:click="switchPoint('AD005');"><i class="fa  fa-bomb"></i></li>
+                <li id="AD006" title="人员密集场所" style="background-color:#3c8dbc;" v-on:click="switchPoint('AD006');"><i class="fa  fa-group"></i></li>
+                <li id="AD007" title="网吧" style="background-color:#3c8dbc;" v-on:click="switchPoint('AD007');"><i class="fa  fa-desktop"></i></li>
+                <li id="AD008" title="电影院" style="background-color:#3c8dbc;" v-on:click="switchPoint('AD008');"><i class="fa fa-eye"></i></li>
+                <li id="AD009" title="酒店" style="background-color:#3c8dbc;" v-on:click="switchPoint('AD009');"><i class="fa fa-bed"></i></li>
+                <li id="AD010" title="娱乐场所" style="background-color:#3c8dbc;" v-on:click="switchPoint('AD010');"><i class="fa fa-heartbeat"></i></li>
             </ul>
         </div>
     </div>
