@@ -2,7 +2,9 @@ package com.yf.base.controller.sys;
 
 import com.yf.base.common.BaseController;
 import com.yf.base.common.ReturnResult;
+import com.yf.base.model.resource.vo.ResourceInfoVo;
 import com.yf.base.model.sys.vo.SysPermissionVo;
+import com.yf.base.service.resource.ResourceService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.SecurityUtils;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import springfox.documentation.annotations.ApiIgnore;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -24,11 +27,35 @@ import java.util.List;
 @Api(tags="用户管理模块")
 @Controller
 public class LoginController extends BaseController {
+	@Resource
+	private ResourceService resourceService;
 	@ApiIgnore()
 	@RequestMapping("/home")
 	public String home(){
 //		System.out.println(this.getLoginUser().getName());
 		return "home";
+	}
+	@ApiIgnore()
+	@RequestMapping("/map/index")
+	public String map(){
+		return "map";
+	}
+
+	@ApiOperation(value="上图资源查询",  httpMethod ="POST")
+	@RequestMapping("/map/data")
+	@ResponseBody
+	public ReturnResult dw(){
+		ReturnResult rr = ReturnResult.SUCCESS();
+		try {
+			ResourceInfoVo param=new ResourceInfoVo();
+			param.setType("AD001");
+			List<ResourceInfoVo> result = resourceService.selectByParam(param);
+			rr.setData(result);
+		}catch (Exception ex){
+			rr = ReturnResult.FAILUER("上图资源查询出错");
+			ex.printStackTrace();
+		}
+		return rr;
 	}
 
 	@ApiOperation(value="用户登录接口",  httpMethod ="POST")

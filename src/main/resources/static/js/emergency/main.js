@@ -499,47 +499,47 @@ var emergency = new Vue({
                         var myIcon ;
                         switch (pointList[i].type) {
                             case "AD001":
-                                myIcon = new BMap.Icon(baseUrl+"/img/9.png", new BMap.Size(25, 25));
+                                myIcon = new BMap.Icon(baseUrl+"/img/resource/dw.png", new BMap.Size(25, 25));
                                 myIcon.setImageSize(new BMap.Size(25, 25));
                                 break;
                             case "AD002":
-                                myIcon = new BMap.Icon(baseUrl+"/img/1.png", new BMap.Size(25, 25));
+                                myIcon = new BMap.Icon(baseUrl+"/img/resource/wz.png", new BMap.Size(25, 25));
                                 myIcon.setImageSize(new BMap.Size(25, 25));
                                 break;
                             case "AD003":
-                                myIcon = new BMap.Icon(baseUrl+"/img/7.png", new BMap.Size(25, 25));
+                                myIcon = new BMap.Icon(baseUrl+"/img/resource/jyz.png", new BMap.Size(25, 25));
                                 myIcon.setImageSize(new BMap.Size(25, 25));
                                 break;
                             case "AD004":
-                                myIcon = new BMap.Icon(baseUrl+"/img/3.png", new BMap.Size(25, 25));
+                                myIcon = new BMap.Icon(baseUrl+"/img/resource/whpsy.png", new BMap.Size(25, 25));
                                 myIcon.setImageSize(new BMap.Size(25, 25));
                                 break;
                             case "AD005":
-                                myIcon = new BMap.Icon(baseUrl+"/img/4.png", new BMap.Size(25, 25));
+                                myIcon = new BMap.Icon(baseUrl+"/img/resource/whpcc.png", new BMap.Size(25, 25));
                                 myIcon.setImageSize(new BMap.Size(25, 25));
                                 break;
                             case "AD006":
-                                myIcon = new BMap.Icon(baseUrl+"/img/5.png", new BMap.Size(25, 25));
+                                myIcon = new BMap.Icon(baseUrl+"/img/resource/rymjd.png", new BMap.Size(25, 25));
                                 myIcon.setImageSize(new BMap.Size(25, 25));
                                 break;
                             case "AD007":
-                                myIcon = new BMap.Icon(baseUrl+"/img/8.png", new BMap.Size(25, 25));
+                                myIcon = new BMap.Icon(baseUrl+"/img/resource/wb.png", new BMap.Size(25, 25));
                                 myIcon.setImageSize(new BMap.Size(25, 25));
                                 break;
                             case "AD008":
-                                myIcon = new BMap.Icon(baseUrl+"/img/2.png", new BMap.Size(25, 25));
+                                myIcon = new BMap.Icon(baseUrl+"/img/resource/dyy.png", new BMap.Size(25, 25));
                                 myIcon.setImageSize(new BMap.Size(25, 25));
                                 break;
                             case "AD009":
-                                myIcon = new BMap.Icon(baseUrl+"/img/6.png", new BMap.Size(25, 25));
+                                myIcon = new BMap.Icon(baseUrl+"/img/resource/jd.png", new BMap.Size(25, 25));
                                 myIcon.setImageSize(new BMap.Size(25, 25));
                                 break;
                             case "AD010":
-                                myIcon = new BMap.Icon(baseUrl+"/img/7.png", new BMap.Size(25, 25));
+                                myIcon = new BMap.Icon(baseUrl+"/img/resource/ylcs.png", new BMap.Size(25, 25));
                                 myIcon.setImageSize(new BMap.Size(25, 25));
                                 break;
                             default:
-                                myIcon = new BMap.Icon(baseUrl+"/img/test.png", new BMap.Size(25, 25));
+                                myIcon = new BMap.Icon(baseUrl+"/img/7.png", new BMap.Size(25, 25));
                                 myIcon.setImageSize(new BMap.Size(25, 25));
                                 break;
 
