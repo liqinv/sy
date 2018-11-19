@@ -441,7 +441,7 @@ var emergency = new Vue({
             this.map.setCurrentCity("成都"); // 设置地图显示的城市 此项是必须设置的
             this.map.enableScrollWheelZoom(true); // 开启鼠标滚轮缩放
             var bottom_right_control = new BMap.ScaleControl({
-                anchor: BMAP_ANCHOR_BOTTOM_RIGHT
+                anchor: BMAP_ANCHOR_BOTTOM_LEFT
             });// 添加比例尺
             var top_right_navigation = new BMap.NavigationControl({
                 anchor: BMAP_ANCHOR_BOTTOM_RIGHT,
