@@ -65,5 +65,6 @@
 	font-family: "微软雅黑";
 	position: relative;
 }
-.anchorBL{display:none;}
+.BMap_cpyCtrl{display:none;}
+.anchorBL>a>img {display:none;}
 /*地图样式结束*/
