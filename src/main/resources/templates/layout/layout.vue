@@ -32,7 +32,7 @@
     <!-- Main Header -->
     <header class="main-header">
         <!-- Logo -->
-        <a href="index2.html" class="logo">
+        <a href="#" class="logo">
             <!-- mini logo for sidebar mini 50x50 pixels -->
             <span class="logo-mini">石羊</span>
             <span class="logo-lg"><b>石羊街办</b></span>
@@ -80,8 +80,6 @@
     <aside class="main-sidebar"  id="leftMenu">
         <section class="sidebar">
             <ul class="sidebar-menu" data-widget="tree">
-                <li class="header" style="font-size: 14px;padding:10px 25px 10px 20px" v-on:click="selectGroupList()">导航菜单</li>
-
                 <li :class="classJudge(first.leaf,first.permission)" v-for="first in menuTree">
                     <a v-bind:href="baseUrl+first.resourceUrl">
                         <i :class="first.icon"></i>
