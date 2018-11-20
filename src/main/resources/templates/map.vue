@@ -7,6 +7,8 @@
     <title>党委地图</title>
     <style type="text/css">
         body, html,#allmap {width: 100%;height: 100%;overflow: hidden;margin:0;font-family:"微软雅黑";}
+        .BMap_cpyCtrl{display:none;}
+        .anchorBL>a>img {display:none;}
     </style>
     <script th:inline="javascript">
         var baseUrl = [[${#httpServletRequest.contextPath}]];
@@ -37,7 +39,7 @@
     map.setCurrentCity("成都"); // 设置地图显示的城市 此项是必须设置的
     map.enableScrollWheelZoom(true); // 开启鼠标滚轮缩放
     var bottom_right_control = new BMap.ScaleControl({
-        anchor: BMAP_ANCHOR_BOTTOM_RIGHT
+        anchor: BMAP_ANCHOR_BOTTOM_LEFT
     });// 添加比例尺
     var top_right_navigation = new BMap.NavigationControl({
         anchor: BMAP_ANCHOR_BOTTOM_RIGHT,
@@ -90,4 +92,38 @@
         var infoWindow = new BMap.InfoWindow(content);  // 创建信息窗口对象
         map.openInfoWindow(infoWindow, point); //开启信息窗口
     };
+
+    YF_HTTP
+        .post("/resource/area/listMap", {})
+        .then(function (result) {
+            //点位上图
+            console.log(result.data);
+            var areaList = result.data;
+
+            for (var i = 0; i < areaList.length; i++) {
+                if(areaList[i].dataList) {
+                    var initMapDatas = [];
+                    for (var j = 0; j < areaList[i].dataList.length; j++) {
+                        var data = new BMap.Point(areaList[i].dataList[j].locationX,areaList[i].dataList[j].locationY);
+                        initMapDatas.push(data);
+                    }
+                    var displayColor = "red";
+                    if(areaList[i].areaColor && areaList[i].areaColor !='') {
+                        displayColor = areaList[i].areaColor;
+                    }
+
+                    var styleOptions = {
+                        strokeColor : displayColor, // 边线颜色。
+                        fillColor : displayColor, // 填充颜色。当参数为空时，圆形将没有填充效果。
+                        strokeWeight : 2, // 边线的宽度，以像素为单位。
+                        strokeOpacity : 0.4, // 边线透明度，取值范围0 - 1。
+                        fillOpacity : 0.2, // 填充的透明度，取值范围0 - 1。
+                        strokeStyle : 'dashed' // 边线的样式，solid或dashed。
+                    };
+                    var polygon = new BMap.Polygon(initMapDatas,styleOptions);
+                    polygon.areaType="area";
+                    map.addOverlay(polygon);
+                }
+            }
+        });
 </script>

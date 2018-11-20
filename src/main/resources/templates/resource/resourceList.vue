@@ -46,7 +46,7 @@
                                 </span>
                             </div>
                             <div class="input-group margin-r-5 pull-right" style="width: 200px;">
-                                <select v-model="searchObj.type" class="form-control">
+                                <select v-model="searchObj.type" class="form-control" v-on:change="localList()">
                                     <option value="">全部类型</option>
                                     <option v-for="type  in typeList" :value="type.configKey">{{type.configValue}}
                                     </option>
