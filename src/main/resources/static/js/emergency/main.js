@@ -36,6 +36,9 @@ var emergency = new Vue({
         this.initPoint({});
         this.initArea();
         this.getCurUser();
+        /*$('#divAddEvent').on('hide.bs.modal', function () {
+            alert('模态框关闭了');
+        });*/
     },
     methods: {
         initData: function () {
@@ -271,6 +274,7 @@ var emergency = new Vue({
                 .post(url, this.searchObj)
                 .then(function (result) {
                     emergency.$data.eventList = result.data;
+                    emergency.reloadEventPoint();
                 });
         },
         saveUi: function (eventId) {
@@ -289,6 +293,12 @@ var emergency = new Vue({
                             emergency.initFileInputDetail();
                             $('#divDetail').modal('show');
                         }
+
+                        if(emergency.$data.eventModel.longitude && emergency.$data.eventModel.longitude.trim() != '') {
+                            var newPoint = new BMap.Point(emergency.$data.eventModel.longitude-0.04, emergency.$data.eventModel.latitude);
+                            emergency.$data.map.centerAndZoom(newPoint, CONFIG.BAIDU_DISPLAY_LEVEL);
+                        }
+
                     });
             } else {
                 this.eventModel = {};
@@ -561,11 +571,6 @@ var emergency = new Vue({
                                 myIcon = new BMap.Icon(baseUrl+"/img/resource/ylcs.png", new BMap.Size(25, 25));
                                 myIcon.setImageSize(new BMap.Size(25, 25));
                                 break;
-                            default:
-                                myIcon = new BMap.Icon(baseUrl+"/img/7.png", new BMap.Size(25, 25));
-                                myIcon.setImageSize(new BMap.Size(25, 25));
-                                break;
-
                         }
 
                         var point = new BMap.Point(pointList[i].locationX, pointList[i].locationY);
@@ -643,34 +648,6 @@ var emergency = new Vue({
             }
 
         },
-        // 上图点
-        mapOnToolsPoint: function () {
-            var point = new BMap.Point(104.072078, 30.663608);
-            var marker = new BMap.Marker(point); // 创建标注
-            this.$data.map.addOverlay(marker);// 将标注添加到地图中
-            marker.setAnimation(BMAP_ANIMATION_BOUNCE); // 跳动的动画
-        },
-        // 多边形///////////////////////////////////by chen
-        mapOnToolsArea: function () {
-            // 设施画图对象
-            this.drawingManager = new BMapLib.DrawingManager(
-                this.$data.map, {
-                    isOpen: false, // 是否开启绘制模式
-                    enableDrawingTool: true, // 是否显示工具栏
-                    drawingMode: BMAP_DRAWING_POLYGON,// 绘制模式 多边形
-                    drawingToolOptions: {
-                        anchor: BMAP_ANCHOR_TOP_RIGHT, // 位置
-                        offset: new BMap.Size(5, 5), // 偏离值
-                        drawingModes: [BMAP_DRAWING_POLYGON, BMAP_DRAWING_RECTANGLE]
-                    },
-                    polygonOptions: this.$data.styleOptions
-                    // 多边形的样式
-
-                });
-            this.drawingManager.addEventListener('overlaycomplete',
-                this.overlaycomplete);
-
-        },
         // 多边形画完后 回调用
         overlaycomplete: function (e) {
             var that = this;
@@ -717,6 +694,61 @@ var emergency = new Vue({
 
                 MapToobar.initResourceDatas(true);
             });
+        },
+        pointMap: function() {
+            let address = this.eventModel.address;
+            if(!address || address.trim() == '' ) {
+                Utils.alert("请输入正确的地址进行定位标注","warning");
+            }
+            let myGeo = new BMap.Geocoder();
+            myGeo.getPoint(address, function(point){
+                if (point) {
+                    var newPoint = new BMap.Point(point.lng-0.04, point.lat);
+                    emergency.$data.map.centerAndZoom(newPoint, CONFIG.BAIDU_DISPLAY_LEVEL);
+                    let myIcon = new BMap.Icon(baseUrl+"/img/resource/sj.png", new BMap.Size(25, 25));
+                    myIcon.setImageSize(new BMap.Size(25, 25));
+                    let sgsMark = new BMap.Marker(point,{icon:myIcon});  // 创建标注
+                    sgsMark.pointType = "SJ";
+                    emergency.$data.map.addOverlay(sgsMark);
+                    emergency.$data.eventModel.longitude = point.lng;
+                    emergency.$data.eventModel.latitude = point.lat;
+                } else {
+                    Utils.alert('地址解析失败,请手动定位!','warning');
+                }
+            });
+        },
+        reloadEventPoint: function() {
+            //删除事件图标
+            let allOverlay = emergency.$data.map.getOverlays();
+            for (let i = 0; i < allOverlay.length ; i++) {
+                if(allOverlay[i].pointType && allOverlay[i].pointType == "SJ") {
+                    emergency.$data.map.removeOverlay(allOverlay[i]);
+                }
+            }
+            //加载事件图标
+            let list = emergency.$data.eventList;
+            for (let i = 0; i < list.length; i++) {
+                var point = new BMap.Point(list[i].longitude, list[i].latitude);
+                let myIcon = new BMap.Icon(baseUrl+"/img/resource/sj.png", new BMap.Size(25, 25));
+                myIcon.setImageSize(new BMap.Size(25, 25));
+                let sgsMark = new BMap.Marker(point,{icon:myIcon});  // 创建标注
+                sgsMark.pointType = "SJ";
+                emergency.$data.map.addOverlay(sgsMark);
+                if(list[i].code) {
+                    let label = new BMap.Label(list[i].code, {
+                        offset: new BMap.Size(-45, 27)
+                    });
+                    label.setStyle({
+                        color : "black",
+                        fontSize : "14px",
+                        fontWeight: "bold",
+                        border: '0',
+                        padding:'0',
+                        opacity:0.7,
+                    });
+                    sgsMark.setLabel(label); //为标注添加一个标签
+                }
+            }
         }
     }
 });

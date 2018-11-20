@@ -12,7 +12,6 @@
 
     <link rel="stylesheet" href="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.css" />
     <link rel="stylesheet" th:href="@{/css/main.css}">
-
 </head>
 <body>
 <div>
@@ -109,8 +108,13 @@
                                     <input type="text" id="reportPhone" v-model="eventModel.reportPhone" class="form-control" maxlength="15" required="required">
                                 </div>
                                 <div class="form-group col-sm-6">
-                                    <label for="address">地点</label>
-                                    <input type="text" id="address" v-model="eventModel.address" class="form-control" maxlength="10" required="required">
+                                    <label for="address">事发地点</label>
+                                    <div class="input-group">
+                                        <input type="text" id="address" v-model="eventModel.address" class="form-control" placeholder="事发地点" maxlength="50" required="required">
+                                        <div class="input-group-addon" title="点击标注" style="cursor:pointer;" v-on:click="pointMap()">
+                                            <i class="fa fa-map-marker"></i>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="form-group col-sm-6">
                                     <label for="happenTime">发生时间</label>
