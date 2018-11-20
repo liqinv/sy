@@ -147,6 +147,15 @@
                         }
                         openAreaInfo(winContents,point);
                     });
+                    let curPolygon = polygon;
+                    polygon.addEventListener('mouseover',function(e){
+                        curPolygon.setStrokeOpacity(0.6);
+                        curPolygon.setFillOpacity(0.4);
+                    });
+                    polygon.addEventListener('mouseout',function(e){
+                        curPolygon.setStrokeOpacity(0.4);
+                        curPolygon.setFillOpacity(0.2);
+                    });
                 }
             }
         });

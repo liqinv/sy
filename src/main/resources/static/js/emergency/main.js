@@ -467,7 +467,7 @@ var emergency = new Vue({
                 .post(url, {})
                 .then(function (result) {
                     //点位上图
-                    console.log(result.data);
+                    // console.log(result.data);
                     var areaList = result.data;
 
                     for (var i = 0; i < areaList.length; i++) {
@@ -497,6 +497,7 @@ var emergency = new Vue({
                             let linkMan = areaList[i].linkMan;
                             let linkPhone = areaList[i].linkPhone;
                             let note = areaList[i].note;
+
                             polygon.addEventListener('click',function(e){
                                 let point = e.point;
                                 var winContents = "<div class=\"form-group\" style=\"text-align: center;\"><label>" + name + "</label></div>";
@@ -511,7 +512,17 @@ var emergency = new Vue({
                                 }
                                 emergency.openAreaInfo(winContents,point);
                             });
-
+                            let curPolygon = polygon;
+                            polygon.addEventListener('mouseover',function(e){
+                                // console.log("mouseover");
+                                curPolygon.setStrokeOpacity(0.6);
+                                curPolygon.setFillOpacity(0.4);
+                            });
+                            polygon.addEventListener('mouseout',function(e){
+                                // console.log("mouseout");
+                                curPolygon.setStrokeOpacity(0.4);
+                                curPolygon.setFillOpacity(0.2);
+                            });
                         }
                     }
                 });
@@ -526,7 +537,7 @@ var emergency = new Vue({
                 .post(url, param)
                 .then(function (result) {
                     //点位上图
-                    console.log(result.data);
+                    // console.log(result.data);
                     var pointList = result.data;
                     for (var i = 0; i < pointList.length; i++) {
                         var myIcon ;
@@ -618,7 +629,7 @@ var emergency = new Vue({
                 var allOverlay = emergency.$data.map.getOverlays();
                 for (var i = 0; i < allOverlay.length ; i++) {
 
-                    console.log(allOverlay[i].pointType);
+                    // console.log(allOverlay[i].pointType);
                     if(allOverlay[i].pointType && allOverlay[i].pointType == pointType) {
                         emergency.$data.map.removeOverlay(allOverlay[i]);
                     }
@@ -636,7 +647,7 @@ var emergency = new Vue({
                 var allOverlay = emergency.$data.map.getOverlays();
                 for (var i = 0; i < allOverlay.length ; i++) {
 
-                    console.log(allOverlay[i].areaType);
+                    // console.log(allOverlay[i].areaType);
                     if(allOverlay[i].areaType && allOverlay[i].areaType == areaType) {
                         emergency.$data.map.removeOverlay(allOverlay[i]);
                     }
