@@ -5,6 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <title>党委地图</title>
+    <link rel="stylesheet" th:href="@{/bootstrap/dist/css/bootstrap.min.css}">
     <style type="text/css">
         body, html,#allmap {width: 100%;height: 100%;overflow: hidden;margin:0;font-family:"微软雅黑";}
         .BMap_cpyCtrl{display:none;}
@@ -93,6 +94,10 @@
         map.openInfoWindow(infoWindow, point); //开启信息窗口
     };
 
+    function openAreaInfo (content,point) {
+        var infoWindow = new BMap.InfoWindow(content);  // 创建信息窗口对象
+        map.openInfoWindow(infoWindow, point); //开启信息窗口
+    };
     YF_HTTP
         .post("/resource/area/listMap", {})
         .then(function (result) {
@@ -123,6 +128,25 @@
                     var polygon = new BMap.Polygon(initMapDatas,styleOptions);
                     polygon.areaType="area";
                     map.addOverlay(polygon);
+
+                    let name = areaList[i].name;
+                    let linkMan = areaList[i].linkMan;
+                    let linkPhone = areaList[i].linkPhone;
+                    let note = areaList[i].note;
+                    polygon.addEventListener('click',function(e){
+                        let point = e.point;
+                        var winContents = "<div class=\"form-group\" style=\"text-align: center;\"><label>" + name + "</label></div>";
+                        if(linkMan && linkMan != "") {
+                            winContents = winContents + "<div class=\"form-group\">联系人：" + linkMan + "</div>";
+                        }
+                        if(linkPhone && linkPhone != "") {
+                            winContents = winContents + "<div class=\"form-group\"> 电话：" + linkPhone + "</div>";
+                        }
+                        if(note && note != "") {
+                            winContents = winContents + "<div class=\"form-group\"> 备注：" + note + "</div>";
+                        }
+                        openAreaInfo(winContents,point);
+                    });
                 }
             }
         });

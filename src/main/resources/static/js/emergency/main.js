@@ -483,9 +483,32 @@ var emergency = new Vue({
                             var polygon = new BMap.Polygon(initMapDatas,styleOptions);
                             polygon.areaType="area";
                             emergency.$data.map.addOverlay(polygon);
+                            let name = areaList[i].name;
+                            let linkMan = areaList[i].linkMan;
+                            let linkPhone = areaList[i].linkPhone;
+                            let note = areaList[i].note;
+                            polygon.addEventListener('click',function(e){
+                                let point = e.point;
+                                var winContents = "<div class=\"form-group\" style=\"text-align: center;\"><label>" + name + "</label></div>";
+                                if(linkMan && linkMan != "") {
+                                    winContents = winContents + "<div class=\"form-group\">联系人：" + linkMan + "</div>";
+                                }
+                                if(linkPhone && linkPhone != "") {
+                                    winContents = winContents + "<div class=\"form-group\"> 电话：" + linkPhone + "</div>";
+                                }
+                                if(note && note != "") {
+                                    winContents = winContents + "<div class=\"form-group\"> 备注：" + note + "</div>";
+                                }
+                                emergency.openAreaInfo(winContents,point);
+                            });
+
                         }
                     }
                 });
+        },
+        openAreaInfo: function (content,point) {
+            var infoWindow = new BMap.InfoWindow(content);  // 创建信息窗口对象
+            emergency.$data.map.openInfoWindow(infoWindow, point); //开启信息窗口
         },
         initPoint: function (param) {
             var url = "/resource/point/listMap";
