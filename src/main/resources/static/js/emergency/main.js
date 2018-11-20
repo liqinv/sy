@@ -499,6 +499,8 @@ var emergency = new Vue({
                             let note = areaList[i].note;
 
                             polygon.addEventListener('click',function(e){
+                                curPolygon.setStrokeOpacity(0.6);
+                                curPolygon.setFillOpacity(0.4);
                                 let point = e.point;
                                 var winContents = "<div class=\"form-group\" style=\"text-align: center;\"><label>" + name + "</label></div>";
                                 if(linkMan && linkMan != "") {
