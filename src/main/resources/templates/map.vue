@@ -64,7 +64,7 @@
 
                 var winContents = "<div class=\"form-group\" style=\"text-align: center;\"><label>" + pointList[i].name + "</label></div>";
                 if(pointList[i].linkMan && pointList[i].linkMan != "") {
-                    winContents = winContents + "<div class=\"form-group\">联系人：" + pointList[i].linkMan + "</div>";
+                    winContents = winContents + "<div class=\"form-group\">书记：" + pointList[i].linkMan + "</div>";
                     //winContents = winContents + "<div class=\"form-group\"><div class=\"col-sm-3\" >联系人：</div><div class=\"col-sm-9\">" + pointList[i].linkMan + "</div></div>";
                 }
                 if(pointList[i].linkPhone && pointList[i].linkPhone != "") {
@@ -76,7 +76,7 @@
                     //winContents = winContents + "<div class=\"form-group\"><div class=\"col-sm-3\" >地址：</div><div class=\"col-sm-9\">" + pointList[i].address + "</div></div>";
                 }
                 if(pointList[i].note && pointList[i].note != "") {
-                    winContents = winContents + "<div class=\"form-group\"> 备注：" + pointList[i].note + "</div>";
+                    winContents = winContents + "<div class=\"form-group\"> 党员数量：" + pointList[i].note + "</div>";
                     //winContents = winContents + "<div class=\"form-group\"><div class=\"col-sm-3\" >备注：</div><div class=\"col-sm-9\">" + pointList[i].note + "</div></div>";
                 }
                 addClickHandler(winContents, marker);

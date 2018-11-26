@@ -542,11 +542,15 @@ var emergency = new Vue({
                     // console.log(result.data);
                     var pointList = result.data;
                     for (var i = 0; i < pointList.length; i++) {
-                        var myIcon ;
+                        let myIcon;
+                        let linkManLabel = "联系人";
+                        let noteLabel = "备注";
                         switch (pointList[i].type) {
                             case "AD001":
                                 myIcon = new BMap.Icon(baseUrl+"/img/resource/dw.png", new BMap.Size(25, 25));
                                 myIcon.setImageSize(new BMap.Size(25, 25));
+                                linkManLabel = "书记";
+                                noteLabel = "党员数量"
                                 break;
                             case "AD002":
                                 myIcon = new BMap.Icon(baseUrl+"/img/resource/wz.png", new BMap.Size(25, 25));
@@ -593,7 +597,7 @@ var emergency = new Vue({
 
                         var winContents = "<div class=\"form-group\" style=\"text-align: center;\"><label>" + pointList[i].name + "</label></div>";
                         if(pointList[i].linkMan && pointList[i].linkMan != "") {
-                            winContents = winContents + "<div class=\"form-group\">联系人：" + pointList[i].linkMan + "</div>";
+                            winContents = winContents + "<div class=\"form-group\">"+linkManLabel+"：" + pointList[i].linkMan + "</div>";
                             //winContents = winContents + "<div class=\"form-group\"><div class=\"col-sm-3\" >联系人：</div><div class=\"col-sm-9\">" + pointList[i].linkMan + "</div></div>";
                         }
                         if(pointList[i].linkPhone && pointList[i].linkPhone != "") {
@@ -605,7 +609,7 @@ var emergency = new Vue({
                             //winContents = winContents + "<div class=\"form-group\"><div class=\"col-sm-3\" >地址：</div><div class=\"col-sm-9\">" + pointList[i].address + "</div></div>";
                         }
                         if(pointList[i].note && pointList[i].note != "") {
-                            winContents = winContents + "<div class=\"form-group\"> 备注：" + pointList[i].note + "</div>";
+                            winContents = winContents + "<div class=\"form-group\">"+noteLabel+"：" + pointList[i].note + "</div>";
                             //winContents = winContents + "<div class=\"form-group\"><div class=\"col-sm-3\" >备注：</div><div class=\"col-sm-9\">" + pointList[i].note + "</div></div>";
                         }
 
