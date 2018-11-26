@@ -120,7 +120,6 @@
                     if(areaList[i].areaColor && areaList[i].areaColor !='') {
                         displayColor = areaList[i].areaColor;
                     }
-
                     var styleOptions = {
                         strokeColor : displayColor, // 边线颜色。
                         fillColor : displayColor, // 填充颜色。当参数为空时，圆形将没有填充效果。
