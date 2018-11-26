@@ -109,7 +109,6 @@
             //点位上图
             console.log(result.data);
             var areaList = result.data;
-
             for (var i = 0; i < areaList.length; i++) {
                 if(areaList[i].dataList) {
                     var initMapDatas = [];
