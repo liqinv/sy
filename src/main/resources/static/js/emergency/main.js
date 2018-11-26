@@ -547,7 +547,7 @@ var emergency = new Vue({
                         let noteLabel = "备注";
                         switch (pointList[i].type) {
                             case "AD001":
-                                myIcon = new BMap.Icon(baseUrl+"/img/resource/dw.png", new BMap.Size(25, 25));
+                                myIcon = new BMap.Icon(baseUrl+"/img/resource/dw.gif", new BMap.Size(25, 25));
                                 myIcon.setImageSize(new BMap.Size(25, 25));
                                 linkManLabel = "书记";
                                 noteLabel = "党员数量"

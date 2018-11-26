@@ -2,8 +2,10 @@ package com.yf.base.controller.sys;
 
 import com.yf.base.common.BaseController;
 import com.yf.base.common.ReturnResult;
+import com.yf.base.model.resource.vo.ResourceAreaVo;
 import com.yf.base.model.resource.vo.ResourceInfoVo;
 import com.yf.base.model.sys.vo.SysPermissionVo;
+import com.yf.base.service.resource.ResourceAreaService;
 import com.yf.base.service.resource.ResourceService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -29,6 +31,8 @@ import java.util.List;
 public class LoginController extends BaseController {
 	@Resource
 	private ResourceService resourceService;
+	@Resource
+	private ResourceAreaService areaService;
 	@ApiIgnore()
 	@RequestMapping("/home")
 	public String home(){
@@ -42,7 +46,7 @@ public class LoginController extends BaseController {
 	}
 
 	@ApiOperation(value="上图资源查询",  httpMethod ="POST")
-	@RequestMapping("/map/data")
+	@RequestMapping("/map/dw")
 	@ResponseBody
 	public ReturnResult dw(){
 		ReturnResult rr = ReturnResult.SUCCESS();
@@ -50,6 +54,21 @@ public class LoginController extends BaseController {
 			ResourceInfoVo param=new ResourceInfoVo();
 			param.setType("AD001");
 			List<ResourceInfoVo> result = resourceService.selectByParam(param);
+			rr.setData(result);
+		}catch (Exception ex){
+			rr = ReturnResult.FAILUER("上图资源查询出错");
+			ex.printStackTrace();
+		}
+		return rr;
+	}
+
+	@ApiOperation(value="社区资源查询",  httpMethod ="POST")
+	@RequestMapping("/map/sq")
+	@ResponseBody
+	public ReturnResult sq(){
+		ReturnResult rr = ReturnResult.SUCCESS();
+		try {
+			List<ResourceAreaVo> result = areaService.selectMapByParam(new ResourceAreaVo());
 			rr.setData(result);
 		}catch (Exception ex){
 			rr = ReturnResult.FAILUER("上图资源查询出错");

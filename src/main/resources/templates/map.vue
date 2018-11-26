@@ -6,6 +6,10 @@
     <meta charset="UTF-8">
     <title>党委地图</title>
     <link rel="stylesheet" th:href="@{/bootstrap/dist/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/adminlte/font-awesome/css/font-awesome.min.css}">
+    <link rel="stylesheet" th:href="@{/adminlte/Ionicons/css/ionicons.min.css}">
+    <link rel="stylesheet" th:href="@{/adminlte/dist/css/AdminLTE.min.css}">
+    <link rel="stylesheet" th:href="@{/adminlte/dist/css/skins/_all-skins.min.css}">
     <style type="text/css">
         body, html,#allmap {width: 100%;height: 100%;overflow: hidden;margin:0;font-family:"微软雅黑";}
         .BMap_cpyCtrl{display:none;}
@@ -20,6 +24,7 @@
 <script type="text/javascript" th:src="@{/vue/polyfill.min.js}"></script>
 <script type="text/javascript" th:src="@{/vue/axios.min.js}"></script>
 <script type="text/javascript" th:src="@{/vue/qs.min.js}"></script>
+<script type="text/javascript" th:src="@{/bootstrap/sweetalert/sweetalert.min.js}"></script>
 <script type="text/javascript" th:src="@{/js/config.js}"></script>
 <script type="text/javascript" th:src="@{/js/utils.js}"></script>
 <script type="text/javascript" src="http://api.map.baidu.com/api?v=3.0&ak=EDksscNlh4crvQIrlgHuKOPZ"></script>
@@ -50,11 +55,11 @@
     map.addControl(top_right_navigation);
 
     YF_HTTP
-        .get("/map/data")
+        .get("/map/dw")
         .then(function (result) {
             var pointList = result.data;
             for (var i = 0; i < pointList.length; i++) {
-                var myIcon = new BMap.Icon(baseUrl+"/img/resource/dw.png", new BMap.Size(25, 25));
+                var myIcon = new BMap.Icon(baseUrl+"/img/resource/dw.gif", new BMap.Size(25, 25));
                 myIcon.setImageSize(new BMap.Size(25, 25));
 
                 var point = new BMap.Point(pointList[i].locationX, pointList[i].locationY);
@@ -99,7 +104,7 @@
         map.openInfoWindow(infoWindow, point); //开启信息窗口
     };
     YF_HTTP
-        .post("/resource/area/listMap", {})
+        .post("/map/sq", {})
         .then(function (result) {
             //点位上图
             console.log(result.data);
