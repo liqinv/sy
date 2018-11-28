@@ -4,7 +4,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>党委地图</title>
+    <title>党组织地图</title>
     <link rel="stylesheet" th:href="@{/bootstrap/dist/css/bootstrap.min.css}">
     <link rel="stylesheet" th:href="@{/adminlte/font-awesome/css/font-awesome.min.css}">
     <link rel="stylesheet" th:href="@{/adminlte/Ionicons/css/ionicons.min.css}">
