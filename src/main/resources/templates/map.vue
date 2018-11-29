@@ -59,8 +59,8 @@
         .then(function (result) {
             var pointList = result.data;
             for (var i = 0; i < pointList.length; i++) {
-                var myIcon = new BMap.Icon(baseUrl+"/img/resource/dw.gif", new BMap.Size(35, 25));
-                myIcon.setImageSize(new BMap.Size(35, 25));
+                var myIcon = new BMap.Icon(baseUrl+"/img/resource/dw.gif", new BMap.Size(50, 30));
+                myIcon.setImageSize(new BMap.Size(50, 30));
 
                 var point = new BMap.Point(pointList[i].locationX, pointList[i].locationY);
                 var marker = new BMap.Marker(point,{icon:myIcon});  // 创建标注
