@@ -507,7 +507,9 @@ var emergency = new Vue({
                                     winContents = winContents + "<div class=\"form-group\">联系人：" + linkMan + "</div>";
                                 }
                                 if(linkPhone && linkPhone != "") {
-                                    winContents = winContents + "<div class=\"form-group\"> 电话：" + linkPhone + "</div>";
+                                    // winContents = winContents + "<div class=\"form-group\"> 电话：" + linkPhone + "&nbsp;&nbsp;<button type=\"button\" class=\"btn btn-primary btn-sm\" onclick=\"makeCall("+linkPhone+")\"><i class=\"fa  fa-phone\"></i></button></div>";
+                                    winContents = winContents + "<div class=\"form-group\"> 电话：" + linkPhone + "&nbsp;&nbsp;<img id=\"call-"+linkPhone+"\" src=\""+baseUrl+"/img/call.png\" style=\"cursor:pointer;\" onclick=\"makeCall("+linkPhone+")\"/><img id=\"callup-"+linkPhone+"\" src=\""+baseUrl+"/img/callup.png\" style=\"cursor:pointer;display:none;\" onclick=\"hangUp("+linkPhone+")\"></div>";
+
                                 }
                                 if(note && note != "") {
                                     winContents = winContents + "<div class=\"form-group\"> 备注：" + note + "</div>";
@@ -547,46 +549,46 @@ var emergency = new Vue({
                         let noteLabel = "备注";
                         switch (pointList[i].type) {
                             case "AD001":
-                                myIcon = new BMap.Icon(baseUrl+"/img/resource/dw.gif", new BMap.Size(25, 25));
-                                myIcon.setImageSize(new BMap.Size(25, 25));
+                                myIcon = new BMap.Icon(baseUrl+"/img/resource/dw.gif", new BMap.Size(50, 30));
+                                myIcon.setImageSize(new BMap.Size(50, 30));
                                 linkManLabel = "书记";
                                 noteLabel = "党员数量"
                                 break;
                             case "AD002":
-                                myIcon = new BMap.Icon(baseUrl+"/img/resource/wz.png", new BMap.Size(25, 25));
-                                myIcon.setImageSize(new BMap.Size(25, 25));
+                                myIcon = new BMap.Icon(baseUrl+"/img/resource/wz.png", new BMap.Size(30, 30));
+                                myIcon.setImageSize(new BMap.Size(30, 30));
                                 break;
                             case "AD003":
-                                myIcon = new BMap.Icon(baseUrl+"/img/resource/jyz.png", new BMap.Size(25, 25));
-                                myIcon.setImageSize(new BMap.Size(25, 25));
+                                myIcon = new BMap.Icon(baseUrl+"/img/resource/jyz.png", new BMap.Size(30, 30));
+                                myIcon.setImageSize(new BMap.Size(30, 30));
                                 break;
                             case "AD004":
-                                myIcon = new BMap.Icon(baseUrl+"/img/resource/whpsy.png", new BMap.Size(25, 25));
-                                myIcon.setImageSize(new BMap.Size(25, 25));
+                                myIcon = new BMap.Icon(baseUrl+"/img/resource/whpsy.png", new BMap.Size(30, 30));
+                                myIcon.setImageSize(new BMap.Size(30, 30));
                                 break;
                             case "AD005":
-                                myIcon = new BMap.Icon(baseUrl+"/img/resource/whpcc.png", new BMap.Size(25, 25));
-                                myIcon.setImageSize(new BMap.Size(25, 25));
+                                myIcon = new BMap.Icon(baseUrl+"/img/resource/whpcc.png", new BMap.Size(30, 30));
+                                myIcon.setImageSize(new BMap.Size(30, 30));
                                 break;
                             case "AD006":
-                                myIcon = new BMap.Icon(baseUrl+"/img/resource/rymjd.png", new BMap.Size(25, 25));
-                                myIcon.setImageSize(new BMap.Size(25, 25));
+                                myIcon = new BMap.Icon(baseUrl+"/img/resource/rymjd.png", new BMap.Size(30, 30));
+                                myIcon.setImageSize(new BMap.Size(30, 30));
                                 break;
                             case "AD007":
-                                myIcon = new BMap.Icon(baseUrl+"/img/resource/wb.png", new BMap.Size(25, 25));
-                                myIcon.setImageSize(new BMap.Size(25, 25));
+                                myIcon = new BMap.Icon(baseUrl+"/img/resource/wb.png", new BMap.Size(30, 30));
+                                myIcon.setImageSize(new BMap.Size(30, 30));
                                 break;
                             case "AD008":
-                                myIcon = new BMap.Icon(baseUrl+"/img/resource/dyy.png", new BMap.Size(25, 25));
-                                myIcon.setImageSize(new BMap.Size(25, 25));
+                                myIcon = new BMap.Icon(baseUrl+"/img/resource/dyy.png", new BMap.Size(30, 30));
+                                myIcon.setImageSize(new BMap.Size(30, 30));
                                 break;
                             case "AD009":
-                                myIcon = new BMap.Icon(baseUrl+"/img/resource/jd.png", new BMap.Size(25, 25));
-                                myIcon.setImageSize(new BMap.Size(25, 25));
+                                myIcon = new BMap.Icon(baseUrl+"/img/resource/jd.png", new BMap.Size(30, 30));
+                                myIcon.setImageSize(new BMap.Size(30, 30));
                                 break;
                             case "AD010":
-                                myIcon = new BMap.Icon(baseUrl+"/img/resource/ylcs.png", new BMap.Size(25, 25));
-                                myIcon.setImageSize(new BMap.Size(25, 25));
+                                myIcon = new BMap.Icon(baseUrl+"/img/resource/ylcs.png", new BMap.Size(30, 30));
+                                myIcon.setImageSize(new BMap.Size(30, 30));
                                 break;
                         }
 
@@ -600,8 +602,10 @@ var emergency = new Vue({
                             winContents = winContents + "<div class=\"form-group\">"+linkManLabel+"：" + pointList[i].linkMan + "</div>";
                             //winContents = winContents + "<div class=\"form-group\"><div class=\"col-sm-3\" >联系人：</div><div class=\"col-sm-9\">" + pointList[i].linkMan + "</div></div>";
                         }
+                        let callStyle="";
+                        let callupStyle="display:none;";
                         if(pointList[i].linkPhone && pointList[i].linkPhone != "") {
-                            winContents = winContents + "<div class=\"form-group\"> 电话：" + pointList[i].linkPhone + "</div>";
+                            winContents = winContents + "<div class=\"form-group\"> 电话：" + pointList[i].linkPhone + "&nbsp;&nbsp;<img id=\"call-"+pointList[i].linkPhone+"\" src=\""+baseUrl+"/img/call.png\" style=\"cursor:pointer;"+callStyle+"\" onclick=\"makeCall("+pointList[i].linkPhone+")\"/><img id=\"callup-"+pointList[i].linkPhone+"\" src=\""+baseUrl+"/img/callup.png\" style=\"cursor:pointer;"+callupStyle+"\" onclick=\"hangUp("+pointList[i].linkPhone+")\"></div>";
                             //winContents = winContents + "<div class=\"form-group\"><div class=\"col-sm-3\" >电话：</div><div class=\"col-sm-9\">" + pointList[i].linkPhone + "</div></div>";
                         }
                         if(pointList[i].address && pointList[i].address != "") {
@@ -722,8 +726,8 @@ var emergency = new Vue({
                 if (point) {
                     var newPoint = new BMap.Point(point.lng-0.04, point.lat);
                     emergency.$data.map.centerAndZoom(newPoint, CONFIG.BAIDU_DISPLAY_LEVEL);
-                    let myIcon = new BMap.Icon(baseUrl+"/img/resource/sj.png", new BMap.Size(25, 25));
-                    myIcon.setImageSize(new BMap.Size(25, 25));
+                    let myIcon = new BMap.Icon(baseUrl+"/img/resource/sj.png", new BMap.Size(30, 30));
+                    myIcon.setImageSize(new BMap.Size(30, 30));
                     let sgsMark = new BMap.Marker(point,{icon:myIcon});  // 创建标注
                     sgsMark.pointType = "SJ";
                     emergency.$data.map.addOverlay(sgsMark);
@@ -746,8 +750,8 @@ var emergency = new Vue({
             let list = emergency.$data.eventList;
             for (let i = 0; i < list.length; i++) {
                 var point = new BMap.Point(list[i].longitude, list[i].latitude);
-                let myIcon = new BMap.Icon(baseUrl+"/img/resource/sj.png", new BMap.Size(25, 25));
-                myIcon.setImageSize(new BMap.Size(25, 25));
+                let myIcon = new BMap.Icon(baseUrl+"/img/resource/sj.png", new BMap.Size(30, 30));
+                myIcon.setImageSize(new BMap.Size(30, 30));
                 let sgsMark = new BMap.Marker(point,{icon:myIcon});  // 创建标注
                 sgsMark.pointType = "SJ";
                 emergency.$data.map.addOverlay(sgsMark);
@@ -766,6 +770,25 @@ var emergency = new Vue({
                     sgsMark.setLabel(label); //为标注添加一个标签
                 }
             }
-        }
+        },
+
+        /*initOCX:function() {
+            MyActiveX1.setjobnum(1005);
+            MyActiveX1.setextnum(1005);
+            MyActiveX1.setusername("1005");
+            MyActiveX1.setGrpID(3);
+            MyActiveX1.setLevelNum(3);
+            MyActiveX1.setRoleID(3);
+            MyActiveX1.SetCompanyId(1704202325524228143242);
+            MyActiveX1.SetGrpName("测试1");
+            MyActiveX1.SetAuthority("77,78,79,80,81,82,83,84,85,86");
+            MyActiveX1.SetVoiceFile("test.wav","d:\\test.wav",0);
+            MyActiveX1.init("125.71.214.70",9033);
+            MyActiveX1.SipRegister("125.71.214.70",5050,"zhaojie18628038488",30);
+        },
+        makeCall: function(phoneNum) {
+            alert(phoneNum);
+            MyActiveX1.MakeCall("13880403060",0);
+        }*/
     }
 });
