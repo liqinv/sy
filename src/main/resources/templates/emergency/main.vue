@@ -507,6 +507,20 @@
                     MyActiveX1.SetVoiceFile("test.wav","d:\\test.wav",0);//设置转移到语音的文件
                     MyActiveX1.init("125.71.214.70",9033);//初始化连接
                     MyActiveX1.SipRegister("125.71.214.70",5050,"zhaojie18628038488",30);//分机注册
+
+                    //现网
+                    /*MyActiveX1.setjobnum(1501);//坐席工号，根据登录工号对应变更
+                    MyActiveX1.setextnum(1501);//坐席分机号，根据登录工号对应变更
+                    MyActiveX1.setusername("1501");//坐席姓名，根据登录工号对应变更
+                    MyActiveX1.setGrpID(23);//业务组/技能组ID，如果需要呼入指定对应不同技能组，需对应设置
+                    MyActiveX1.setLevelNum(1);//所属组级别，固定
+                    MyActiveX1.setRoleID(3);//坐席权限，保留
+                    MyActiveX1.SetCompanyId(1811261157131987069760);//公司编码，企业管理员开出时已固定
+                    MyActiveX1.SetGrpName("业务组一");//业务组/技能组名称，参考管理员登录后业务组管理的名称
+                    MyActiveX1.SetAuthority("77,78,79,80,81,82,83,84,85,86");//控件权限，固定
+                    MyActiveX1.SetVoiceFile("test.wav","d:\\test.wav",0);//iVR语音，固定
+                    MyActiveX1.init("125.71.214.79",9033);//控件注册地址，固定
+                    MyActiveX1.SipRegister("125.71.214.79",5050,"19816399",30);//分机注册地址，固定*/
                 }catch(e) {
                     console.error(e);
                     console.error("OCX控件加载失败！");
