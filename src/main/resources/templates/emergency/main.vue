@@ -495,18 +495,18 @@
 
             function initOCX() {
                 try {
-                    MyActiveX1.setjobnum(1005);
-                    MyActiveX1.setextnum(1005);
-                    MyActiveX1.setusername("1005");
-                    MyActiveX1.setGrpID(3);
-                    MyActiveX1.setLevelNum(3);
-                    MyActiveX1.setRoleID(3);
+                    MyActiveX1.setjobnum(1005);//坐席工号
+                    MyActiveX1.setextnum(1005);//坐席分机号
+                    MyActiveX1.setusername("1005");//坐席姓名
+                    MyActiveX1.setGrpID(3);//坐席所属技能组ID
+                    MyActiveX1.setLevelNum(3);//该坐席在所属组的级别
+                    MyActiveX1.setRoleID(3);//用来得到坐席权限（保留）
                     MyActiveX1.SetCompanyId(1704202325524228143242);
-                    MyActiveX1.SetGrpName("测试1");
-                    MyActiveX1.SetAuthority("77,78,79,80,81,82,83,84,85,86");
-                    //MyActiveX1.SetVoiceFile("test.wav", "d:\\test.wav", 0);
-                    MyActiveX1.init("125.71.214.70", 9033);
-                    MyActiveX1.SipRegister("125.71.214.70", 5050, "zhaojie18628038488", 30);
+                    MyActiveX1.SetGrpName("测试1");//坐席所属技能组名称
+                    MyActiveX1.SetAuthority("77,78,79,80,81,82,83,84,85,86");//设置控件的功能权限
+                    MyActiveX1.SetVoiceFile("test.wav","d:\\test.wav",0);//设置转移到语音的文件
+                    MyActiveX1.init("125.71.214.70",9033);//初始化连接
+                    MyActiveX1.SipRegister("125.71.214.70",5050,"zhaojie18628038488",30);//分机注册
                 }catch(e) {
                     console.error(e);
                     console.error("OCX控件加载失败！");
