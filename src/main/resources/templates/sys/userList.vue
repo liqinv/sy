@@ -55,7 +55,7 @@
                                                 <th class="sorting" rowspan="1" colspan="1">用户名称</th>
                                                 <th class="sorting" rowspan="1" colspan="1">所属机构</th>
                                                 <th class="sorting" rowspan="1" colspan="1">联系电话</th>
-                                                <th class="sorting" rowspan="1" colspan="1">用户岗位</th>
+                                                <!--<th class="sorting" rowspan="1" colspan="1">用户岗位</th>-->
                                                 <th class="sorting" rowspan="1" colspan="1">用户类型</th>
                                                 <th class="sorting" rowspan="1" colspan="1">用户角色</th>
                                                 <th class="sorting" rowspan="1" colspan="1">创建时间</th>
@@ -68,7 +68,7 @@
                                                 <td>{{r.name}}</td>
                                                 <td>{{r.sysOrgan.name}}</td>
                                                 <td>{{r.phone}}</td>
-                                                <td>{{r.jobName}}</td>
+                                                <!--<td>{{r.jobName}}</td>-->
                                                 <td>{{r.typeName}}</td>
                                                 <td>{{r.roleName}}</td>
                                                 <td>{{r.createTime}}</td>
@@ -150,7 +150,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    <!--<div class="form-group">
                                         <div class="col-sm-3 control-label">
                                             <label>用户岗位</label>
                                         </div>
@@ -159,7 +159,7 @@
                                                 <option v-for="send  in jobList" name="sendSymbolId" :value="send.configKey">{{send.configValue}}</option>
                                             </select>
                                         </div>
-                                    </div>
+                                    </div>-->
                                     <div class="form-group">
                                         <div class="col-sm-3 control-label">
                                             <label>用户角色</label>
@@ -241,7 +241,7 @@
                                             <input type="text" v-model="userModel.phone" class="form-control" placeholder="联系电话" maxlength="12" onkeyup="this.value=this.value.replace(/\D/g,'')" required="required">
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    <!--<div class="form-group">
                                         <div class="col-sm-3 control-label">
                                             <label>用户岗位</label>
                                         </div>
@@ -251,7 +251,7 @@
                                                 </option>
                                             </select>
                                         </div>
-                                    </div>
+                                    </div>-->
                                     <div class="form-group">
                                         <div class="col-sm-3 control-label">
                                             <label>用户类型</label>

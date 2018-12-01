@@ -44,11 +44,14 @@ public class GroupInfoServiceImpl extends BaseServiceImpl<GroupInfo,Integer> imp
         this.insert(vo);
         String userIds = vo.getSelectedUserIds();
         String[] userIdArr = userIds.split(",");
+        int sort = 1;
         for(String idStr : userIdArr) {
             GroupUserKey gu = new GroupUserKey();
             gu.setGroupId(vo.getId());
             gu.setUserId(Integer.valueOf(idStr));
+            gu.setSort(sort);
             groupUserMapper.insert(gu);
+            sort ++;
         }
     }
 
@@ -58,11 +61,14 @@ public class GroupInfoServiceImpl extends BaseServiceImpl<GroupInfo,Integer> imp
         groupUserMapper.deleteByGroupId(vo.getId());
         String userIds = vo.getSelectedUserIds();
         String[] userIdArr = userIds.split(",");
+        int sort = 1;
         for(String idStr : userIdArr) {
             GroupUserKey gu = new GroupUserKey();
             gu.setGroupId(vo.getId());
             gu.setUserId(Integer.valueOf(idStr));
+            gu.setSort(sort);
             groupUserMapper.insert(gu);
+            sort ++;
         }
     }
 

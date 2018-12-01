@@ -10,4 +10,6 @@ public class GroupUserKey {
 
     private Integer userId;
 
+    private Integer sort;
+
 }

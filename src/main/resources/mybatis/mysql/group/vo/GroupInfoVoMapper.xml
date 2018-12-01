@@ -44,8 +44,8 @@
         LEFT JOIN
         (
         SELECT
-        group_concat(u.NAME separator ',') as selectedUserNames,
-        group_concat(o.USER_ID separator ',') as selectedUserIds,
+        group_concat(u.NAME ORDER BY o.SORT ASC separator ',') as selectedUserNames,
+        group_concat(o.USER_ID ORDER BY o.SORT ASC separator ',') as selectedUserIds,
         o.GROUP_ID
         FROM
         group_user o

@@ -18,5 +18,6 @@
         left join sys_user b on b.ID = k.USER_ID
         left join group_info g on g.ID = k.GROUP_ID
         where k.GROUP_ID = #{groupId,jdbcType=INTEGER}
+        order by SORT ASC
     </select>
 </mapper>

@@ -11,8 +11,8 @@
       and USER_ID = #{userId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.yf.base.model.group.GroupUserKey">
-    insert into group_user (GROUP_ID, USER_ID)
-    values (#{groupId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER})
+    insert into group_user (GROUP_ID, USER_ID, SORT)
+    values (#{groupId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{sort,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.yf.base.model.group.GroupUserKey">
     insert into group_user

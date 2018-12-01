@@ -42,6 +42,13 @@ var groupList = new Vue({
         addUi: function() {
             this.groupModel={};
             $('#addUserSelect').select2().val(null).trigger('change');
+            $("#addUserSelect").on("select2:select",function(evt){
+                var element=evt.params.data.element;
+                var $element=$(element);
+                $element.detach();
+                $(this).append($element);
+                $(this).trigger("change");
+            });
             $('#divAddGroup').modal('show');
         },
         addGroup: function () {
@@ -64,6 +71,13 @@ var groupList = new Vue({
                 .then(function (result) {
                     groupList.$data.groupModel = result.data;
                     $('#editUserSelect').select2().val(result.data.selectedUserIds.split(",")).trigger('change');
+                    $("#editUserSelect").on("select2:select",function(evt){
+                        var element=evt.params.data.element;
+                        var $element=$(element);
+                        $element.detach();
+                        $(this).append($element);
+                        $(this).trigger("change");
+                    });
         });
         },
         editGroup: function () {
