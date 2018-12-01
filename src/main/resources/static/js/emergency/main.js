@@ -544,6 +544,9 @@ var emergency = new Vue({
                     // console.log(result.data);
                     var pointList = result.data;
                     for (var i = 0; i < pointList.length; i++) {
+                        if (JSON.stringify(param) == "{}" && pointList[i].type == "AD001") {
+                            continue;
+                        }
                         let myIcon;
                         let linkManLabel = "联系人";
                         let noteLabel = "备注";

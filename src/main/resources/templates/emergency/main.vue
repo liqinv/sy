@@ -442,7 +442,7 @@
 
                     <li id="area" title="社区" style="background-color:#3c8dbc;" v-on:click="switchArea('area');"><img
                             th:src="@{/img/resource/sq-1.png}"/></li>
-                    <li id="AD001" title="党组织" style="background-color:#3c8dbc;" v-on:click="switchPoint('AD001');"><img
+                    <li id="AD001" title="党组织" style="background-color:#4b646f;" v-on:click="switchPoint('AD001');"><img
                             th:src="@{/img/resource/dw-1.png}"/></li>
                     <li id="AD002" title="应急物资存放点" style="background-color:#3c8dbc;" v-on:click="switchPoint('AD002');">
                         <img th:src="@{/img/resource/wz-1.png}"/></li>
