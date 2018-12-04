@@ -55,6 +55,9 @@
 						<li><i class="panel-logo"><img src="img/sys_logo.png" /></i><a target="_blank"
 																					   href="http://171.221.172.73:8078/sy">应急指挥系统
 						</a></li>
+						<li><i class="panel-logo"><img src="img/ga_logo.png" /></i><a target="_blank"
+																					   href="#">一标三实
+						</a></li>
 					</ul>
 				</div>
 			</div>
