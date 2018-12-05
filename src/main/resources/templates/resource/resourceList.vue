@@ -52,6 +52,13 @@
                                     </option>
                                 </select>
                             </div>
+                            <div class="input-group margin-r-5 pull-right" style="width: 100px;">
+                                <select v-model="searchObj.pointStatus" class="form-control" v-on:change="localList()">
+                                    <option value="">全部</option>
+                                    <option value="1">已标注</option>
+                                    <option value="2">未标注</option>
+                                </select>
+                            </div>
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">
@@ -69,6 +76,7 @@
                                                 <th>类型</th>
                                                 <th>联系人</th>
                                                 <th>联系电话</th>
+                                                <th>标注状态</th>
                                                 <th>地址</th>
                                                 <th style="width: 200px">创建时间</th>
                                                 <th style="width: 120px">操作</th>
@@ -80,6 +88,7 @@
                                                 <td>{{r.typeName}}</td>
                                                 <td>{{r.linkMan}}</td>
                                                 <td>{{r.linkPhone}}</td>
+                                                <td v-if="r.pointStatus==1">已标注</td><td v-else>未标注</td>
                                                 <td>{{r.address}}</td>
                                                 <td>{{r.createTime}}</td>
                                                 <td>

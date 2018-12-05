@@ -19,7 +19,7 @@
         <result column="ACTIVE" jdbcType="INTEGER" property="active" />
     </resultMap>
     <resultMap id="VoResultMap" type="com.yf.base.model.resource.vo.ResourceInfoVo" extends="BaseResultMap">
-
+        <result column="POINT_STATUS" jdbcType="INTEGER" property="pointStatus" />
     </resultMap>
     <sql id="Base_Column_List">
     ID, NAME, TYPE, LINK_MAN, LINK_PHONE, LOCATION_X, LOCATION_Y, ADDRESS, NOTE, CREATE_USER_ID,
@@ -27,7 +27,11 @@
   </sql>
     <select id="selectByParam" resultMap="VoResultMap">
         select
-        <include refid="Base_Column_List" />
+        <include refid="Base_Column_List" />,
+        case
+        when LOCATION_X is null or LOCATION_X = '' then 2
+        else 1
+        end POINT_STATUS
         from resource_info
         where ACTIVE = 1
             <if test="type != null and type != ''">
@@ -36,6 +40,15 @@
             <if test="searchCondition != null and searchCondition !=''">
                 and (NAME like CONCAT('%',#{searchCondition},'%') or NOTE like CONCAT('%',#{searchCondition},'%'))
             </if>
+            <if test="pointStatus != null and pointStatus != ''">
+                <if test="pointStatus == 2">
+                    and (LOCATION_X is null or LOCATION_X = '')
+                </if>
+                <if test="pointStatus == 1">
+                    and LOCATION_X is not null and LOCATION_X != ''
+                </if>
+            </if>
+
         ORDER BY CREATE_TIME DESC
     </select>
     <select id="getDetailById" resultMap="VoResultMap">
