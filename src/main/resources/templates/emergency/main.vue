@@ -447,7 +447,7 @@
                     <li id="AD002" title="应急物资存放点" style="background-color:#3c8dbc;" v-on:click="switchPoint('AD002');">
                         <img th:src="@{/img/resource/wz-1.png}"/></li>
 
-                    <li id="person" title="人员" style="background-color:#4b646f;" v-on:click="switchPerson();"><img
+                    <li id="person" title="人员" style="background-color:#3c8dbc;" v-on:click="switchPerson();"><img
                             th:src="@{/img/resource/ry-1.png}"/></li>
 
                     <li id="AD003" title="危化（加油加气站）" style="background-color:#3c8dbc;"
@@ -477,6 +477,9 @@
         <script th:src="@{/js/common/point_convertor.js}"></script>
         <script th:src="@{/js/common/map_baidu.js}"></script>
         <script th:src="@{/js/common/toobar.js}"></script>
+        <script th:src="@{/js/common/sockjs-0.3.4.js}"></script>
+        <script th:src="@{/js/common/stomp.js}"></script>
+        <script th:src="@{/js/common/mq.js}"></script>
 
         <script th:src="@{/js/emergency/main.js}"></script>
         <script th:src="@{/adminlte/components/select2/js/select2.full.min.js}"></script>
@@ -487,15 +490,11 @@
         <script th:src="@{/bootstrap/bootstrap-fileinput/themes/explorer-fa/theme.js}"></script>
         <script th:src="@{/bootstrap/bootstrap-fileinput/themes/fa/theme.js}"></script>
 
-
-        <script th:src="@{/js/common/sockjs-0.3.4.js}"></script>
-        <script th:src="@{/js/common/stomp.js}"></script>
-        <script th:src="@{/js/common/mq.js}"></script>
         <SCRIPT LANGUAGE="JavaScript">
 
             function initOCX() {
                 try {
-                    MyActiveX1.setjobnum(1005);//坐席工号
+                    /*MyActiveX1.setjobnum(1005);//坐席工号
                     MyActiveX1.setextnum(1005);//坐席分机号
                     MyActiveX1.setusername("1005");//坐席姓名
                     MyActiveX1.setGrpID(3);//坐席所属技能组ID
@@ -506,10 +505,10 @@
                     MyActiveX1.SetAuthority("77,78,79,80,81,82,83,84,85,86");//设置控件的功能权限
                     MyActiveX1.SetVoiceFile("test.wav","d:\\test.wav",0);//设置转移到语音的文件
                     MyActiveX1.init("125.71.214.70",9033);//初始化连接
-                    MyActiveX1.SipRegister("125.71.214.70",5050,"zhaojie18628038488",30);//分机注册
+                    MyActiveX1.SipRegister("125.71.214.70",5050,"zhaojie18628038488",30);//分机注册*/
 
                     //现网
-                    /*MyActiveX1.setjobnum(1501);//坐席工号，根据登录工号对应变更
+                    MyActiveX1.setjobnum(1501);//坐席工号，根据登录工号对应变更
                     MyActiveX1.setextnum(1501);//坐席分机号，根据登录工号对应变更
                     MyActiveX1.setusername("1501");//坐席姓名，根据登录工号对应变更
                     MyActiveX1.setGrpID(23);//业务组/技能组ID，如果需要呼入指定对应不同技能组，需对应设置
@@ -520,7 +519,7 @@
                     MyActiveX1.SetAuthority("77,78,79,80,81,82,83,84,85,86");//控件权限，固定
                     MyActiveX1.SetVoiceFile("test.wav","d:\\test.wav",0);//iVR语音，固定
                     MyActiveX1.init("125.71.214.79",9033);//控件注册地址，固定
-                    MyActiveX1.SipRegister("125.71.214.79",5050,"19816399",30);//分机注册地址，固定*/
+                    MyActiveX1.SipRegister("125.71.214.79",5050,"19816399",30);//分机注册地址，固定
                 }catch(e) {
                     console.error(e);
                     console.error("OCX控件加载失败！");

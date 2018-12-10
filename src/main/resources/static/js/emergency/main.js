@@ -39,6 +39,7 @@ var emergency = new Vue({
         /*$('#divAddEvent').on('hide.bs.modal', function () {
             alert('模态框关闭了');
         });*/
+        this.openMqListener();
     },
     methods: {
         initData: function () {
@@ -701,8 +702,8 @@ var emergency = new Vue({
             }
         },
         openMqListener:function(){
-		    if(!emergency.$data.eventModel.gpsMqIsInit){
-		        emergency.$data.eventModel.gpsMqIsInit = true;
+		    if(!this.eventModel.gpsMqIsInit){
+		        this.eventModel.gpsMqIsInit = true;
 		        MqManager.initMq("/exchange/GpsTopicExchange/#",MqManager.mqGpsCompleteCallBack);
 		    }
 		    var type = 4
