@@ -1,8 +1,8 @@
 new Vue({
     el:"#loginForm",
     data: {
-        username: "admin",
-        password: "111111"
+        // username: "",
+        // password: ""
     },
     methods:{
         login:function(){
