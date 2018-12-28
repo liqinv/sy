@@ -68,7 +68,7 @@
 						<li><i class="panel-logo"><img src="img/dang_logo.png" /></i><a target="_blank"
 																						href="https://182.140.197.53/">全国党员管理信息系统</a></li>
 						<li><i class="panel-logo"><img src="img/dang_logo.png" /></i><a target="_blank"
-																						href="http://www.cddyjd.com/">党员E家</a></li>
+																						href="http://www.cddyjy.com/">党员E家</a></li>
 						<li><i class="panel-logo"><img src="img/syj_logo.png" /></i><a target="_blank"
 																					   href="http://125.70.9.196:8098/indexAction.do">成都市食品药品监督管理综合平台</a></li>
 						<li><i class="panel-logo"><img src="img/sys_logo.png" /></i><a target="_blank"
@@ -83,6 +83,8 @@
 																						href="http://jcpt.chengdu.gov.cn/cdform/">成都市基层公开综合服务平台</a></li>
 						<li><i class="panel-logo"><img src="img/cg_logo.png" /></i><a target="_blank"
 																					  href="http://www.cdht.gov.cn/admin/cms/login.do">高新区门户集群系统</a></li>
+						<li><i class="panel-logo"><img src="img/dang_logo.png" /></i><a target="_blank"
+																						href="http://171.221.172.73:8088/">智慧党建</a></li>
 					</ul>
 				</div>
 			</div>
@@ -100,6 +102,8 @@
 																					   href="http://api.ldbzcd.com:8088/laodongjianguan/admin.php/index/index">企业用工信息自主申报平台</a></li>
 						<li><i class="panel-logo"><img src="img/sys_logo.png" /></i><a target="_blank"
 																					   href="http://10.163.27.179/cdcard/login.jsp">职场护航APP</a></li>
+						<li><i class="panel-logo"><img src="img/sys_logo.png" /></i><a target="_blank"
+																					   href="https://www.joechen.xyz/scenter/">政务服务</a></li>
 					</ul>
 				</div>
 			</div>
