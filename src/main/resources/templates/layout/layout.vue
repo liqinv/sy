@@ -77,7 +77,7 @@
     </header>
 
     <!-- Left side column. contains the logo and sidebar -->
-    <aside class="main-sidebar"  id="leftMenu">
+    <aside class="main-sidebar"  id="leftMenu" v-cloak>
         <section class="sidebar">
             <ul class="sidebar-menu" data-widget="tree">
                 <li :class="classJudge(first.leaf,first.permission)" v-for="first in menuTree">

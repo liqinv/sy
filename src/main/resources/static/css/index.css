@@ -152,3 +152,7 @@ button li{
     /*-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);*/
     background-color:  #c9c9c9;
 }
+
+[v-cloak] {
+    display: none;
+}

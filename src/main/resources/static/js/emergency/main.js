@@ -602,6 +602,7 @@ var emergency = new Vue({
                         emergency.$data.map.addOverlay(marker);// 将标注添加到地图中
 
                         var winContents = "<div class=\"form-group\" style=\"text-align: center;\"><label>" + pointList[i].name + "</label></div>";
+                        winContents = winContents + "<div class=\"form-group\">类型：" + pointList[i].typeName + "</div>";
                         if(pointList[i].linkMan && pointList[i].linkMan != "") {
                             winContents = winContents + "<div class=\"form-group\">"+linkManLabel+"：" + pointList[i].linkMan + "</div>";
                             //winContents = winContents + "<div class=\"form-group\"><div class=\"col-sm-3\" >联系人：</div><div class=\"col-sm-9\">" + pointList[i].linkMan + "</div></div>";

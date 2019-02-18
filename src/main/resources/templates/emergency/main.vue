@@ -26,7 +26,7 @@
             <PARAM NAME="_StockProps" VALUE="0">
         </OBJECT>
         </div>
-        <div id="emergency" style="z-index:-1">
+        <div id="emergency" style="z-index:-1" v-cloak>
             <div id="allmap"></div>
             <div class="row">
                 <div class="col-md-3" style="position:absolute;top:80px;left:70px;">
