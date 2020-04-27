@@ -741,7 +741,7 @@ var emergency = new Vue({
                 } else {
                     Utils.alert('地址解析失败,请手动定位!','warning');
                 }
-            });
+            },"成都市");
         },
         reloadEventPoint: function() {
             //删除事件图标
