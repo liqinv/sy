@@ -594,6 +594,14 @@ var emergency = new Vue({
                                 myIcon = new BMap.Icon(baseUrl+"/img/resource/ylcs.png", new BMap.Size(30, 30));
                                 myIcon.setImageSize(new BMap.Size(30, 30));
                                 break;
+                            case "AD011":
+                                myIcon = new BMap.Icon(baseUrl+"/img/resource/fxwz.png", new BMap.Size(30, 30));
+                                myIcon.setImageSize(new BMap.Size(30, 30));
+                                break;
+                            case "AD012":
+                                myIcon = new BMap.Icon(baseUrl+"/img/resource/bncs.png", new BMap.Size(30, 30));
+                                myIcon.setImageSize(new BMap.Size(30, 30));
+                                break;
                         }
 
                         var point = new BMap.Point(pointList[i].locationX, pointList[i].locationY);

@@ -466,6 +466,10 @@
                             th:src="@{/img/resource/jd-1.png}"/></li>
                     <li id="AD010" title="娱乐场所" style="background-color:#3c8dbc;" v-on:click="switchPoint('AD010');">
                         <img th:src="@{/img/resource/ylcs-1.png}"/></li>
+                    <li id="AD011" title="防汛物资存放点" style="background-color:#3c8dbc;" v-on:click="switchPoint('AD011');">
+                        <img th:src="@{/img/resource/fxwz-1.png}"/></li>
+                    <li id="AD012" title="应急避难场所" style="background-color:#3c8dbc;" v-on:click="switchPoint('AD012');">
+                        <img th:src="@{/img/resource/bncs-1.png}"/></li>
                 </ul>
             </div>
         </div>
