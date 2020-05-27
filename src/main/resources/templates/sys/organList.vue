@@ -28,7 +28,7 @@
                     <div class="box box-purple">
                         <!-- /.box-header -->
                         <div class="box-header">
-                            <button type="button" class="pull-right btn btn-primary" v-on:click="addJudge()">
+                            <button shiro:hasPermission="/sys/organ/add" type="button" class="pull-right btn btn-primary" v-on:click="addJudge()">
                                 <i class="fa fa-plus"></i> 新增
                             </button>
                             <div class="input-group margin-r-5 pull-right" style="width: 200px;">

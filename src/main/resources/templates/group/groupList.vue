@@ -25,7 +25,7 @@
                 <div class="col-xs-12">
                     <div class="box box-purple">
                         <div class="box-header">
-                            <button type="button" class="pull-right margin-r-5 btn btn-primary" v-on:click="addUi()"><i class="fa fa-plus"></i> 新增</button>
+                            <button shiro:hasPermission="/group/add" type="button" class="pull-right margin-r-5 btn btn-primary" v-on:click="addUi()"><i class="fa fa-plus"></i> 新增</button>
                             <div class="input-group margin-r-5 pull-right" style="width: 200px;">
                                 <input type="text" v-model="searchObj.searchCondition" class="form-control" maxlength="10" placeholder="请输入关键字">
                                 <span class="input-group-btn">
@@ -61,8 +61,8 @@
                                                 <td>{{r.createUserName}}</td>
                                                 <td>{{r.createTime}}</td>
                                                 <td>
-                                                    <span class="span-a" data-toggle="modal" data-target="#divEditGroup" v-on:click="showEditGroup(r.id)">修改</span>
-                                                    <span class="span-a" v-on:click="deleteGroup(r)">删除</span>
+                                                    <span shiro:hasPermission="/group/edit" class="span-a" data-toggle="modal" data-target="#divEditGroup" v-on:click="showEditGroup(r.id)">修改</span>
+                                                    <span shiro:hasPermission="/group/delete" class="span-a" v-on:click="deleteGroup(r)">删除</span>
                                                 </td>
                                             </tr>
                                             </tbody>

@@ -1,6 +1,5 @@
 package com.yf.base.service.device.impl;
 
-import com.github.pagehelper.PageInfo;
 import com.yf.base.common.BaseDao;
 import com.yf.base.common.BaseServiceImpl;
 import com.yf.base.dao.device.GpsMapper;
@@ -8,12 +7,10 @@ import com.yf.base.dao.device.GpsTypeMapper;
 import com.yf.base.model.device.Gps;
 import com.yf.base.model.device.GpsType;
 import com.yf.base.model.device.vo.GpsBean;
-import com.yf.base.model.sys.SysOrgan;
-import com.yf.base.model.sys.vo.SysOrganVo;
+import com.yf.base.service.device.GpsService;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.yf.base.service.device.GpsService;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -39,10 +36,9 @@ public class GpsServiceImpl extends BaseServiceImpl<Gps,Integer> implements GpsS
     }
 
     @Override
-    public PageInfo selectByPage(Gps GpsVo) {
+    public List<Gps> selectByPage(Gps GpsVo) {
         List<Gps> result = gpsMapper.selectGpsVoList(GpsVo);
-        PageInfo<Gps> pageInfo = new PageInfo<>(result);
-        return pageInfo;
+        return result;
     }
 
     @Override

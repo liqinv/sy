@@ -2,9 +2,11 @@ package com.yf.base.controller.sys;
 
 import com.yf.base.common.BaseController;
 import com.yf.base.common.ReturnResult;
+import com.yf.base.model.device.Gps;
 import com.yf.base.model.resource.vo.ResourceAreaVo;
 import com.yf.base.model.resource.vo.ResourceInfoVo;
 import com.yf.base.model.sys.vo.SysPermissionVo;
+import com.yf.base.service.device.GpsService;
 import com.yf.base.service.resource.ResourceAreaService;
 import com.yf.base.service.resource.ResourceService;
 import io.swagger.annotations.Api;
@@ -33,11 +35,29 @@ public class LoginController extends BaseController {
 	private ResourceService resourceService;
 	@Resource
 	private ResourceAreaService areaService;
+	@Resource
+	private GpsService gpsService;
 	@ApiIgnore()
 	@RequestMapping("/home")
 	public String home(){
 //		System.out.println(this.getLoginUser().getName());
 		return "home";
+	}
+
+	@ApiIgnore()
+	@RequestMapping("/map/devices")
+	@ResponseBody
+	public ReturnResult devices(){
+		ReturnResult rr = ReturnResult.SUCCESS();
+		try {
+			List<Gps> gpsVoList = gpsService.selectByPage(new Gps());
+			rr.setData(gpsVoList);
+		}catch (Exception ex){
+			rr = ReturnResult.FAILUER("上图设备查询出错");
+			ex.printStackTrace();
+		}
+
+		return rr;
 	}
 	@ApiIgnore()
 	@RequestMapping("/map/index")

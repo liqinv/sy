@@ -5,10 +5,12 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.yf.base.common.*;
+import com.yf.base.common.BaseController;
+import com.yf.base.common.Constants;
+import com.yf.base.common.MessageCode;
+import com.yf.base.common.ReturnResult;
 import com.yf.base.model.device.Gps;
 import com.yf.base.model.device.GpsType;
-import com.yf.base.model.device.vo.GpsBean;
 import com.yf.base.model.sys.SysOrgan;
 import com.yf.base.model.sys.vo.SysOrganVo;
 import com.yf.base.model.sys.vo.SysUserVo;
@@ -20,7 +22,6 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import springfox.documentation.annotations.ApiIgnore;
 
@@ -71,9 +72,9 @@ public class GpsController extends BaseController {
                 String lowerCase = Gps.getSearchCondition().toLowerCase();
                 Gps.setSearchCondition(lowerCase);
             }
-            PageInfo<Gps> gpsVoList = gpsService.selectByPage(Gps);
-
-            json.setData(gpsVoList);
+            List<Gps> gpsVoList = gpsService.selectByPage(Gps);
+            PageInfo<Gps> pageInfo = new PageInfo<>(gpsVoList);
+            json.setData(pageInfo);
 
         } catch (Exception e) {
             json = ReturnResult.FAILUER(Constants.QUERY_ERROR);

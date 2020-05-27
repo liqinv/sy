@@ -41,7 +41,7 @@
                                             v-on:click="selectEventList()"><i class="fa fa-search"></i></button>
                                 </span>
                             </div>
-                            <button type="button" class="pull-left margin-r-5 btn btn-primary" v-on:click="saveUi()"><i
+                            <button shiro:hasPermission="/emergency/save" type="button" class="pull-left margin-r-5 btn btn-primary" v-on:click="saveUi()"><i
                                     class="fa fa-plus"></i></button>
                             <div class="box-tools pull-right">
                                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
@@ -172,25 +172,25 @@
                                     </div>
                                 </div>
                                 <div class="box-footer">
-                                    <button v-if="eventModel.id == null || eventModel.status=='BA005'" type="submit"
+                                    <button shiro:hasPermission="/emergency/save" v-if="eventModel.id == null || eventModel.status=='BA005'" type="submit"
                                             class="btn btn-primary pull-right margin-r-5"><i class="fa fa-save"></i> 保存
                                     </button>
-                                    <button v-on:click="notice('BD001')"
+                                    <button shiro:hasPermission="/emergency/addProcess" v-on:click="notice('BD001')"
                                             v-if="eventModel.id != null && eventModel.status == 'BA005'" type="button"
                                             class="btn btn-primary pull-right margin-r-5"><i
                                             class="fa fa-exclamation-circle"></i> 应急准备
                                     </button>
-                                    <button v-on:click="notice('BD002')"
+                                    <button shiro:hasPermission="/emergency/addProcess" v-on:click="notice('BD002')"
                                             v-if="eventModel.id != null && eventModel.status == 'BA001'" type="button"
                                             class="btn btn-primary pull-right margin-r-5"><i class="fa fa-close"></i>
                                         应急取消
                                     </button>
-                                    <button v-on:click="notice('BD003')"
+                                    <button shiro:hasPermission="/emergency/addProcess" v-on:click="notice('BD003')"
                                             v-if="eventModel.id != null && eventModel.status == 'BA001'" type="button"
                                             class="btn btn-primary pull-right margin-r-5"><i
                                             class="fa fa-exclamation-triangle"></i> 应急启动
                                     </button>
-                                    <button v-on:click="notice('BD004')"
+                                    <button shiro:hasPermission="/emergency/addProcess" v-on:click="notice('BD004')"
                                             v-if="eventModel.id != null && eventModel.status == 'BA003'" type="button"
                                             class="btn btn-primary pull-right margin-r-5"><i class="fa fa-close"></i>
                                         应急解除
@@ -337,25 +337,25 @@
                             </div>
 
                             <div class="box-footer">
-                                <button v-on:click="notice('BD001')"
+                                <button shiro:hasPermission="/emergency/addProcess" v-on:click="notice('BD001')"
                                         v-if="eventModel.id != null && eventModel.status == 'BA005'" type="button"
                                         class="btn btn-primary pull-right margin-r-5"><i
                                         class="fa fa-exclamation-circle"></i> 应急准备
                                 </button>
-                                <button v-on:click="notice('BD002')"
+                                <button shiro:hasPermission="/emergency/addProcess" v-on:click="notice('BD002')"
                                         v-if="eventModel.id != null && eventModel.status == 'BA001'" type="button"
                                         class="btn btn-primary pull-right margin-r-5"><i class="fa fa-close"></i> 应急取消
                                 </button>
-                                <button v-on:click="notice('BD003')"
+                                <button shiro:hasPermission="/emergency/addProcess" v-on:click="notice('BD003')"
                                         v-if="eventModel.id != null && eventModel.status == 'BA001'" type="button"
                                         class="btn btn-primary pull-right margin-r-5"><i
                                         class="fa fa-exclamation-triangle"></i> 应急启动
                                 </button>
-                                <button v-on:click="notice('BD004')"
+                                <button shiro:hasPermission="/emergency/addProcess" v-on:click="notice('BD004')"
                                         v-if="eventModel.id != null && eventModel.status == 'BA003'" type="button"
                                         class="btn btn-primary pull-right margin-r-5"><i class="fa fa-close"></i> 应急解除
                                 </button>
-                                <button v-on:click="reportUi()"
+                                <button shiro:hasPermission="/emergency/addProcess" v-on:click="reportUi()"
                                         v-if="eventModel.id != null && (eventModel.status == 'BA001' || eventModel.status == 'BA003')"
                                         type="button" class="btn btn-primary pull-right margin-r-5"><i
                                         class="fa fa-external-link"></i> 续报

@@ -37,7 +37,7 @@
                 <div class="col-xs-12">
                     <div class="box box-purple">
                         <div class="box-header">
-                            <button type="button" class="pull-right margin-r-5 btn btn-primary" v-on:click="saveUi()"><i class="fa fa-plus"></i> 新增</button>
+                            <button shiro:hasPermission="/resource/area/add" type="button" class="pull-right margin-r-5 btn btn-primary" v-on:click="saveUi()"><i class="fa fa-plus"></i> 新增</button>
 
                             <div class="input-group margin-r-5 pull-right" style="width: 200px;">
 
@@ -76,8 +76,8 @@
                                                 <td>{{r.note}}</td>
                                                 <td>{{r.createTime}}</td>
                                                 <td>
-                                                    <span class="span-a" v-on:click="saveUi(r.id)">修改</span>
-                                                    <span class="span-a" v-on:click="deleteArea(r)">删除</span>
+                                                    <span shiro:hasPermission="/resource/area/edit" class="span-a" v-on:click="saveUi(r.id)">修改</span>
+                                                    <span shiro:hasPermission="/resource/area/delete" class="span-a" v-on:click="deleteArea(r)">删除</span>
                                                 </td>
                                             </tr>
                                             </tbody>

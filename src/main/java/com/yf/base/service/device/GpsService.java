@@ -24,7 +24,7 @@ public interface GpsService extends BaseService<Gps,Integer> {
      * @param GpsVo
      * @return
      */
-    PageInfo selectByPage(Gps GpsVo);
+    List<Gps> selectByPage(Gps GpsVo);
 
     /**
      * 添加机构
