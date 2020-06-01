@@ -110,14 +110,14 @@ var emergency = new Vue({
             if (emergency.$data.eventModel.fileList) {
                 for (var i = 0; i < emergency.$data.eventModel.fileList.length; i++) {
                     var file = emergency.$data.eventModel.fileList[i];
-                    initialPreviewData.push(baseUrl+file.originalPath);
+                    initialPreviewData.push(baseUrl + file.originalPath);
                     var cc = {};
                     cc.caption = file.fileName;
                     //cc.width = "120px";
-                    cc.url = baseUrl+"/common/fileRemove";
+                    cc.url = baseUrl + "/common/fileRemove";
                     cc.key = file.id;
                     cc.extra = {id: file.id};
-                    cc.downloadUrl = baseUrl+file.originalPath;
+                    cc.downloadUrl = baseUrl + file.originalPath;
                     cc.size = file.fileSize;
                     initialPreviewConfigData.push(cc);
                 }
@@ -128,7 +128,7 @@ var emergency = new Vue({
                 maxFileCount: 3,
                 language: 'zh',
                 theme: 'explorer-fa',
-                uploadUrl: baseUrl+'/common/fileUpload',
+                uploadUrl: baseUrl + '/common/fileUpload',
                 showCaption: false,
                 enctype: 'multipart/form-data',
                 dropZoneEnabled: false,
@@ -195,11 +195,11 @@ var emergency = new Vue({
             if (emergency.$data.eventModel.fileList) {
                 for (var i = 0; i < emergency.$data.eventModel.fileList.length; i++) {
                     var file = emergency.$data.eventModel.fileList[i];
-                    initialPreviewData.push(baseUrl+file.originalPath);
+                    initialPreviewData.push(baseUrl + file.originalPath);
                     var cc = {};
                     cc.caption = file.fileName;
                     cc.key = file.id;
-                    cc.downloadUrl = baseUrl+file.originalPath;
+                    cc.downloadUrl = baseUrl + file.originalPath;
                     cc.size = file.fileSize;
                     initialPreviewConfigData.push(cc);
                 }
@@ -295,8 +295,8 @@ var emergency = new Vue({
                             $('#divDetail').modal('show');
                         }
 
-                        if(emergency.$data.eventModel.longitude && emergency.$data.eventModel.longitude.trim() != '') {
-                            var newPoint = new BMap.Point(emergency.$data.eventModel.longitude-0.04, emergency.$data.eventModel.latitude);
+                        if (emergency.$data.eventModel.longitude && emergency.$data.eventModel.longitude.trim() != '') {
+                            var newPoint = new BMap.Point(emergency.$data.eventModel.longitude - 0.04, emergency.$data.eventModel.latitude);
                             emergency.$data.map.centerAndZoom(newPoint, CONFIG.BAIDU_DISPLAY_LEVEL);
                         }
 
@@ -472,58 +472,58 @@ var emergency = new Vue({
                     var areaList = result.data;
 
                     for (var i = 0; i < areaList.length; i++) {
-                        if(areaList[i].dataList) {
+                        if (areaList[i].dataList) {
                             var initMapDatas = [];
                             for (var j = 0; j < areaList[i].dataList.length; j++) {
-                                var data = new BMap.Point(areaList[i].dataList[j].locationX,areaList[i].dataList[j].locationY);
+                                var data = new BMap.Point(areaList[i].dataList[j].locationX, areaList[i].dataList[j].locationY);
                                 initMapDatas.push(data);
                             }
                             var displayColor = "red";
-                            if(areaList[i].areaColor && areaList[i].areaColor !='') {
+                            if (areaList[i].areaColor && areaList[i].areaColor != '') {
                                 displayColor = areaList[i].areaColor;
                             }
 
                             var styleOptions = {
-                                strokeColor : displayColor, // 边线颜色。
-                                fillColor : displayColor, // 填充颜色。当参数为空时，圆形将没有填充效果。
-                                strokeWeight : 2, // 边线的宽度，以像素为单位。
-                                strokeOpacity : 0.4, // 边线透明度，取值范围0 - 1。
-                                fillOpacity : 0.2, // 填充的透明度，取值范围0 - 1。
-                                strokeStyle : 'dashed' // 边线的样式，solid或dashed。
+                                strokeColor: displayColor, // 边线颜色。
+                                fillColor: displayColor, // 填充颜色。当参数为空时，圆形将没有填充效果。
+                                strokeWeight: 2, // 边线的宽度，以像素为单位。
+                                strokeOpacity: 0.4, // 边线透明度，取值范围0 - 1。
+                                fillOpacity: 0.2, // 填充的透明度，取值范围0 - 1。
+                                strokeStyle: 'dashed' // 边线的样式，solid或dashed。
                             };
-                            var polygon = new BMap.Polygon(initMapDatas,styleOptions);
-                            polygon.areaType="area";
+                            var polygon = new BMap.Polygon(initMapDatas, styleOptions);
+                            polygon.areaType = "area";
                             emergency.$data.map.addOverlay(polygon);
                             let name = areaList[i].name;
                             let linkMan = areaList[i].linkMan;
                             let linkPhone = areaList[i].linkPhone;
                             let note = areaList[i].note;
 
-                            polygon.addEventListener('click',function(e){
+                            polygon.addEventListener('click', function (e) {
                                 curPolygon.setStrokeOpacity(0.6);
                                 curPolygon.setFillOpacity(0.4);
                                 let point = e.point;
                                 var winContents = "<div class=\"form-group\" style=\"text-align: center;\"><label>" + name + "</label></div>";
-                                if(linkMan && linkMan != "") {
+                                if (linkMan && linkMan != "") {
                                     winContents = winContents + "<div class=\"form-group\">联系人：" + linkMan + "</div>";
                                 }
-                                if(linkPhone && linkPhone != "") {
+                                if (linkPhone && linkPhone != "") {
                                     // winContents = winContents + "<div class=\"form-group\"> 电话：" + linkPhone + "&nbsp;&nbsp;<button type=\"button\" class=\"btn btn-primary btn-sm\" onclick=\"makeCall("+linkPhone+")\"><i class=\"fa  fa-phone\"></i></button></div>";
-                                    winContents = winContents + "<div class=\"form-group\"> 电话：" + linkPhone + "&nbsp;&nbsp;<img id=\"call-"+linkPhone+"\" src=\""+baseUrl+"/img/call.png\" style=\"cursor:pointer;\" onclick=\"makeCall("+linkPhone+")\"/><img id=\"callup-"+linkPhone+"\" src=\""+baseUrl+"/img/callup.png\" style=\"cursor:pointer;display:none;\" onclick=\"hangUp("+linkPhone+")\"></div>";
+                                    winContents = winContents + "<div class=\"form-group\"> 电话：" + linkPhone + "&nbsp;&nbsp;<img id=\"call-" + linkPhone + "\" src=\"" + baseUrl + "/img/call.png\" style=\"cursor:pointer;\" onclick=\"makeCall(" + linkPhone + ")\"/><img id=\"callup-" + linkPhone + "\" src=\"" + baseUrl + "/img/callup.png\" style=\"cursor:pointer;display:none;\" onclick=\"hangUp(" + linkPhone + ")\"></div>";
 
                                 }
-                                if(note && note != "") {
+                                if (note && note != "") {
                                     winContents = winContents + "<div class=\"form-group\"> 备注：" + note + "</div>";
                                 }
-                                emergency.openAreaInfo(winContents,point);
+                                emergency.openAreaInfo(winContents, point);
                             });
                             let curPolygon = polygon;
-                            polygon.addEventListener('mouseover',function(e){
+                            polygon.addEventListener('mouseover', function (e) {
                                 // console.log("mouseover");
                                 curPolygon.setStrokeOpacity(0.6);
                                 curPolygon.setFillOpacity(0.4);
                             });
-                            polygon.addEventListener('mouseout',function(e){
+                            polygon.addEventListener('mouseout', function (e) {
                                 // console.log("mouseout");
                                 curPolygon.setStrokeOpacity(0.4);
                                 curPolygon.setFillOpacity(0.2);
@@ -532,7 +532,7 @@ var emergency = new Vue({
                     }
                 });
         },
-        openAreaInfo: function (content,point) {
+        openAreaInfo: function (content, point) {
             var infoWindow = new BMap.InfoWindow(content);  // 创建信息窗口对象
             emergency.$data.map.openInfoWindow(infoWindow, point); //开启信息窗口
         },
@@ -553,80 +553,80 @@ var emergency = new Vue({
                         let noteLabel = "备注";
                         switch (pointList[i].type) {
                             case "AD001":
-                                myIcon = new BMap.Icon(baseUrl+"/img/resource/dw.gif", new BMap.Size(50, 30));
+                                myIcon = new BMap.Icon(baseUrl + "/img/resource/dw.gif", new BMap.Size(50, 30));
                                 myIcon.setImageSize(new BMap.Size(50, 30));
                                 linkManLabel = "书记";
                                 noteLabel = "党员数量"
                                 break;
                             case "AD002":
-                                myIcon = new BMap.Icon(baseUrl+"/img/resource/wz.png", new BMap.Size(30, 30));
+                                myIcon = new BMap.Icon(baseUrl + "/img/resource/wz.png", new BMap.Size(30, 30));
                                 myIcon.setImageSize(new BMap.Size(30, 30));
                                 break;
                             case "AD003":
-                                myIcon = new BMap.Icon(baseUrl+"/img/resource/jyz.png", new BMap.Size(30, 30));
+                                myIcon = new BMap.Icon(baseUrl + "/img/resource/jyz.png", new BMap.Size(30, 30));
                                 myIcon.setImageSize(new BMap.Size(30, 30));
                                 break;
                             case "AD004":
-                                myIcon = new BMap.Icon(baseUrl+"/img/resource/whpsy.png", new BMap.Size(30, 30));
+                                myIcon = new BMap.Icon(baseUrl + "/img/resource/whpsy.png", new BMap.Size(30, 30));
                                 myIcon.setImageSize(new BMap.Size(30, 30));
                                 break;
                             case "AD005":
-                                myIcon = new BMap.Icon(baseUrl+"/img/resource/whpcc.png", new BMap.Size(30, 30));
+                                myIcon = new BMap.Icon(baseUrl + "/img/resource/whpcc.png", new BMap.Size(30, 30));
                                 myIcon.setImageSize(new BMap.Size(30, 30));
                                 break;
                             case "AD006":
-                                myIcon = new BMap.Icon(baseUrl+"/img/resource/rymjd.png", new BMap.Size(30, 30));
+                                myIcon = new BMap.Icon(baseUrl + "/img/resource/rymjd.png", new BMap.Size(30, 30));
                                 myIcon.setImageSize(new BMap.Size(30, 30));
                                 break;
                             case "AD007":
-                                myIcon = new BMap.Icon(baseUrl+"/img/resource/wb.png", new BMap.Size(30, 30));
+                                myIcon = new BMap.Icon(baseUrl + "/img/resource/wb.png", new BMap.Size(30, 30));
                                 myIcon.setImageSize(new BMap.Size(30, 30));
                                 break;
                             case "AD008":
-                                myIcon = new BMap.Icon(baseUrl+"/img/resource/dyy.png", new BMap.Size(30, 30));
+                                myIcon = new BMap.Icon(baseUrl + "/img/resource/dyy.png", new BMap.Size(30, 30));
                                 myIcon.setImageSize(new BMap.Size(30, 30));
                                 break;
                             case "AD009":
-                                myIcon = new BMap.Icon(baseUrl+"/img/resource/jd.png", new BMap.Size(30, 30));
+                                myIcon = new BMap.Icon(baseUrl + "/img/resource/jd.png", new BMap.Size(30, 30));
                                 myIcon.setImageSize(new BMap.Size(30, 30));
                                 break;
                             case "AD010":
-                                myIcon = new BMap.Icon(baseUrl+"/img/resource/ylcs.png", new BMap.Size(30, 30));
+                                myIcon = new BMap.Icon(baseUrl + "/img/resource/ylcs.png", new BMap.Size(30, 30));
                                 myIcon.setImageSize(new BMap.Size(30, 30));
                                 break;
                             case "AD011":
-                                myIcon = new BMap.Icon(baseUrl+"/img/resource/fxwz.png", new BMap.Size(30, 30));
+                                myIcon = new BMap.Icon(baseUrl + "/img/resource/fxwz.png", new BMap.Size(30, 30));
                                 myIcon.setImageSize(new BMap.Size(30, 30));
                                 break;
                             case "AD012":
-                                myIcon = new BMap.Icon(baseUrl+"/img/resource/bncs.png", new BMap.Size(30, 30));
+                                myIcon = new BMap.Icon(baseUrl + "/img/resource/bncs.png", new BMap.Size(30, 30));
                                 myIcon.setImageSize(new BMap.Size(30, 30));
                                 break;
                         }
 
                         var point = new BMap.Point(pointList[i].locationX, pointList[i].locationY);
-                        var marker = new BMap.Marker(point,{icon:myIcon});  // 创建标注
+                        var marker = new BMap.Marker(point, {icon: myIcon});  // 创建标注
                         marker.pointType = pointList[i].type;
                         emergency.$data.map.addOverlay(marker);// 将标注添加到地图中
 
                         var winContents = "<div class=\"form-group\" style=\"text-align: center;\"><label>" + pointList[i].name + "</label></div>";
                         winContents = winContents + "<div class=\"form-group\">类型：" + pointList[i].typeName + "</div>";
-                        if(pointList[i].linkMan && pointList[i].linkMan != "") {
-                            winContents = winContents + "<div class=\"form-group\">"+linkManLabel+"：" + pointList[i].linkMan + "</div>";
+                        if (pointList[i].linkMan && pointList[i].linkMan != "") {
+                            winContents = winContents + "<div class=\"form-group\">" + linkManLabel + "：" + pointList[i].linkMan + "</div>";
                             //winContents = winContents + "<div class=\"form-group\"><div class=\"col-sm-3\" >联系人：</div><div class=\"col-sm-9\">" + pointList[i].linkMan + "</div></div>";
                         }
-                        let callStyle="";
-                        let callupStyle="display:none;";
-                        if(pointList[i].linkPhone && pointList[i].linkPhone != "") {
-                            winContents = winContents + "<div class=\"form-group\"> 电话：" + pointList[i].linkPhone + "&nbsp;&nbsp;<img id=\"call-"+pointList[i].linkPhone+"\" src=\""+baseUrl+"/img/call.png\" style=\"cursor:pointer;"+callStyle+"\" onclick=\"makeCall("+pointList[i].linkPhone+")\"/><img id=\"callup-"+pointList[i].linkPhone+"\" src=\""+baseUrl+"/img/callup.png\" style=\"cursor:pointer;"+callupStyle+"\" onclick=\"hangUp("+pointList[i].linkPhone+")\"></div>";
+                        let callStyle = "";
+                        let callupStyle = "display:none;";
+                        if (pointList[i].linkPhone && pointList[i].linkPhone != "") {
+                            winContents = winContents + "<div class=\"form-group\"> 电话：" + pointList[i].linkPhone + "&nbsp;&nbsp;<img id=\"call-" + pointList[i].linkPhone + "\" src=\"" + baseUrl + "/img/call.png\" style=\"cursor:pointer;" + callStyle + "\" onclick=\"makeCall(" + pointList[i].linkPhone + ")\"/><img id=\"callup-" + pointList[i].linkPhone + "\" src=\"" + baseUrl + "/img/callup.png\" style=\"cursor:pointer;" + callupStyle + "\" onclick=\"hangUp(" + pointList[i].linkPhone + ")\"></div>";
                             //winContents = winContents + "<div class=\"form-group\"><div class=\"col-sm-3\" >电话：</div><div class=\"col-sm-9\">" + pointList[i].linkPhone + "</div></div>";
                         }
-                        if(pointList[i].address && pointList[i].address != "") {
+                        if (pointList[i].address && pointList[i].address != "") {
                             winContents = winContents + "<div class=\"form-group\"> 地址：" + pointList[i].address + "</div>";
                             //winContents = winContents + "<div class=\"form-group\"><div class=\"col-sm-3\" >地址：</div><div class=\"col-sm-9\">" + pointList[i].address + "</div></div>";
                         }
-                        if(pointList[i].note && pointList[i].note != "") {
-                            winContents = winContents + "<div class=\"form-group\">"+noteLabel+"：" + pointList[i].note + "</div>";
+                        if (pointList[i].note && pointList[i].note != "") {
+                            winContents = winContents + "<div class=\"form-group\">" + noteLabel + "：" + pointList[i].note + "</div>";
                             //winContents = winContents + "<div class=\"form-group\"><div class=\"col-sm-3\" >备注：</div><div class=\"col-sm-9\">" + pointList[i].note + "</div></div>";
                         }
 
@@ -647,37 +647,37 @@ var emergency = new Vue({
             emergency.$data.map.openInfoWindow(infoWindow, point); //开启信息窗口
         },
         switchPoint: function (pointType) {
-            if($("#"+pointType).css("background-color") =="rgb(60, 141, 188)") { //关闭
-                $("#"+pointType).css("background-color","#4b646f");
+            if ($("#" + pointType).css("background-color") == "rgb(60, 141, 188)") { //关闭
+                $("#" + pointType).css("background-color", "#4b646f");
                 var allOverlay = emergency.$data.map.getOverlays();
-                for (var i = 0; i < allOverlay.length ; i++) {
+                for (var i = 0; i < allOverlay.length; i++) {
 
                     // console.log(allOverlay[i].pointType);
-                    if(allOverlay[i].pointType && allOverlay[i].pointType == pointType) {
+                    if (allOverlay[i].pointType && allOverlay[i].pointType == pointType) {
                         emergency.$data.map.removeOverlay(allOverlay[i]);
                     }
 
                 }
             } else { //开启
-                $("#"+pointType).css("background-color","rgb(60, 141, 188)");
-                this.initPoint({type:pointType});
+                $("#" + pointType).css("background-color", "rgb(60, 141, 188)");
+                this.initPoint({type: pointType});
             }
 
         },
         switchArea: function (areaType) {
-            if($("#"+areaType).css("background-color") =="rgb(60, 141, 188)") { //关闭
-                $("#"+areaType).css("background-color","#4b646f");
+            if ($("#" + areaType).css("background-color") == "rgb(60, 141, 188)") { //关闭
+                $("#" + areaType).css("background-color", "#4b646f");
                 var allOverlay = emergency.$data.map.getOverlays();
-                for (var i = 0; i < allOverlay.length ; i++) {
+                for (var i = 0; i < allOverlay.length; i++) {
 
                     // console.log(allOverlay[i].areaType);
-                    if(allOverlay[i].areaType && allOverlay[i].areaType == areaType) {
+                    if (allOverlay[i].areaType && allOverlay[i].areaType == areaType) {
                         emergency.$data.map.removeOverlay(allOverlay[i]);
                     }
 
                 }
             } else { //开启
-                $("#"+areaType).css("background-color","rgb(60, 141, 188)");
+                $("#" + areaType).css("background-color", "rgb(60, 141, 188)");
                 this.initArea({});
             }
 
@@ -701,27 +701,27 @@ var emergency = new Vue({
             this.drawingManager = {};
         },
         switchPerson: function () {
-            if($("#person").css("background-color") =="rgb(60, 141, 188)") { //关闭
-                $("#person").css("background-color","#4b646f");
+            if ($("#person").css("background-color") == "rgb(60, 141, 188)") { //关闭
+                $("#person").css("background-color", "#4b646f");
                 //todo 断开mq，清除地图上已有人员图标
                 this.openMqListener();
             } else { //开启
-                $("#person").css("background-color","rgb(60, 141, 188)");
+                $("#person").css("background-color", "rgb(60, 141, 188)");
                 this.openMqListener();
             }
         },
-        openMqListener:function(){
-		    if(!this.eventModel.gpsMqIsInit){
-		        this.eventModel.gpsMqIsInit = true;
-		        MqManager.initMq("/exchange/GpsTopicExchange/#",MqManager.mqGpsCompleteCallBack);
-		    }
-		    var type = 4
+        openMqListener: function () {
+            if (!this.eventModel.gpsMqIsInit) {
+                this.eventModel.gpsMqIsInit = true;
+                MqManager.initMq("/exchange/GpsTopicExchange/#", MqManager.mqGpsCompleteCallBack);
+            }
+            var type = 4
 
-            setTimeout("MapToobar.initResourceChart("+type+")", 200);
-		},
-		getCurUser : function() {
+            setTimeout("MapToobar.initResourceChart(" + type + ")", 200);
+        },
+        getCurUser: function () {
             var url = "/emergency/getCurUser";
-            YF_HTTP.post(url, this.searchObj).then(function(result) {
+            YF_HTTP.post(url, this.searchObj).then(function (result) {
                 emergency.$data.curuser = result.data;
                 $("#organId").val(result.data.organId);
                 $("#organPath").val(result.data.sysOrgan.path);
@@ -729,60 +729,104 @@ var emergency = new Vue({
                 MapToobar.initResourceDatas(true);
             });
         },
-        pointMap: function() {
+        pointMap: function () {
             let address = this.eventModel.address;
-            if(!address || address.trim() == '' ) {
-                Utils.alert("请输入正确的地址进行定位标注","warning");
+            if (!address || address.trim() == '') {
+                Utils.alert("请输入正确的地址进行定位标注", "warning");
             }
             let myGeo = new BMap.Geocoder();
-            myGeo.getPoint(address, function(point){
+            myGeo.getPoint(address, function (point) {
                 if (point) {
-                    var newPoint = new BMap.Point(point.lng-0.04, point.lat);
+                    var newPoint = new BMap.Point(point.lng - 0.04, point.lat);
                     emergency.$data.map.centerAndZoom(newPoint, CONFIG.BAIDU_DISPLAY_LEVEL);
-                    let myIcon = new BMap.Icon(baseUrl+"/img/resource/sj.png", new BMap.Size(30, 30));
+                    let myIcon = new BMap.Icon(baseUrl + "/img/resource/sj.png", new BMap.Size(30, 30));
                     myIcon.setImageSize(new BMap.Size(30, 30));
-                    let sgsMark = new BMap.Marker(point,{icon:myIcon});  // 创建标注
+                    let sgsMark = new BMap.Marker(point, {icon: myIcon});  // 创建标注
                     sgsMark.pointType = "SJ";
                     emergency.$data.map.addOverlay(sgsMark);
                     emergency.$data.eventModel.longitude = point.lng;
                     emergency.$data.eventModel.latitude = point.lat;
                 } else {
-                    Utils.alert('地址解析失败,请手动定位!','warning');
+                    Utils.alert('地址解析失败,请手动定位!', 'warning');
                 }
-            },"成都市");
+            }, "成都市");
         },
-        reloadEventPoint: function() {
+        reloadEventPoint: function () {
+
+            if ($("#event").css("background-color") == "rgb(60, 141, 188)") { //当前是开启状态
+                // 删除事件图标
+                let allOverlay = emergency.$data.map.getOverlays();
+                for (let i = 0; i < allOverlay.length; i++) {
+                    if (allOverlay[i].pointType && allOverlay[i].pointType == "SJ") {
+                        emergency.$data.map.removeOverlay(allOverlay[i]);
+                    }
+                }
+
+                //加载事件图标
+                let list = emergency.$data.eventList;
+                for (let i = 0; i < list.length; i++) {
+                    var point = new BMap.Point(list[i].longitude, list[i].latitude);
+                    let myIcon = new BMap.Icon(baseUrl + "/img/resource/sj.png", new BMap.Size(30, 30));
+                    myIcon.setImageSize(new BMap.Size(30, 30));
+                    let sgsMark = new BMap.Marker(point, {icon: myIcon});  // 创建标注
+                    sgsMark.pointType = "SJ";
+                    emergency.$data.map.addOverlay(sgsMark);
+                    if (list[i].code) {
+                        let label = new BMap.Label(list[i].code, {
+                            offset: new BMap.Size(-45, 27)
+                        });
+                        label.setStyle({
+                            color: "black",
+                            fontSize: "14px",
+                            fontWeight: "bold",
+                            border: '0',
+                            padding: '0',
+                            opacity: 0.7,
+                        });
+                        sgsMark.setLabel(label); //为标注添加一个标签
+                    }
+                }
+
+            }
+        },
+        switchEventPoint: function () {
             //删除事件图标
             let allOverlay = emergency.$data.map.getOverlays();
-            for (let i = 0; i < allOverlay.length ; i++) {
-                if(allOverlay[i].pointType && allOverlay[i].pointType == "SJ") {
+            for (let i = 0; i < allOverlay.length; i++) {
+                if (allOverlay[i].pointType && allOverlay[i].pointType == "SJ") {
                     emergency.$data.map.removeOverlay(allOverlay[i]);
                 }
             }
-            //加载事件图标
-            let list = emergency.$data.eventList;
-            for (let i = 0; i < list.length; i++) {
-                var point = new BMap.Point(list[i].longitude, list[i].latitude);
-                let myIcon = new BMap.Icon(baseUrl+"/img/resource/sj.png", new BMap.Size(30, 30));
-                myIcon.setImageSize(new BMap.Size(30, 30));
-                let sgsMark = new BMap.Marker(point,{icon:myIcon});  // 创建标注
-                sgsMark.pointType = "SJ";
-                emergency.$data.map.addOverlay(sgsMark);
-                if(list[i].code) {
-                    let label = new BMap.Label(list[i].code, {
-                        offset: new BMap.Size(-45, 27)
-                    });
-                    label.setStyle({
-                        color : "black",
-                        fontSize : "14px",
-                        fontWeight: "bold",
-                        border: '0',
-                        padding:'0',
-                        opacity:0.7,
-                    });
-                    sgsMark.setLabel(label); //为标注添加一个标签
+            if ($("#event").css("background-color") == "rgb(60, 141, 188)") { //关闭
+                $("#event").css("background-color", "#4b646f");
+            } else {
+                $("#event").css("background-color", "rgb(60, 141, 188)");
+                //加载事件图标
+                let list = emergency.$data.eventList;
+                for (let i = 0; i < list.length; i++) {
+                    var point = new BMap.Point(list[i].longitude, list[i].latitude);
+                    let myIcon = new BMap.Icon(baseUrl + "/img/resource/sj.png", new BMap.Size(30, 30));
+                    myIcon.setImageSize(new BMap.Size(30, 30));
+                    let sgsMark = new BMap.Marker(point, {icon: myIcon});  // 创建标注
+                    sgsMark.pointType = "SJ";
+                    emergency.$data.map.addOverlay(sgsMark);
+                    if (list[i].code) {
+                        let label = new BMap.Label(list[i].code, {
+                            offset: new BMap.Size(-45, 27)
+                        });
+                        label.setStyle({
+                            color: "black",
+                            fontSize: "14px",
+                            fontWeight: "bold",
+                            border: '0',
+                            padding: '0',
+                            opacity: 0.7,
+                        });
+                        sgsMark.setLabel(label); //为标注添加一个标签
+                    }
                 }
             }
+
         },
 
         /*initOCX:function() {

@@ -3451,8 +3451,8 @@ function buildTitleInfo(en) {
         /*c+="<tr height='40px'><td width='60px' colspan='2'><input id='startDay2' type='text' style='width:117px;' class='k-textbox cg-ri-input cg-ri-area-w-t' />" +
         "--<input id='endDay2' type='text' style='width:117px;' class='k-textbox cg-ri-input cg-ri-area-w-t' /></td></tr>";*/
 
-        c += "<tr height='30px'> <td colspan='2'><button type='submit' class='btn btn-primary pull-right margin-r-5'> 轨迹查询</button>" ;
-        c+="</td></tr>";
+        // c += "<tr height='30px'> <td colspan='2'><button type='submit' class='btn btn-primary pull-right margin-r-5'> 轨迹查询</button>" ;
+        // c+="</td></tr>";
 
 	}
 	c += "</table></div>";
