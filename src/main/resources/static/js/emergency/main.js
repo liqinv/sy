@@ -39,7 +39,7 @@ var emergency = new Vue({
         /*$('#divAddEvent').on('hide.bs.modal', function () {
             alert('模态框关闭了');
         });*/
-        this.openMqListener();
+
     },
     methods: {
         initData: function () {
@@ -727,6 +727,7 @@ var emergency = new Vue({
                 $("#organPath").val(result.data.sysOrgan.path);
 
                 MapToobar.initResourceDatas(true);
+                emergency.openMqListener();
             });
         },
         pointMap: function () {
@@ -747,7 +748,7 @@ var emergency = new Vue({
                     emergency.$data.eventModel.longitude = point.lng;
                     emergency.$data.eventModel.latitude = point.lat;
                 } else {
-                    Utils.alert('地址解析失败,请手动定位!', 'warning');
+                    Utils.alert('地址解析失败,请输入正确的地址!', 'warning');
                 }
             }, "成都市");
         },

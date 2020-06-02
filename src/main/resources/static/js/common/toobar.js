@@ -39,7 +39,7 @@ var ResourceDatas = {
 		initGpsChart: false,/*初始化MQ推送GPS数据的上图控制，默认情况关闭*/
 		gpsRedrawFlag: false,/*MQ推送GPS重绘控制，默认情况false*/
 		gpsResDatas:new Object(), /*随gps移动的资源数据，如警车、警员*/
-		policeControl: false, /*GPS推送时，警员是否上图控制，默认否*/
+		policeControl: true, /*GPS推送时，警员是否上图控制，默认否*/
 		intercomControl: false, /*GPS推送时，对讲机是否上图控制，默认否*/
 		policeCarControl: false, /*GPS推送时，警车是否上图控制，默认否*/
 		alarmDeviceControl: false, /*一键报警设备是否上图,默认否*/

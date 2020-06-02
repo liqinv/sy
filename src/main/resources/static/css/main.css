@@ -1,9 +1,9 @@
 /*右侧导航栏样式 */
 .right-tools {
 	width: 50px;
-	height: 720px;
+	height: 765px;
 	position: fixed;
-	right: 20px;
+	right: 50px;
 	top: 100px;
 	background: rgba(0, 0, 0, 0.6);
 }

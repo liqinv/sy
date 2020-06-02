@@ -440,7 +440,7 @@
                     <li title="关闭划多边形"><img v-on:click="clearAll();" src="/adminlte/dist/img/avatar5.png"/></li>
                     <li title="关闭划多边形"><img v-on:click="openMqListener();" src="/adminlte/dist/img/avatar5.png"/></li>-->
                     <li id="event" title="事件" style="background-color:#3c8dbc;" v-on:click="switchEventPoint();"><img
-                            th:src="@{/img/resource/sq-1.png}"/></li>
+                            th:src="@{/img/resource/sj.png}"/></li>
                     <li id="area" title="社区" style="background-color:#3c8dbc;" v-on:click="switchArea('area');"><img
                             th:src="@{/img/resource/sq-1.png}"/></li>
                     <li id="AD001" title="党组织" style="background-color:#4b646f;" v-on:click="switchPoint('AD001');"><img
